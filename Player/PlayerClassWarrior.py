@@ -20,7 +20,15 @@ class PlayerClassWarrior:
     def defend(self, dmgReceived):
         totalDmgReceived = dmgReceived - self.armor
         self.healthPoints -= totalDmgReceived
-    def escape(self):
+    def escape(self, escapeAttemptValue):
         #lose stamina for a 35% chance
         #of escaping the fight to next node
+        if(self.sP<13):
+            print("SP insuficientes para escapar!")
+            return False
+        
         self.sP -= 12
+        if(escapeAttemptValue<36):
+            return True
+        else:
+            return False

@@ -53,7 +53,7 @@ def createNewPlayer():
     print("Gostaria de usar os pontos extras em")
     print("1 - HP")
     print("2 - DMG")
-    choice= input()
+    choice = input()
     #                       Name            xp  lvl                  maxHP    hP      maxSP/sP equipedWeapon armor BA
     match int(choice):
         case 1:
@@ -77,19 +77,54 @@ def createNewPlayer():
 #battle
 def battle(player, enemy):
     while True:
+        escapeState = ''
+        #add option to:
+        # * attack -> attack enemy / enemy attacks
+        # * use consumable -> uses consumable / enemy attacks
+        # * run -> uses stamina and attempts to evade battle / enemy whiffs attack
 
         print()
-        print(f"{player.name} HP: {player.playerClass.healthPoints}/{player.maxHealthPoints}")
+        print(f"Um {enemy.name} apareceu!")
+        print(f"{player.name} HP: {player.playerClass.healthPoints}/{player.playerClass.maxHealthPoints}  |  SP: {player.playerClass.sP}/{player.playerClass.maxSP}")
         print(f"{enemy.name} HP: {enemy.healthPoints}")
+        print()
+        print("O que deseja fazer?")
+        print("1 - Attack")
+        print("2 - Use item")
+        print("3 - Attempt to escape")
+        choice = input()
+        
+        # player attack
+        if(int(choice) == 1):
+            escapeState = False
+            enemy.defend(player.playerClass.attack())
+            print(f"O jogador {player.name} atacou o {enemy.name} com {player.playerClass.equipedWeapon.weaponName} e o dano foi: {player.playerClass.attack()}")
+            # enemy attack
+            player.playerClass.defend(enemy.attack())
+            print(f"O {enemy.name} atacou o jogador! O dano recebido foi: {enemy.attackDmg}")
+        # player uses item
+        elif(int(choice) == 2):
+            escapeState = False
+            print("work in progress")
+        # attempts to escape
+        elif(int(choice) == 3):
+            escapeValue = random.randint(1,100)
+            escapeState = player.playerClass.escape(escapeValue)
+            if(escapeState):
+                print(f"{player.name} escapou!")
+            else:
+                print(f"Fuga mal sucedida, {enemy.name} errou seu ataque!")
 
-        enemy.defend(player.playerClass.attack())
-        print(f"O jogador {player.name} atacou o {enemy.name} com {player.playerClass.equipedWeapon.weaponName} e o dano foi: {player.playerClass.attack()}")
-        player.playerClass.defend(enemy.attack())
-        print(f"O {enemy.name} atacou o jogador! O dano recebido foi: {enemy.attackDmg}")
 
+        # after choosing option
+        # checks if player successfully escaped
+        if(escapeState):
+            break
+        # checks if player died
         if (player.playerClass.healthPoints <= 0):
             print("Você morreu!")
             break
+        # checks if enemy died
         if(enemy.healthPoints <= 0):
             print(f"O {enemy.name} morreu!")
             player.xpPoints += enemy.xpReward
