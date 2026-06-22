@@ -1,7 +1,6 @@
-from Enemies.Rat import Rat
+from Enemies.Enemy import Enemy
 from Player.PlayerClassWarrior import PlayerClassWarrior
 from Weapon.Weapon import Weapon
-from Enemies.Ogre import Ogre
 from Player.Player import Player
 #rng
 import random
@@ -67,60 +66,57 @@ def createNewPlayer():
             player = Player(playerNameInput, 0, 1, PlayerClassWarrior(37, startingWeapon , 1, 2))
 
 
-
+    print(f"Jogador {player.name} criado com sucesso!")
     return player
 
 
 
 
-#battle rat
-def battleRat(jogador, rato):
+#battle
+def battle(player, enemy):
     while True:
 
-        rato.defend(jogador.playerClass.attack())
-        print(f"O jogador {jogador.name} atacou o rato com {jogador.playerClass.equipedWeapon.weaponName} e o dano foi: {jogador.playerClass.attack()}")
-        jogador.playerClass.defend(rato.attack())
-        print(f"O rato atacou o jogador! O dano recebido foi: {rato.attackDmg}")
+        print()
+        print(f"{player.name} HP: {player.playerClass.healthPoints}")
+        print(f"{enemy.name} HP: {enemy.healthPoints}")
 
-        if (jogador.playerClass.healthPoints <= 0):
+        enemy.defend(player.playerClass.attack())
+        print(f"O jogador {player.name} atacou o {enemy.name} com {player.playerClass.equipedWeapon.weaponName} e o dano foi: {player.playerClass.attack()}")
+        player.playerClass.defend(enemy.attack())
+        print(f"O {enemy.name} atacou o jogador! O dano recebido foi: {enemy.attackDmg}")
+
+        if (player.playerClass.healthPoints <= 0):
             print("Você morreu!")
             break
-        if(rato.healthPoints <= 0):
-            print("O rato morreu!")
-            jogador.xpPoints += rato.xpReward
-            print(f"Voce recebeu {rato.xpReward} xp.")
+        if(enemy.healthPoints <= 0):
+            print(f"O {enemy.name} morreu!")
+            player.xpPoints += enemy.xpReward
+            print(f"Voce recebeu {enemy.xpReward} xp.")
+            print()
             break
 
 
 
-#enemy
-rato = Rat()
-ogre = Ogre()
+# enemy
+rato = Enemy('Rat', 12, 3, 0, 20)
+ogre = Enemy ('Ogre', 21, 9, 1, 50)
 
 
 
+# player
 jogueidor = createNewPlayer()
-print(f"Jogador1 HP: {jogueidor.playerClass.healthPoints}")
-print(f"Rato HP: {rato.healthPoints}")
 print(f"Arma: {jogueidor.playerClass.equipedWeapon.weaponName} | Dano base: {jogueidor.playerClass.equipedWeapon.baseDamage} | Dano total: {jogueidor.playerClass.equipedWeapon.totaldmgValue} | Raridade: {jogueidor.playerClass.equipedWeapon.weaponRarity}")
 
-battleRat(jogueidor, rato)
-print(jogueidor.xpPoints)
+# 1st battle simulation
+battle(jogueidor, rato)
 
+# weapon drop simulation
+arma = createNewWeapon()
+jogueidor.playerClass.equipedWeapon = arma
+print("Voce encontrou uma nova arma!")
+print(f"Arma: {jogueidor.playerClass.equipedWeapon.weaponName} | Dano base: {jogueidor.playerClass.equipedWeapon.baseDamage} | Dano total: {jogueidor.playerClass.equipedWeapon.totaldmgValue} | Raridade: {jogueidor.playerClass.equipedWeapon.weaponRarity}")
 
-
-
-#print("Ogre apareceu!")
-#print(f"Jogador1 HP: {jogador1.healthPoints}")
-#print(f"Ogre HP: {ogre.healthPoints}")
-
-#attacking
-#ogre.defend(jogador1.attack())
-#jogador1.defend(ogre.attack())
-
-#print("* after attack *")
-#print(f"Jogador1 HP: {jogador1.healthPoints}")
-#print(f"Ogre HP: {ogre.healthPoints}")
-
+# 2nd battle simulation
+battle(jogueidor, ogre)
 
 
