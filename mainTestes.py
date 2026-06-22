@@ -54,16 +54,18 @@ def createNewPlayer():
     print("1 - HP")
     print("2 - DMG")
     choice= input()
-
+    #                       Name            xp  lvl                  maxHP    hP      maxSP/sP equipedWeapon armor BA
     match int(choice):
         case 1:
-            player = Player(playerNameInput, 0, 1, PlayerClassWarrior(37 + basePoints, startingWeapon , 1, 2))
+            totalHp = 37 + basePoints
+            player = Player(playerNameInput, 0, 1, PlayerClassWarrior(totalHp, totalHp, 15, 15, startingWeapon, 1, 2)) 
 
         case 2:
-            player = Player(playerNameInput, 0, 1, PlayerClassWarrior(37, startingWeapon , 1, 2 + basePoints))
+            totalBA = 2 + basePoints
+            player = Player(playerNameInput, 0, 1, PlayerClassWarrior(37, 37, 15, 15, startingWeapon, 1, totalBA))
 
         case _:
-            player = Player(playerNameInput, 0, 1, PlayerClassWarrior(37, startingWeapon , 1, 2))
+            player = Player(playerNameInput, 0, 1, PlayerClassWarrior(37, 37, 15, 15, startingWeapon, 1, 2))
 
 
     print(f"Jogador {player.name} criado com sucesso!")
@@ -77,7 +79,7 @@ def battle(player, enemy):
     while True:
 
         print()
-        print(f"{player.name} HP: {player.playerClass.healthPoints}")
+        print(f"{player.name} HP: {player.playerClass.healthPoints}/{player.maxHealthPoints}")
         print(f"{enemy.name} HP: {enemy.healthPoints}")
 
         enemy.defend(player.playerClass.attack())
