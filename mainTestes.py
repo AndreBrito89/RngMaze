@@ -53,6 +53,7 @@ def createNewPlayer():
     print("Gostaria de usar os pontos extras em")
     print("1 - HP")
     print("2 - DMG")
+    print("3 - SP")
     choice = input()
     #                       Name            xp  lvl                  maxHP    hP      maxSP/sP equipedWeapon armor BA
     match int(choice):
@@ -63,6 +64,10 @@ def createNewPlayer():
         case 2:
             totalBA = 2 + basePoints
             player = Player(playerNameInput, 0, 1, PlayerClassWarrior(37, 37, 15, 15, startingWeapon, 1, totalBA))
+
+        case 3:
+            totalSP = 15 + basePoints
+            player = Player(playerNameInput, 0, 1, PlayerClassWarrior(37, 37, totalSP, totalSP, startingWeapon, 1, 2))
 
         case _:
             player = Player(playerNameInput, 0, 1, PlayerClassWarrior(37, 37, 15, 15, startingWeapon, 1, 2))
@@ -86,7 +91,7 @@ def battle(player, enemy):
         print()
         print(f"Um {enemy.name} apareceu!")
         print(f"{player.name} HP: {player.playerClass.healthPoints}/{player.playerClass.maxHealthPoints}  |  SP: {player.playerClass.sP}/{player.playerClass.maxSP}")
-        print(f"{enemy.name} HP: {enemy.healthPoints}")
+        print(f"{enemy.name} HP: {enemy.healthPoints}/{enemy.maxHealthPoints}")
         print()
         print("O que deseja fazer?")
         print("1 - Attack")
@@ -135,8 +140,8 @@ def battle(player, enemy):
 
 
 # enemy
-rato = Enemy('Rat', 12, 3, 0, 20)
-ogre = Enemy ('Ogre', 21, 9, 1, 50)
+rato = Enemy('Rat', 12, 12, 3, 0, 20) #name, maxHp, hp, dmg, armor, xp
+ogre = Enemy ('Ogre', 21, 21, 9, 1, 50)
 
 
 

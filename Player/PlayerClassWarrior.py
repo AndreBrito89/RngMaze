@@ -27,7 +27,7 @@ class PlayerClassWarrior:
             print("SP insuficientes para escapar!")
             return False
         
-        self.sP -= 12
+        self.sP -= 10
         if(escapeAttemptValue<36):
             return True
         else:
