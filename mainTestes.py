@@ -1,52 +1,46 @@
-from Enemies.Enemy import Enemy
-from Player.PlayerClassWarrior import PlayerClassWarrior
-from Weapon.Weapon import Weapon
-from Player.Player import Player
-#rng
-import random
-
-# CREATE STARTING WEAPON
-def createStartingWeapon():
-    weaponsList = ['Sword', 'Pike', 'Mace', 'Axe']
-    #assigns random value do the weapon
-    weaponDmg = random.randint(5,10)
-    #randomizes starting weapon
-    weaponName = random.choice(weaponsList)
-    
-    weapon = Weapon(weaponDmg,'Normal', weaponName)
-    return weapon
+from Enemies.Enemy import Boss, Enemy
+from game_logic import (
+    attempt_player_escape as logic_attempt_player_escape,
+    createNewWeapon,
+    create_player_from_choice,
+    list_player_consumables,
+    resolve_enemy_attack as logic_resolve_enemy_attack,
+    resolve_player_attack as logic_resolve_player_attack,
+    use_player_consumable,
+)
 
 
-def createNewWeapon():
-    #assigns random rarity to a weapon
-    weaponRarityValue = random.randint(0,100)
-    weaponRarity = ''
-    weaponDmg = 0
-    match weaponRarityValue:
-        case 0 :
-            weaponRarity = "God"
-            weaponDmg = random.randint(19,24)
-        case x if 1 <= x <= 75:
-            weaponRarity = "Normal"
-            weaponDmg = random.randint(5,10)
-        case x if 76 <= x <= 92:
-            weaponRarity = "Rare"
-            weaponDmg = random.randint(9,15)
-        case x if 93 <= x <= 100:
-            weaponRarity = "Legendary"
-            weaponDmg = random.randint(13,19)
-    
-    #randomizes weapon type
-    weaponsList = ['Sword', 'Pike', 'Mace', 'Axe']
-    weaponName = random.choice(weaponsList)
+def read_choice(valid_choices):
+    valid_choices = {str(choice) for choice in valid_choices}
+    while True:
+        choice = input().strip()
+        if choice in valid_choices:
+            return int(choice)
+        print(f"Opcao invalida. Escolha uma das opcoes: {', '.join(sorted(valid_choices))}")
 
-    weapon = Weapon(weaponDmg, weaponRarity, weaponName)
-    return weapon
+
+def show_consumables_menu(player):
+    consumables = list_player_consumables(player)
+    if not consumables:
+        print("Inventario vazio.")
+        return None
+
+    print("Escolha um item para usar:")
+    for display_index, (_, slot) in enumerate(consumables, start=1):
+        print(f"{display_index} - {slot.consumable.name} x{slot.quantity} ({slot.consumable.description})")
+    print("0 - Voltar")
+
+    valid_choices = [0] + list(range(1, len(consumables) + 1))
+    choice = read_choice(valid_choices)
+    if choice == 0:
+        return None
+
+    slot_index, _ = consumables[choice - 1]
+    return slot_index
+
 
 #create new player
 def createNewPlayer():
-    basePoints = 5
-    startingWeapon = createStartingWeapon()
     print("Digite seu nome:")
     playerNameInput = input()
     
@@ -54,27 +48,25 @@ def createNewPlayer():
     print("1 - HP")
     print("2 - DMG")
     print("3 - SP")
-    choice = input()
-    #                       Name            xp  lvl                  maxHP    hP      maxSP/sP equipedWeapon armor BA
-    match int(choice):
-        case 1:
-            totalHp = 37 + basePoints
-            player = Player(playerNameInput, 0, 1, PlayerClassWarrior(totalHp, totalHp, 15, 15, startingWeapon, 1, 2)) 
+    choice = read_choice([1, 2, 3])
 
-        case 2:
-            totalBA = 2 + basePoints
-            player = Player(playerNameInput, 0, 1, PlayerClassWarrior(37, 37, 15, 15, startingWeapon, 1, totalBA))
-
-        case 3:
-            totalSP = 15 + basePoints
-            player = Player(playerNameInput, 0, 1, PlayerClassWarrior(37, 37, totalSP, totalSP, startingWeapon, 1, 2))
-
-        case _:
-            player = Player(playerNameInput, 0, 1, PlayerClassWarrior(37, 37, 15, 15, startingWeapon, 1, 2))
+    player = create_player_from_choice(playerNameInput, choice)
 
 
     print(f"Jogador {player.name} criado com sucesso!")
     return player
+
+
+def resolve_player_attack(player, enemy):
+    return logic_resolve_player_attack(player, enemy)
+
+
+def resolve_enemy_attack(player, enemy):
+    return logic_resolve_enemy_attack(player, enemy)
+
+
+def attempt_player_escape(player, escape_value=None):
+    return logic_attempt_player_escape(player, escape_value=escape_value)
 
 
 
@@ -97,24 +89,32 @@ def battle(player, enemy):
         print("1 - Attack")
         print("2 - Use item")
         print("3 - Attempt to escape")
-        choice = input()
+        choice = read_choice([1, 2, 3])
         
         # player attack
-        if(int(choice) == 1):
+        if(choice == 1):
             escapeState = False
-            enemy.defend(player.playerClass.attack())
-            print(f"O jogador {player.name} atacou o {enemy.name} com {player.playerClass.equipedWeapon.weaponName} e o dano foi: {player.playerClass.attack()}")
+            attack_damage, applied_player_damage = resolve_player_attack(player, enemy)
+            print(f"O jogador {player.name} atacou o {enemy.name} com {player.playerClass.equipedWeapon.weaponName} e o dano foi: {attack_damage} (efetivo: {applied_player_damage})")
             # enemy attack
-            player.playerClass.defend(enemy.attack())
-            print(f"O {enemy.name} atacou o jogador! O dano recebido foi: {enemy.attackDmg}")
+            enemy_attack_damage, applied_enemy_damage = resolve_enemy_attack(player, enemy)
+            print(f"O {enemy.name} atacou o jogador! O dano recebido foi: {enemy_attack_damage} (efetivo: {applied_enemy_damage})")
         # player uses item
-        elif(int(choice) == 2):
+        elif(choice == 2):
             escapeState = False
-            print("work in progress")
+            slot_index = show_consumables_menu(player)
+            if slot_index is None:
+                continue
+
+            success, message = use_player_consumable(player, slot_index)
+            print(message)
+
+            # Using consumable spends a turn.
+            enemy_attack_damage, applied_enemy_damage = resolve_enemy_attack(player, enemy)
+            print(f"O {enemy.name} atacou o jogador! O dano recebido foi: {enemy_attack_damage} (efetivo: {applied_enemy_damage})")
         # attempts to escape
-        elif(int(choice) == 3):
-            escapeValue = random.randint(1,100)
-            escapeState = player.playerClass.escape(escapeValue)
+        elif(choice == 3):
+            escapeState = attempt_player_escape(player)
             if(escapeState):
                 print(f"{player.name} escapou!")
             else:
@@ -139,26 +139,34 @@ def battle(player, enemy):
 
 
 
-# enemy
-rato = Enemy('Rat', 12, 12, 3, 0, 20) #name, maxHp, hp, dmg, armor, xp
-ogre = Enemy ('Ogre', 21, 21, 9, 1, 50)
+if __name__ == "__main__":
+    # enemy
+    rato = Enemy('Rat', 12, 12, 3, 0, 20) #name, maxHp, hp, dmg, armor, xp
+    ogre = Enemy ('Ogre', 21, 21, 9, 1, 50)
+    lich = Boss('Lich', 69, 69, 12, 4, 100)
 
+    # player
+    jogador = createNewPlayer()
+    print(f"Arma: {jogador.playerClass.equipedWeapon.weaponName} | Dano base: {jogador.playerClass.equipedWeapon.baseDamage} | Dano total: {jogador.playerClass.equipedWeapon.totaldmgValue} | Raridade: {jogador.playerClass.equipedWeapon.weaponRarity}")
 
+    # 1st battle simulation
+    battle(jogador, rato)
 
-# player
-jogueidor = createNewPlayer()
-print(f"Arma: {jogueidor.playerClass.equipedWeapon.weaponName} | Dano base: {jogueidor.playerClass.equipedWeapon.baseDamage} | Dano total: {jogueidor.playerClass.equipedWeapon.totaldmgValue} | Raridade: {jogueidor.playerClass.equipedWeapon.weaponRarity}")
+    # weapon drop simulation
+    arma = createNewWeapon()
+    jogador.playerClass.equipedWeapon = arma
+    print("Voce encontrou uma nova arma!")
+    print(f"Arma: {jogador.playerClass.equipedWeapon.weaponName} | Dano base: {jogador.playerClass.equipedWeapon.baseDamage} | Dano total: {jogador.playerClass.equipedWeapon.totaldmgValue} | Raridade: {jogador.playerClass.equipedWeapon.weaponRarity}")
 
-# 1st battle simulation
-battle(jogueidor, rato)
+    # 2nd battle simulation
+    battle(jogador, ogre)
 
-# weapon drop simulation
-arma = createNewWeapon()
-jogueidor.playerClass.equipedWeapon = arma
-print("Voce encontrou uma nova arma!")
-print(f"Arma: {jogueidor.playerClass.equipedWeapon.weaponName} | Dano base: {jogueidor.playerClass.equipedWeapon.baseDamage} | Dano total: {jogueidor.playerClass.equipedWeapon.totaldmgValue} | Raridade: {jogueidor.playerClass.equipedWeapon.weaponRarity}")
-
-# 2nd battle simulation
-battle(jogueidor, ogre)
+    # boss battle simulation
+    battle(jogador, lich)
+    if lich.healthPoints <= 0:
+        boss_drop = lich.drop_weapon()
+        jogador.playerClass.equipedWeapon = boss_drop
+        print("O boss derrubou uma arma especial!")
+        print(f"Arma: {jogador.playerClass.equipedWeapon.weaponName} | Dano base: {jogador.playerClass.equipedWeapon.baseDamage} | Dano total: {jogador.playerClass.equipedWeapon.totaldmgValue} | Raridade: {jogador.playerClass.equipedWeapon.weaponRarity}")
 
 

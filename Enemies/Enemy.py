@@ -23,9 +23,12 @@
 #| *dragon => (80, 16, 9, 200) #hp, dmg, armor, xp  | => BOSS AT THE DOOR
 #|---------------------------------------------------
 
-#TO DO
-# Create a child class from enemy called `boss` with
-# weapon drop that got better dmg and rarity rate.
+import random
+
+from Weapon.Weapon import Weapon
+from game_balance import WEAPON_NAMES, WEAPON_ROLL_TABLE_BOSS
+
+
 class Enemy:
     #constructor
     def __init__(self, name, maxHealthPoints, healthPoints, attackDmg, armor, xpReward):
@@ -40,6 +43,22 @@ class Enemy:
         return self.attackDmg
     #defend
     def defend(self, dmgReceived):
-        totalDmgReceived = dmgReceived - self.armor
+        # Prevent negative damage from healing the target.
+        totalDmgReceived = max(0, dmgReceived - self.armor)
         self.healthPoints -= totalDmgReceived
+        return totalDmgReceived
+
+
+class Boss(Enemy):
+    def drop_weapon(self, roll_value=None):
+        if roll_value is None:
+            roll_value = random.randint(0, 100)
+
+        for minimum, maximum, rarity, damage_min, damage_max in WEAPON_ROLL_TABLE_BOSS:
+            if minimum <= roll_value <= maximum:
+                damage = random.randint(damage_min, damage_max)
+                weapon_name = random.choice(WEAPON_NAMES)
+                return Weapon(damage, rarity, weapon_name)
+
+        raise ValueError(f"boss weapon roll outside table boundaries: {roll_value}")
     
