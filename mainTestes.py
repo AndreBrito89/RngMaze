@@ -7,41 +7,100 @@ import random
 
 # CREATE STARTING WEAPON
 def createStartingWeapon():
-    weaponsList = ['Sword', 'Pike', 'Mace', 'Axe']
-    #assigns random value do the weapon
-    weaponDmg = random.randint(5,10)
-    #randomizes starting weapon
-    weaponName = random.choice(weaponsList)
-    
-    weapon = Weapon(weaponDmg,'Normal', weaponName)
-    return weapon
+    startingWeaponDmg = 0
 
+    #randomizes starting weapon
+    weaponsList = ['Sword', 'Pike', 'Mace', 'Axe']
+    startingWeaponName = random.choice(weaponsList)
+    
+    #assigns random dmg value to the weapon
+    match startingWeaponName:
+        case 'Sword':
+            startingWeaponDmg = random.randint(6,10)
+        case 'Pike':
+            startingWeaponDmg = random.randint(7,9)
+        case 'Mace':
+            startingWeaponDmg = random.randint(4,9)
+        case 'Axe':
+            startingWeaponDmg = random.randint(3,11)
+
+    newWeapon = Weapon(startingWeaponDmg,'Normal', startingWeaponName)
+    return newWeapon
 
 def createNewWeapon():
-    #assigns random rarity to a weapon
-    weaponRarityValue = random.randint(0,100)
-    weaponRarity = ''
-    weaponDmg = 0
-    match weaponRarityValue:
-        case 0 :
-            weaponRarity = "God"
-            weaponDmg = random.randint(19,24)
-        case x if 1 <= x <= 75:
-            weaponRarity = "Normal"
-            weaponDmg = random.randint(5,10)
-        case x if 76 <= x <= 92:
-            weaponRarity = "Rare"
-            weaponDmg = random.randint(9,15)
-        case x if 93 <= x <= 100:
-            weaponRarity = "Legendary"
-            weaponDmg = random.randint(13,19)
-    
+    #local variables
+    newWeaponRarity = ''
+    newWeaponDmg = 0
+
     #randomizes weapon type
     weaponsList = ['Sword', 'Pike', 'Mace', 'Axe']
-    weaponName = random.choice(weaponsList)
+    newWeaponName = random.choice(weaponsList)
 
-    weapon = Weapon(weaponDmg, weaponRarity, weaponName)
-    return weapon
+    #assigns random rarity to a weapon
+    weaponRarityValue = random.randint(1,100)
+    match weaponRarityValue:
+        #70% normal
+        case x if 1 <= x <= 70:
+            newWeaponRarity = "Normal"
+        #20% rare
+        case x if 71 <= x <= 90:
+            newWeaponRarity = "Rare"
+        #9% legendary
+        case x if 91 <= x <= 99:
+            newWeaponRarity = "Legendary"
+        #1% god
+        case 100 :
+            newWeaponRarity = "God"
+   #assigns random dmg based on rarity and name of the weapon           
+    match newWeaponName:
+        # swords
+        case 'Sword':
+            match newWeaponRarity:
+                case 'Normal':
+                    newWeaponDmg = random.randint(6,10)
+                case 'Rare':
+                    newWeaponDmg = random.randint(11,16)
+                case 'Legendary':
+                    newWeaponDmg = random.randint(14,20)
+                case 'God':
+                    newWeaponDmg = random.randint(21,26)
+        # pikes
+        case 'Pike':
+            match newWeaponRarity:
+                case 'Normal':
+                    newWeaponDmg = random.randint(7,9)
+                case 'Rare':
+                    newWeaponDmg = random.randint(12,15)
+                case 'Legendary':
+                    newWeaponDmg = random.randint(16,19)
+                case 'God':
+                    newWeaponDmg = random.randint(21,24)
+        #maces
+        case 'Mace':
+            match newWeaponRarity:
+                case 'Normal':
+                    newWeaponDmg = random.randint(4,9)
+                case 'Rare':
+                    newWeaponDmg = random.randint(9,14)
+                case 'Legendary':
+                    newWeaponDmg = random.randint(14,18)
+                case 'God':
+                    newWeaponDmg = random.randint(19,24)
+        #axes
+        case 'Axe':
+            match newWeaponRarity:
+                case 'Normal':
+                    newWeaponDmg = random.randint(3,11)
+                case 'Rare':
+                    newWeaponDmg = random.randint(7,18)
+                case 'Legendary':
+                    newWeaponDmg = random.randint(12,22)
+                case 'God':
+                    newWeaponDmg = random.randint(15,26)
+
+
+    newWeapon = Weapon(newWeaponDmg, newWeaponRarity, newWeaponName)
+    return newWeapon
 
 #create new player
 def createNewPlayer():

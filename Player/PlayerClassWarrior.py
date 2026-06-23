@@ -23,7 +23,7 @@ class PlayerClassWarrior:
     def escape(self, escapeAttemptValue):
         #lose stamina for a 35% chance
         #of escaping the fight to next node
-        if(self.sP<13):
+        if(self.sP<10):
             print("SP insuficientes para escapar!")
             return False
         
@@ -32,3 +32,6 @@ class PlayerClassWarrior:
             return True
         else:
             return False
+    def useConsumable(self, consumable):
+        if(consumable):
+            print("kd logica")
