@@ -2,6 +2,7 @@ from Enemies.Enemy import Enemy
 from Player.PlayerClassWarrior import PlayerClassWarrior
 from Weapon.Weapon import Weapon
 from Player.Player import Player
+from Items.Potion import Potion
 #rng
 import random
 
@@ -142,11 +143,7 @@ def createNewPlayer():
 def battle(player, enemy):
     while True:
         escapeState = ''
-        #add option to:
-        # * attack -> attack enemy / enemy attacks
-        # * use consumable -> uses consumable / enemy attacks
-        # * run -> uses stamina and attempts to evade battle / enemy whiffs attack
-
+        
         print()
         print(f"Um {enemy.name} apareceu!")
         print(f"{player.name} HP: {player.playerClass.healthPoints}/{player.playerClass.maxHealthPoints}  |  SP: {player.playerClass.sP}/{player.playerClass.maxSP}")
@@ -201,23 +198,36 @@ def battle(player, enemy):
 # enemy
 rato = Enemy('Rat', 12, 12, 3, 0, 20) #name, maxHp, hp, dmg, armor, xp
 ogre = Enemy ('Ogre', 21, 21, 9, 1, 50)
+# potion
+pocaoSP = Potion('Small','SP')
+pocaoHp = Potion('Large', 'HP')
+print(f'{pocaoSP.potionName}. +{pocaoSP.potionRegenPoints} {pocaoSP.potionType} ')
+print(f'{pocaoHp.potionName}. +{pocaoHp.potionRegenPoints} {pocaoHp.potionType} ')
 
+# potion use simulation
+necessitado = Player('sofrido', 0, 1, PlayerClassWarrior(40, 20, 15, 10, Weapon(12,'Normal', 'consolo'), 1, 2))
+print(f"Jogador {necessitado.name} | {necessitado.playerClass.healthPoints}/{necessitado.playerClass.maxHealthPoints}HP| {necessitado.playerClass.sP}/{necessitado.playerClass.maxSP}SP")
 
-
+necessitado.playerClass.usePotion(pocaoHp)
+print('apos hp potion')
+print(f"Jogador {necessitado.name} | {necessitado.playerClass.healthPoints}/{necessitado.playerClass.maxHealthPoints}HP| {necessitado.playerClass.sP}/{necessitado.playerClass.maxSP}SP")
+print('apos sp potion')
+necessitado.playerClass.usePotion(pocaoSP)
+print(f"Jogador {necessitado.name} | {necessitado.playerClass.healthPoints}/{necessitado.playerClass.maxHealthPoints}HP| {necessitado.playerClass.sP}/{necessitado.playerClass.maxSP}SP")
 # player
-jogueidor = createNewPlayer()
-print(f"Arma: {jogueidor.playerClass.equipedWeapon.weaponName} | Dano base: {jogueidor.playerClass.equipedWeapon.baseDamage} | Dano total: {jogueidor.playerClass.equipedWeapon.totaldmgValue} | Raridade: {jogueidor.playerClass.equipedWeapon.weaponRarity}")
+#jogueidor = createNewPlayer()
+#print(f"Arma: {jogueidor.playerClass.equipedWeapon.weaponName} | Dano base: {jogueidor.playerClass.equipedWeapon.baseDamage} | Dano total: {jogueidor.playerClass.equipedWeapon.totaldmgValue} | Raridade: {jogueidor.playerClass.equipedWeapon.weaponRarity}")
 
 # 1st battle simulation
-battle(jogueidor, rato)
+#battle(jogueidor, rato)
 
 # weapon drop simulation
-arma = createNewWeapon()
-jogueidor.playerClass.equipedWeapon = arma
-print("Voce encontrou uma nova arma!")
-print(f"Arma: {jogueidor.playerClass.equipedWeapon.weaponName} | Dano base: {jogueidor.playerClass.equipedWeapon.baseDamage} | Dano total: {jogueidor.playerClass.equipedWeapon.totaldmgValue} | Raridade: {jogueidor.playerClass.equipedWeapon.weaponRarity}")
+#arma = createNewWeapon()
+#jogueidor.playerClass.equipedWeapon = arma
+#print("Voce encontrou uma nova arma!")
+#print(f"Arma: {jogueidor.playerClass.equipedWeapon.weaponName} | Dano base: {jogueidor.playerClass.equipedWeapon.baseDamage} | Dano total: {jogueidor.playerClass.equipedWeapon.totaldmgValue} | Raridade: {jogueidor.playerClass.equipedWeapon.weaponRarity}")
 
 # 2nd battle simulation
-battle(jogueidor, ogre)
+#battle(jogueidor, ogre)
 
 

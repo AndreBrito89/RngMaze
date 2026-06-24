@@ -20,6 +20,7 @@ class PlayerClassWarrior:
     def defend(self, dmgReceived):
         totalDmgReceived = dmgReceived - self.armor
         self.healthPoints -= totalDmgReceived
+    #escape function
     def escape(self, escapeAttemptValue):
         #lose stamina for a 35% chance
         #of escaping the fight to next node
@@ -32,6 +33,17 @@ class PlayerClassWarrior:
             return True
         else:
             return False
-    def useConsumable(self, consumable):
-        if(consumable):
-            print("kd logica")
+    #use potion function
+    def usePotion(self, potion):
+        match potion.potionType:
+            #Health potion
+            case 'HP':
+                self.healthPoints = min(
+                self.healthPoints + potion.potionRegenPoints,
+                self.maxHealthPoints)
+
+            #Stamina potion
+            case 'SP':
+                self.sP = min(
+                self.sP + potion.potionRegenPoints,
+                self.maxSP)
