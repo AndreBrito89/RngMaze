@@ -3,7 +3,7 @@
 # - armor = 1
 # - base attack = 2
 # - sp = 15
-class PlayerClassWarrior:
+class Warrior:
     #constructor
     def __init__(self, maxHealthPoints, healthPoints, maxSP ,sP, equipedWeapon, armor, baseAttack):
         self.maxHealthPoints = maxHealthPoints
@@ -47,3 +47,7 @@ class PlayerClassWarrior:
                 self.sP = min(
                 self.sP + potion.potionRegenPoints,
                 self.maxSP)
+    # lvl up
+    def levelUp(self, xpReceived):
+        #kd a logica
+        pass

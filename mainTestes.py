@@ -1,5 +1,5 @@
 from Enemies.Enemy import Enemy
-from Player.PlayerClassWarrior import PlayerClassWarrior
+from Player.PlayerClasses.Warrior import Warrior
 from Weapon.Weapon import Weapon
 from Player.Player import Player
 from Items.Potion import Potion
@@ -30,7 +30,7 @@ def createStartingWeapon():
 
 def createNewWeapon():
     #local variables
-    newWeaponRarity = ''
+    newWeaponRarity
     newWeaponDmg = 0
 
     #randomizes weapon type
@@ -119,26 +119,57 @@ def createNewPlayer():
     match int(choice):
         case 1:
             totalHp = 37 + basePoints
-            player = Player(playerNameInput, 0, 1, PlayerClassWarrior(totalHp, totalHp, 15, 15, startingWeapon, 1, 2)) 
+            player = Player(playerNameInput, 0, 1, Warrior(totalHp, totalHp, 15, 15, startingWeapon, 1, 2)) 
 
         case 2:
             totalBA = 2 + basePoints
-            player = Player(playerNameInput, 0, 1, PlayerClassWarrior(37, 37, 15, 15, startingWeapon, 1, totalBA))
+            player = Player(playerNameInput, 0, 1, Warrior(37, 37, 15, 15, startingWeapon, 1, totalBA))
 
         case 3:
             totalSP = 15 + basePoints
-            player = Player(playerNameInput, 0, 1, PlayerClassWarrior(37, 37, totalSP, totalSP, startingWeapon, 1, 2))
+            player = Player(playerNameInput, 0, 1, Warrior(37, 37, totalSP, totalSP, startingWeapon, 1, 2))
 
         case _:
-            player = Player(playerNameInput, 0, 1, PlayerClassWarrior(37, 37, 15, 15, startingWeapon, 1, 2))
+            player = Player(playerNameInput, 0, 1, Warrior(37, 37, 15, 15, startingWeapon, 1, 2))
 
 
     print(f"Jogador {player.name} criado com sucesso!")
     return player
 
+# potion drop
+def chestPotionDrop():
 
+    #60% chance of beeing Large
+    potionSizeValue = random.randint(1,10)
+    potionSize = 'Large' if potionSizeValue > 4 else 'Small'
 
+    #70% chance of beeing HP
+    potionTypeValue = random.randint(1,10)
+    potionType = 'HP' if potionTypeValue > 3 else 'SP'
 
+    newPotion = Potion(potionSize, potionType)
+    return newPotion
+
+def createChest():
+    #80% potion
+    #10% armor
+    #10% weapon
+    print("Voce encontrou um bau!")
+    chestItemValue = random.randint(1,10)
+    chestLoot =''
+    #armor
+    if (chestItemValue == 10):
+        print("work in progress, no armor yet")
+    #weapon
+    elif (chestItemValue == 9):    
+        chestLoot = createNewWeapon()
+        print(f"O bau continha: {chestLoot.weaponName} | Dano base: {chestLoot.baseDamage} | Dano total: {chestLoot.totaldmgValue} | Raridade: {chestLoot.weaponRarity}")
+        return chestLoot
+    #potion
+    else:      
+        chestLoot = chestPotionDrop()
+        print(f'O bau continha: {chestLoot.potionName}. +{chestLoot.potionRegenPoints} {chestLoot.potionType}')
+        return chestLoot
 #battle
 def battle(player, enemy):
     while True:
@@ -166,7 +197,7 @@ def battle(player, enemy):
         # player uses item
         elif(int(choice) == 2):
             escapeState = False
-            print("work in progress")
+            print("work in progress, cant use items yet")
         # attempts to escape
         elif(int(choice) == 3):
             escapeValue = random.randint(1,100)
@@ -191,6 +222,7 @@ def battle(player, enemy):
             player.xpPoints += enemy.xpReward
             print(f"Voce recebeu {enemy.xpReward} xp.")
             print()
+            createChest()
             break
 
 
@@ -198,28 +230,17 @@ def battle(player, enemy):
 # enemy
 rato = Enemy('Rat', 12, 12, 3, 0, 20) #name, maxHp, hp, dmg, armor, xp
 ogre = Enemy ('Ogre', 21, 21, 9, 1, 50)
-# potion
-pocaoSP = Potion('Small','SP')
-pocaoHp = Potion('Large', 'HP')
-print(f'{pocaoSP.potionName}. +{pocaoSP.potionRegenPoints} {pocaoSP.potionType} ')
-print(f'{pocaoHp.potionName}. +{pocaoHp.potionRegenPoints} {pocaoHp.potionType} ')
 
-# potion use simulation
-necessitado = Player('sofrido', 0, 1, PlayerClassWarrior(40, 20, 15, 10, Weapon(12,'Normal', 'consolo'), 1, 2))
-print(f"Jogador {necessitado.name} | {necessitado.playerClass.healthPoints}/{necessitado.playerClass.maxHealthPoints}HP| {necessitado.playerClass.sP}/{necessitado.playerClass.maxSP}SP")
 
-necessitado.playerClass.usePotion(pocaoHp)
-print('apos hp potion')
-print(f"Jogador {necessitado.name} | {necessitado.playerClass.healthPoints}/{necessitado.playerClass.maxHealthPoints}HP| {necessitado.playerClass.sP}/{necessitado.playerClass.maxSP}SP")
-print('apos sp potion')
-necessitado.playerClass.usePotion(pocaoSP)
-print(f"Jogador {necessitado.name} | {necessitado.playerClass.healthPoints}/{necessitado.playerClass.maxHealthPoints}HP| {necessitado.playerClass.sP}/{necessitado.playerClass.maxSP}SP")
+
+
+
 # player
-#jogueidor = createNewPlayer()
-#print(f"Arma: {jogueidor.playerClass.equipedWeapon.weaponName} | Dano base: {jogueidor.playerClass.equipedWeapon.baseDamage} | Dano total: {jogueidor.playerClass.equipedWeapon.totaldmgValue} | Raridade: {jogueidor.playerClass.equipedWeapon.weaponRarity}")
+jogueidor = createNewPlayer()
+print(f"Arma: {jogueidor.playerClass.equipedWeapon.weaponName} | Dano base: {jogueidor.playerClass.equipedWeapon.baseDamage} | Dano total: {jogueidor.playerClass.equipedWeapon.totaldmgValue} | Raridade: {jogueidor.playerClass.equipedWeapon.weaponRarity}")
 
 # 1st battle simulation
-#battle(jogueidor, rato)
+battle(jogueidor, rato)
 
 # weapon drop simulation
 #arma = createNewWeapon()
@@ -231,3 +252,20 @@ print(f"Jogador {necessitado.name} | {necessitado.playerClass.healthPoints}/{nec
 #battle(jogueidor, ogre)
 
 
+
+
+# potion testing
+#pocaoBau1 = chestPotionDrop()
+#pocaoBau2 = chestPotionDrop()
+#print(f'{pocaoBau1.potionName}. +{pocaoBau1.potionRegenPoints} {pocaoBau1.potionType} ')
+#print(f'{pocaoBau2.potionName}. +{pocaoBau2.potionRegenPoints} {pocaoBau2.potionType} ')
+
+
+# potion use simulation
+#pocaoBau1 = chestPotionDrop()
+#necessitado = Player('sofrido', 0, 1, Warrior(40, 20, 15, 10, Weapon(12,'Normal', 'consolo'), 1, 2))
+#print(f"Jogador {necessitado.name} | {necessitado.playerClass.healthPoints}/{necessitado.playerClass.maxHealthPoints}HP| {necessitado.playerClass.sP}/{necessitado.playerClass.maxSP}SP")
+
+#necessitado.playerClass.usePotion(pocaoBau1)
+#print('apos potion')
+#print(f"Jogador {necessitado.name} | {necessitado.playerClass.healthPoints}/{necessitado.playerClass.maxHealthPoints}HP| {necessitado.playerClass.sP}/{necessitado.playerClass.maxSP}SP")

@@ -15,6 +15,7 @@
 #  |boss  | 30%  |  55%  |   13%   |   2%  |
 #  +---------------------------------------+
 class Weapon:
+    #constructor
     def __init__(self, baseDamage, weaponRarity, weaponName):
         self.baseDamage = baseDamage
         self.weaponName = weaponName
@@ -25,13 +26,13 @@ class Weapon:
     #checks weapon rarity to assign a dmg modifier
     def rarity(self, weaponRarity):
         match weaponRarity:
-            case "Normal":
+            case 'Normal':
                 self.dmgModifier = 1
-            case "Rare":
+            case 'Rare':
                 self.dmgModifier = 1.2
-            case "Legendary":
+            case 'Legendary':
                 self.dmgModifier = 1.5
-            case "God":
+            case 'God':
                 self.dmgModifier = 1.8
             case _:
                 self.dmgModifier = 0
