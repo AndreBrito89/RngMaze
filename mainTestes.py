@@ -298,7 +298,7 @@ def createNewPlayer():
     print("3 - SP")
     selectedBonusPoints = input()
 
-    #                       Name            xp  lvl                  maxHP    hP      maxSP/sP equipedWeapon armor BA
+    #                        Name            xp  lvl class           maxHP    hP      maxSP    sP     equipedWeapon   armor         BA
     match selectedBonusPoints:
         case "1":
             totalHp = baseHp + bonusPoints
