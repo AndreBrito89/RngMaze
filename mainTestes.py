@@ -1,5 +1,4 @@
 from Enemies.Enemy import Enemy
-from Player.PlayerClasses.Warrior import Warrior
 from Weapons.Catalyst import Catalyst
 from Weapons.Melee import Melee
 from Player.Player import Player
@@ -11,10 +10,54 @@ import random
 MELEE_WEAPONS = ['Sword', 'Pike', 'Mace', 'Axe']
 CATALYSTS_WEAPONS = ['Staff', 'Wand', 'Grimoire']
 
+#############################################
+############# RNG BASED  LOGIC ##############
+#############################################
+
+
+# STARTING GEAR
+# CREATES STARTING MELEE WEAPON
+def createStartingMeleeWeapon(weaponsList):
+    startingWeaponDmg = 0
+
+    #randomizes starting weapon
+    startingWeaponName = random.choice(weaponsList)
+    
+    #assigns random dmg value to the weapon
+    match startingWeaponName:
+        case 'Sword':
+            startingWeaponDmg = random.randint(6,10)
+        case 'Pike':
+            startingWeaponDmg = random.randint(7,9)
+        case 'Mace':
+            startingWeaponDmg = random.randint(4,9)
+        case 'Axe':
+            startingWeaponDmg = random.randint(3,11)
+
+    newWeapon = Melee(startingWeaponDmg,'Normal', startingWeaponName)
+    return newWeapon
+# CREATES STARTING CATALYST
+def createStartingCatalystWeapon(weaponsList):
+    startingCatalystDmg = 0
+
+    #randomizes starting weapon
+    startingCatalystName = random.choice(weaponsList)
+    
+    #assigns random dmg value to the weapon
+    match startingCatalystName:
+        case 'Staff':
+            startingCatalystDmg = random.randint(8,11)
+        case 'Wand':
+            startingCatalystDmg = random.randint(8,13)
+        case 'Grimoire':
+            startingCatalystDmg = random.randint(7,14)
+
+    newCatalyst = Catalyst(startingCatalystDmg,'Normal', startingCatalystName)
+    return newCatalyst
+
 
 # potion drop
 def PotionGenerator():
-
     #60% chance of beeing Large
     potionSizeValue = random.randint(1,10)
     potionSize = 'Large' if potionSizeValue > 4 else 'Small'
@@ -25,6 +68,9 @@ def PotionGenerator():
 
     newPotion = Potion(potionSize, potionType)
     return newPotion
+#########################
+## CHEST RELATED LOGIC ##
+#########################
 # creates a chest after battle
 def createChest():
     #80% potion
@@ -48,27 +94,9 @@ def createChest():
         print(f'O bau continha: {chestLoot.potionName}. +{chestLoot.potionRegenPoints} {chestLoot.potionType}')
         return chestLoot
     
-
-# CREATE STARTING WEAPON
-def createStartingMeleeWeapon(weaponsList):
-    startingWeaponDmg = 0
-
-    #randomizes starting weapon
-    startingWeaponName = random.choice(weaponsList)
-    
-    #assigns random dmg value to the weapon
-    match startingWeaponName:
-        case 'Sword':
-            startingWeaponDmg = random.randint(6,10)
-        case 'Pike':
-            startingWeaponDmg = random.randint(7,9)
-        case 'Mace':
-            startingWeaponDmg = random.randint(4,9)
-        case 'Axe':
-            startingWeaponDmg = random.randint(3,11)
-
-    newWeapon = Melee(startingWeaponDmg,'Normal', startingWeaponName)
-    return newWeapon
+###################
+## CHEST WEAPONS ##
+###################
 # GERERATES A RARITY FOR A CHEST WEAPON
 def chestWeaponRarityGenerator():
     #assigns random rarity to a weapon
@@ -136,7 +164,6 @@ def chestCatalystGenerator(weaponsList):
 # CREATES A MELEE WEAPON WITH CHEST DROP RATES
 def chestMeleeWeaponGenerator(weaponsList):
     
-
     newWeaponDmg = 0
     newWeaponName = random.choice(weaponsList)
     newWeaponRarity = chestWeaponRarityGenerator()
@@ -225,34 +252,63 @@ def chestArmorGenerator():
         newArmor = Armor(newArmorName, newArmorDefenseValue)
             
 
+############################################
+############# MAIN GAME LOGIC ##############
+############################################
+
 #create new player
 def createNewPlayer():
-    basePoints = 5
-    startingWeapon = createStartingMeleeWeapon(MELEE_WEAPONS)
+    bonusPoints = 5
+    # player name
     print("Digite seu nome:")
     playerNameInput = input()
-    startingArmor = Armor('Leather', 1)
+    # player class
+    print("Selecione sua classe:")
+    print("1 - Warrior")
+    print("2 - Mage")
+    newPlayerClass = input()
+
+    if int(newPlayerClass) == 1 : newPlayerClass = 'Warrior'
+    elif int(newPlayerClass) == 2 : newPlayerClass = 'Mage'
+    # base status for each class
+    if newPlayerClass == 'Warrior':
+        baseHp = 37
+        baseSp = 15
+        startingWeapon = createStartingMeleeWeapon(MELEE_WEAPONS)
+        startingArmor = Armor('Leather', 1)
+        baseAttack = 1
+    if newPlayerClass == 'Mage':
+        baseHp = 19
+        baseSp = 24
+        startingWeapon = createStartingCatalystWeapon(CATALYSTS_WEAPONS)
+        startingArmor = Armor('No', 0)
+        baseAttack = 4       
+
+    # bonus points
     print("Gostaria de usar os pontos extras em")
     print("1 - HP")
     print("2 - DMG")
     print("3 - SP")
-    choice = input()
+    selectedBonusPoints = input()
+
     #                       Name            xp  lvl                  maxHP    hP      maxSP/sP equipedWeapon armor BA
-    match int(choice):
+    match int(selectedBonusPoints):
         case 1:
-            totalHp = 37 + basePoints
-            player = Player(playerNameInput, 0, 1, Warrior(totalHp, totalHp, 15, 15, startingWeapon, startingArmor, 2)) 
+            totalHp = baseHp + bonusPoints
+            player = Player (playerNameInput, 0, 1, newPlayerClass, totalHp, totalHp, baseSp, baseSp, startingWeapon, startingArmor, baseAttack) 
 
         case 2:
-            totalBA = 2 + basePoints
-            player = Player(playerNameInput, 0, 1, Warrior(37, 37, 15, 15, startingWeapon, startingArmor, totalBA))
+            totalBA = baseAttack + bonusPoints
+            player = Player (playerNameInput, 0, 1, newPlayerClass, baseHp, baseHp, baseSp, baseSp, startingWeapon, startingArmor, totalBA) 
+            
 
         case 3:
-            totalSP = 15 + basePoints
-            player = Player(playerNameInput, 0, 1, Warrior(37, 37, totalSP, totalSP, startingWeapon, startingArmor, 2))
+            totalSP = baseSp + bonusPoints
+            player = Player (playerNameInput, 0, 1, newPlayerClass, baseHp, baseHp, totalSP, totalSP, startingWeapon, startingArmor, baseAttack) 
+            
 
         case _:
-            player = Player(playerNameInput, 0, 1, Warrior(37, 37, 15, 15, startingWeapon, 1, 2))
+            player = Player (playerNameInput, 0, 1, newPlayerClass, baseHp, baseHp, baseSp, baseSp, startingWeapon, startingArmor, baseAttack) 
 
 
     print(f"Jogador {player.name} criado com sucesso!")
@@ -266,7 +322,7 @@ def battle(player, enemy):
         
         print()
         print(f"Um {enemy.name} apareceu!")
-        print(f"{player.name} HP: {player.playerClass.healthPoints}/{player.playerClass.maxHealthPoints}  |  SP: {player.playerClass.sP}/{player.playerClass.maxSP}")
+        print(f"{player.name} HP: {player.healthPoints}/{player.maxHealthPoints}  |  SP: {player.sP}/{player.maxSP}")
         print(f"{enemy.name} HP: {enemy.healthPoints}/{enemy.maxHealthPoints}")
         print()
         print("O que deseja fazer?")
@@ -278,10 +334,10 @@ def battle(player, enemy):
         # player attack
         if(int(choice) == 1):
             escapeState = False
-            enemy.defend(player.playerClass.attack())
-            print(f"O jogador {player.name} atacou o {enemy.name} com {player.playerClass.equipedWeapon.weaponName} e o dano foi: {player.playerClass.attack()}")
+            enemy.defend(player.attack())
+            print(f"O jogador {player.name} atacou o {enemy.name} com {player.equipedWeapon.weaponName} e o dano foi: {player.attack()}")
             # enemy attack
-            player.playerClass.defend(enemy.attack())
+            player.defend(enemy.attack())
             print(f"O {enemy.name} atacou o jogador! O dano recebido foi: {enemy.attackDmg}")
         # player uses item
         elif(int(choice) == 2):
@@ -290,7 +346,7 @@ def battle(player, enemy):
         # attempts to escape
         elif(int(choice) == 3):
             escapeValue = random.randint(1,100)
-            escapeState = player.playerClass.escape(escapeValue)
+            escapeState = player.escape(escapeValue)
             if(escapeState):
                 print(f"{player.name} escapou!")
             else:
@@ -302,7 +358,7 @@ def battle(player, enemy):
         if(escapeState):
             break
         # checks if player died
-        if (player.playerClass.healthPoints <= 0):
+        if (player.healthPoints <= 0):
             print("Você morreu!")
             break
         # checks if enemy died
@@ -326,16 +382,16 @@ ogre = Enemy ('Ogre', 21, 21, 9, 1, 50)
 
 # player
 jogueidor = createNewPlayer()
-print(f"Arma: {jogueidor.playerClass.equipedWeapon.weaponName} | Dano base: {jogueidor.playerClass.equipedWeapon.baseDamage} | Dano total: {jogueidor.playerClass.equipedWeapon.totaldmgValue} | Raridade: {jogueidor.playerClass.equipedWeapon.weaponRarity}")
+print(f"Arma: {jogueidor.equipedWeapon.weaponName} | Dano base: {jogueidor.equipedWeapon.baseDamage} | Dano total: {jogueidor.equipedWeapon.totaldmgValue} | Raridade: {jogueidor.equipedWeapon.weaponRarity}")
 
 # 1st battle simulation
 battle(jogueidor, rato)
 
 # weapon drop simulation
 #arma = createNewWeapon()
-#jogueidor.playerClass.equipedWeapon = arma
+#jogueidor.equipedWeapon = arma
 #print("Voce encontrou uma nova arma!")
-#print(f"Arma: {jogueidor.playerClass.equipedWeapon.weaponName} | Dano base: {jogueidor.playerClass.equipedWeapon.baseDamage} | Dano total: {jogueidor.playerClass.equipedWeapon.totaldmgValue} | Raridade: {jogueidor.playerClass.equipedWeapon.weaponRarity}")
+#print(f"Arma: {jogueidor.equipedWeapon.weaponName} | Dano base: {jogueidor.equipedWeapon.baseDamage} | Dano total: {jogueidor.equipedWeapon.totaldmgValue} | Raridade: {jogueidor.equipedWeapon.weaponRarity}")
 
 # 2nd battle simulation
 #battle(jogueidor, ogre)
@@ -352,9 +408,9 @@ battle(jogueidor, rato)
 
 # potion use simulation
 #pocaoBau1 = chestPotionDrop()
-#necessitado = Player('sofrido', 0, 1, Warrior(40, 20, 15, 10, Weapon(12,'Normal', 'consolo'), 1, 2))
-#print(f"Jogador {necessitado.name} | {necessitado.playerClass.healthPoints}/{necessitado.playerClass.maxHealthPoints}HP| {necessitado.playerClass.sP}/{necessitado.playerClass.maxSP}SP")
+#necessitado = Player('sofrido', 0, 1, 40, 20, 15, 10, Weapon(12,'Normal', 'consolo'), 1, 2)
+#print(f"Jogador {necessitado.name} | {necessitado.healthPoints}/{necessitado.maxHealthPoints}HP| {necessitado.sP}/{necessitado.maxSP}SP")
 
-#necessitado.playerClass.usePotion(pocaoBau1)
+#necessitado.usePotion(pocaoBau1)
 #print('apos potion')
-#print(f"Jogador {necessitado.name} | {necessitado.playerClass.healthPoints}/{necessitado.playerClass.maxHealthPoints}HP| {necessitado.playerClass.sP}/{necessitado.playerClass.maxSP}SP")
+#print(f"Jogador {necessitado.name} | {necessitado.healthPoints}/{necessitado.maxHealthPoints}HP| {necessitado.sP}/{necessitado.maxSP}SP")
