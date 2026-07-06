@@ -1,17 +1,59 @@
 from Enemies.Enemy import Enemy
 from Player.PlayerClasses.Warrior import Warrior
-from Weapon.Weapon import Weapon
+from Weapons.Catalyst import Catalyst
+from Weapons.Melee import Melee
 from Player.Player import Player
 from Items.Potion import Potion
+from Items.Armor import Armor
 #rng
 import random
 
+MELEE_WEAPONS = ['Sword', 'Pike', 'Mace', 'Axe']
+CATALYSTS_WEAPONS = ['Staff', 'Wand', 'Grimoire']
+
+
+# potion drop
+def PotionGenerator():
+
+    #60% chance of beeing Large
+    potionSizeValue = random.randint(1,10)
+    potionSize = 'Large' if potionSizeValue > 4 else 'Small'
+
+    #70% chance of beeing HP
+    potionTypeValue = random.randint(1,10)
+    potionType = 'HP' if potionTypeValue > 3 else 'SP'
+
+    newPotion = Potion(potionSize, potionType)
+    return newPotion
+# creates a chest after battle
+def createChest():
+    #80% potion
+    #10% armor
+    #10% weapon
+    print("Voce encontrou um bau!")
+    chestItemValue = random.randint(1,10)
+    chestLoot =''
+    #armor
+    if (chestItemValue == 10):
+        chestLoot = chestArmorGenerator()
+        print(f"O bau continha: {chestLoot.armorName} | Dano reduzido: {chestLoot.armorDefenseValue}")
+    #weapon
+    elif (chestItemValue == 9):    
+        chestLoot = chestMeleeWeaponGenerator(MELEE_WEAPONS)
+        print(f"O bau continha: {chestLoot.weaponName} | Dano base: {chestLoot.baseDamage} | Dano total: {chestLoot.totaldmgValue} | Raridade: {chestLoot.weaponRarity}")
+        return chestLoot
+    #potion
+    else:      
+        chestLoot = PotionGenerator()
+        print(f'O bau continha: {chestLoot.potionName}. +{chestLoot.potionRegenPoints} {chestLoot.potionType}')
+        return chestLoot
+    
+
 # CREATE STARTING WEAPON
-def createStartingWeapon():
+def createStartingMeleeWeapon(weaponsList):
     startingWeaponDmg = 0
 
     #randomizes starting weapon
-    weaponsList = ['Sword', 'Pike', 'Mace', 'Axe']
     startingWeaponName = random.choice(weaponsList)
     
     #assigns random dmg value to the weapon
@@ -25,33 +67,80 @@ def createStartingWeapon():
         case 'Axe':
             startingWeaponDmg = random.randint(3,11)
 
-    newWeapon = Weapon(startingWeaponDmg,'Normal', startingWeaponName)
+    newWeapon = Melee(startingWeaponDmg,'Normal', startingWeaponName)
     return newWeapon
-
-def createNewWeapon():
-    #local variables
-    newWeaponRarity
-    newWeaponDmg = 0
-
-    #randomizes weapon type
-    weaponsList = ['Sword', 'Pike', 'Mace', 'Axe']
-    newWeaponName = random.choice(weaponsList)
-
+# GERERATES A RARITY FOR A CHEST WEAPON
+def chestWeaponRarityGenerator():
     #assigns random rarity to a weapon
     weaponRarityValue = random.randint(1,100)
+    newWeaponRarity
     match weaponRarityValue:
         #70% normal
         case x if 1 <= x <= 70:
-            newWeaponRarity = "Normal"
+            newWeaponRarity = 'Normal'
         #20% rare
         case x if 71 <= x <= 90:
-            newWeaponRarity = "Rare"
+            newWeaponRarity = 'Rare'
         #9% legendary
         case x if 91 <= x <= 99:
-            newWeaponRarity = "Legendary"
+            newWeaponRarity = 'Legendary'
         #1% god
         case 100 :
-            newWeaponRarity = "God"
+            newWeaponRarity = 'God'
+    return newWeaponRarity
+# CREATES A CATALYST WITH CHEST DROP RATES
+def chestCatalystGenerator(weaponsList):
+    newCatalystDmg = 0
+
+    newCatalystName = random.choice(weaponsList)
+    newCatalystRarity = chestWeaponRarityGenerator()
+
+    match newCatalystName:
+        # staff
+        case 'Staff':
+            match newCatalystRarity:
+                case 'Normal':
+                    newCatalystDmg = random.randint(8,11)
+                case 'Rare':
+                    newCatalystDmg = random.randint(15,17)
+                case 'Legendary':
+                    newCatalystDmg = random.randint(21,24)
+                case 'God':
+                    newCatalystDmg = random.randint(24,28)
+        # wands
+        case 'Wand':
+            match newCatalystRarity:
+                case 'Normal':
+                    newCatalystDmg = random.randint(8,13)
+                case 'Rare':
+                    newCatalystDmg = random.randint(16,21)
+                case 'Legendary':
+                    newCatalystDmg = random.randint(19,25)
+                case 'God':
+                    newCatalystDmg = random.randint(26,30)
+        # grimoire
+        case 'Grimoire':
+            match newCatalystRarity:
+                case 'Normal':
+                    newCatalystDmg = random.randint(7,14)
+                case 'Rare':
+                    newCatalystDmg = random.randint(11,23)
+                case 'Legendary':
+                    newCatalystDmg = random.randint(15,26)
+                case 'God':
+                    newCatalystDmg = random.randint(19,32)
+                    
+    newCatalyst = Catalyst(newCatalystDmg, newCatalystRarity, newCatalystName)
+    return newCatalyst
+
+# CREATES A MELEE WEAPON WITH CHEST DROP RATES
+def chestMeleeWeaponGenerator(weaponsList):
+    
+
+    newWeaponDmg = 0
+    newWeaponName = random.choice(weaponsList)
+    newWeaponRarity = chestWeaponRarityGenerator()
+    
    #assigns random dmg based on rarity and name of the weapon           
     match newWeaponName:
         # swords
@@ -100,16 +189,49 @@ def createNewWeapon():
                     newWeaponDmg = random.randint(15,26)
 
 
-    newWeapon = Weapon(newWeaponDmg, newWeaponRarity, newWeaponName)
+    newWeapon = Melee(newWeaponDmg, newWeaponRarity, newWeaponName)
     return newWeapon
+
+#CREATES NEW ARMOR WITH CHEST DROP RATES
+def chestArmorGenerator():
+
+        armorRarityValue = random.randint(1,100)
+        match armorRarityValue:
+            #50% Leather
+            case x if 1 <= x <= 50:
+                newArmorName = 'Leather'
+            #20% rare
+            case x if 51 <= x <= 80:
+                newArmorName = 'Iron'
+            #9% legendary
+            case x if 81 <= x <= 90:
+                newArmorName = 'Bronze'
+            case x if 91 <= x <= 99:
+                newArmorName = 'Silver'
+            #1% god
+            case 100 :
+                newArmorName = "Gold"
+        match newArmorName:
+            case 'Leather':
+                newArmorDefenseValue = 1
+            case 'Iron':
+                newArmorDefenseValue = 2
+            case 'Bronze':
+                newArmorDefenseValue = 5
+            case 'Silver':
+                newArmorDefenseValue = 8
+            case 'Gold':
+                newArmorDefenseValue = 14
+        newArmor = Armor(newArmorName, newArmorDefenseValue)
+            
 
 #create new player
 def createNewPlayer():
     basePoints = 5
-    startingWeapon = createStartingWeapon()
+    startingWeapon = createStartingMeleeWeapon(MELEE_WEAPONS)
     print("Digite seu nome:")
     playerNameInput = input()
-    
+    startingArmor = Armor('Leather', 1)
     print("Gostaria de usar os pontos extras em")
     print("1 - HP")
     print("2 - DMG")
@@ -119,15 +241,15 @@ def createNewPlayer():
     match int(choice):
         case 1:
             totalHp = 37 + basePoints
-            player = Player(playerNameInput, 0, 1, Warrior(totalHp, totalHp, 15, 15, startingWeapon, 1, 2)) 
+            player = Player(playerNameInput, 0, 1, Warrior(totalHp, totalHp, 15, 15, startingWeapon, startingArmor, 2)) 
 
         case 2:
             totalBA = 2 + basePoints
-            player = Player(playerNameInput, 0, 1, Warrior(37, 37, 15, 15, startingWeapon, 1, totalBA))
+            player = Player(playerNameInput, 0, 1, Warrior(37, 37, 15, 15, startingWeapon, startingArmor, totalBA))
 
         case 3:
             totalSP = 15 + basePoints
-            player = Player(playerNameInput, 0, 1, Warrior(37, 37, totalSP, totalSP, startingWeapon, 1, 2))
+            player = Player(playerNameInput, 0, 1, Warrior(37, 37, totalSP, totalSP, startingWeapon, startingArmor, 2))
 
         case _:
             player = Player(playerNameInput, 0, 1, Warrior(37, 37, 15, 15, startingWeapon, 1, 2))
@@ -136,40 +258,7 @@ def createNewPlayer():
     print(f"Jogador {player.name} criado com sucesso!")
     return player
 
-# potion drop
-def chestPotionDrop():
 
-    #60% chance of beeing Large
-    potionSizeValue = random.randint(1,10)
-    potionSize = 'Large' if potionSizeValue > 4 else 'Small'
-
-    #70% chance of beeing HP
-    potionTypeValue = random.randint(1,10)
-    potionType = 'HP' if potionTypeValue > 3 else 'SP'
-
-    newPotion = Potion(potionSize, potionType)
-    return newPotion
-
-def createChest():
-    #80% potion
-    #10% armor
-    #10% weapon
-    print("Voce encontrou um bau!")
-    chestItemValue = random.randint(1,10)
-    chestLoot =''
-    #armor
-    if (chestItemValue == 10):
-        print("work in progress, no armor yet")
-    #weapon
-    elif (chestItemValue == 9):    
-        chestLoot = createNewWeapon()
-        print(f"O bau continha: {chestLoot.weaponName} | Dano base: {chestLoot.baseDamage} | Dano total: {chestLoot.totaldmgValue} | Raridade: {chestLoot.weaponRarity}")
-        return chestLoot
-    #potion
-    else:      
-        chestLoot = chestPotionDrop()
-        print(f'O bau continha: {chestLoot.potionName}. +{chestLoot.potionRegenPoints} {chestLoot.potionType}')
-        return chestLoot
 #battle
 def battle(player, enemy):
     while True:

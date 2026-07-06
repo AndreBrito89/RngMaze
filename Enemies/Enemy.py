@@ -9,23 +9,23 @@
 # __________________________________________________
 #|  STAGE 2 ENEMIES                                 |
 #|__________________________________________________|
-#| * => (14, 4, 0, 25) #hp, dmg, armor, xp       |
-#| * => (21, 7, 1, 40) #hp, dmg, armor, xp |
-#| * => (25, 10, 2, 60) #hp, dmg, armor, xp      |
+#| *wolf => (14, 4, 0, 25) #hp, dmg, armor, xp      |
+#| *zombie => (21, 7, 1, 40) #hp, dmg, armor, xp    |
+#| *orc => (32, 10, 2, 60) #hp, dmg, armor, xp      |
 #| *giant => (72, 14, 5, 110) #hp, dmg, armor, xp   | => BOSS AT THE DOOR
 #|---------------------------------------------------
 # __________________________________________________
 #|  STAGE 3 ENEMIES                                 |
 #|__________________________________________________|
-#| * => (15, 5, 1, 25) #hp, dmg, armor, xp       |
-#| * => (22, 8, 2, 45) #hp, dmg, armor, xp |
-#| * => (27, 11, 4, 65) #hp, dmg, armor, xp      |
-#| *dragon => (80, 16, 9, 200) #hp, dmg, armor, xp  | => BOSS AT THE DOOR
+#| *bear => (16, 5, 2, 25) #hp, dmg, armor, xp      |
+#| *wraith => (25, 8, 4, 45) #hp, dmg, armor, xp    |
+#| * => (38, 11, 6, 65) #hp, dmg, armor, xp   |
+#| *dragon => (80, 16, 11, 200) #hp, dmg, armor, xp | => BOSS AT THE DOOR
 #|---------------------------------------------------
 
 #TO DO
 # Create a child class from enemy called `boss` with
-# weapon drop that got better dmg and rarity rate.
+# weapon drop that got better rarity rate. (7-3 => weapon/armor)
 class Enemy:
     #constructor
     def __init__(self, name, maxHealthPoints, healthPoints, attackDmg, armor, xpReward):

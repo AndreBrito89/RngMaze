@@ -1,20 +1,19 @@
-#   table of dmg value ranges for weapons
-#  +--------------------------------------+
-#  |======|Normal| Rare |Legendary|  God  |    
-#  +--------------------------------------+
-#  |mace  | 4-9  | 9-14 |  14-18  | 19-24 |
-#  |axe   | 3-11 | 7-18 |  12-22  | 15-26 |
-#  |pike  | 7-9  | 12-15|  16-19  | 21-24 |
-#  |sword | 6-10 | 11-16|  14-20  | 21-26 |
-#  +--------------------------------------+
-# table of drop rate value for weapons
+#   table of dmg value ranges for Catalysts
+#  +-------------------------------------------+
+#  |=========|Normal| Rare | Legendary |  God  |    
+#  +-------------------------------------------+
+#  |staff    | 8-11  | 15-17 |  21-24  | 24-28 |
+#  |grimoire | 7-14  | 11-23 |  15-26  | 19-32 |
+#  |wand     | 8-13  | 16-21 |  19-25  | 26-30 |
+#  +-------------------------------------------+
+# table of drop rate value for Catalysts
 #  +---------------------------------------+
 #  |======|Normal | Rare |Legendary|  God  |    
 #  +---------------------------------------+
 #  |chest | 70%  |  20%  |    9%   |   1%  |
-#  |boss  | 30%  |  55%  |   13%   |   2%  |
+#  |boss  |  -%  |  75%  |   20%   |   5%  |
 #  +---------------------------------------+
-class Weapon:
+class Catalyst:
     #constructor
     def __init__(self, baseDamage, weaponRarity, weaponName):
         self.baseDamage = baseDamage
@@ -29,11 +28,11 @@ class Weapon:
             case 'Normal':
                 self.dmgModifier = 1
             case 'Rare':
-                self.dmgModifier = 1.2
+                self.dmgModifier = 1.4
             case 'Legendary':
-                self.dmgModifier = 1.5
+                self.dmgModifier = 1.7
             case 'God':
-                self.dmgModifier = 1.8
+                self.dmgModifier = 1.85
             case _:
                 self.dmgModifier = 0
 
