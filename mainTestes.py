@@ -262,27 +262,34 @@ def createNewPlayer():
     # player name
     print("Digite seu nome:")
     playerNameInput = input()
+    
     # player class
-    print("Selecione sua classe:")
-    print("1 - Warrior")
-    print("2 - Mage")
-    newPlayerClass = input()
+    while True:
+        print("Selecione sua classe:")
+        print("1 - Warrior")
+        print("2 - Mage")
+        newPlayerClass = input()    
 
-    if int(newPlayerClass) == 1 : newPlayerClass = 'Warrior'
-    elif int(newPlayerClass) == 2 : newPlayerClass = 'Mage'
-    # base status for each class
-    if newPlayerClass == 'Warrior':
-        baseHp = 37
-        baseSp = 15
-        startingWeapon = createStartingMeleeWeapon(MELEE_WEAPONS)
-        startingArmor = Armor('Leather', 1)
-        baseAttack = 1
-    if newPlayerClass == 'Mage':
-        baseHp = 19
-        baseSp = 24
-        startingWeapon = createStartingCatalystWeapon(CATALYSTS_WEAPONS)
-        startingArmor = Armor('No', 0)
-        baseAttack = 4       
+        match newPlayerClass:
+            
+            case "1":
+                newPlayerClass = 'Warrior'
+                baseHp = 37
+                baseSp = 15
+                startingWeapon = createStartingMeleeWeapon(MELEE_WEAPONS)
+                startingArmor = Armor('Leather', 1)
+                baseAttack = 1
+                break
+            
+            case "2":
+                newPlayerClass = 'Mage'
+                baseHp = 19
+                baseSp = 24
+                startingWeapon = createStartingCatalystWeapon(CATALYSTS_WEAPONS)
+                startingArmor = Armor('No', 0)
+                baseAttack = 4  
+                break
+
 
     # bonus points
     print("Gostaria de usar os pontos extras em")
@@ -292,17 +299,17 @@ def createNewPlayer():
     selectedBonusPoints = input()
 
     #                       Name            xp  lvl                  maxHP    hP      maxSP/sP equipedWeapon armor BA
-    match int(selectedBonusPoints):
-        case 1:
+    match selectedBonusPoints:
+        case "1":
             totalHp = baseHp + bonusPoints
             player = Player (playerNameInput, 0, 1, newPlayerClass, totalHp, totalHp, baseSp, baseSp, startingWeapon, startingArmor, baseAttack) 
 
-        case 2:
+        case "2":
             totalBA = baseAttack + bonusPoints
             player = Player (playerNameInput, 0, 1, newPlayerClass, baseHp, baseHp, baseSp, baseSp, startingWeapon, startingArmor, totalBA) 
             
 
-        case 3:
+        case "3":
             totalSP = baseSp + bonusPoints
             player = Player (playerNameInput, 0, 1, newPlayerClass, baseHp, baseHp, totalSP, totalSP, startingWeapon, startingArmor, baseAttack) 
             
