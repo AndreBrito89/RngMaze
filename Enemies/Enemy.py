@@ -2,24 +2,24 @@
 #|  STAGE 1 ENEMIES                                 |
 #|__________________________________________________|
 #| *rat => (12, 3, 0, 20) #hp, dmg, armor, xp       |
-#| *skelleton => (19, 6, 0, 35) #hp, dmg, armor, xp |
-#| *goblin => (21, 9, 1, 50) #hp, dmg, armor, xp    |
+#| *skelleton => (19, 6, 0, 25) #hp, dmg, armor, xp |
+#| *goblin => (21, 9, 1, 30) #hp, dmg, armor, xp    |
 #| *lich => (69, 12, 4, 100) #hp, dmg, armor, xp    | => BOSS AT THE DOOR
 #+--------------------------------------------------+
 # __________________________________________________
 #|  STAGE 2 ENEMIES                                 |
 #|__________________________________________________|
 #| *wolf => (14, 4, 0, 25) #hp, dmg, armor, xp      |
-#| *zombie => (21, 7, 1, 40) #hp, dmg, armor, xp    |
-#| *orc => (32, 10, 2, 60) #hp, dmg, armor, xp      |
+#| *zombie => (21, 7, 1, 30) #hp, dmg, armor, xp    |
+#| *orc => (32, 10, 2, 35) #hp, dmg, armor, xp      |
 #| *giant => (72, 14, 5, 110) #hp, dmg, armor, xp   | => BOSS AT THE DOOR
 #+--------------------------------------------------+
 # __________________________________________________
 #|  STAGE 3 ENEMIES                                 |
 #|__________________________________________________|
-#| *bear => (16, 5, 2, 25) #hp, dmg, armor, xp      |
-#| *wraith => (25, 8, 4, 45) #hp, dmg, armor, xp    |
-#| *ogre => (38, 11, 6, 65) #hp, dmg, armor, xp     |
+#| *bear => (16, 5, 2, 35) #hp, dmg, armor, xp      |
+#| *wraith => (25, 8, 4, 40) #hp, dmg, armor, xp    |
+#| *ogre => (38, 11, 6, 45) #hp, dmg, armor, xp     |
 #| *dragon => (80, 16, 11, 200) #hp, dmg, armor, xp | => BOSS AT THE DOOR
 #+--------------------------------------------------+
 
