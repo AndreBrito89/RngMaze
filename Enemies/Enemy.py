@@ -28,10 +28,10 @@
 # weapon drop that got better rarity rate. (7-3 => weapon/armor)
 class Enemy:
     #constructor
-    def __init__(self, name, maxHealthPoints, healthPoints, attackDmg, armor, xpReward):
+    def __init__(self, name, maxHealthPoints, attackDmg, armor, xpReward):
         self.name = name
         self.maxHealthPoints = maxHealthPoints
-        self.healthPoints = healthPoints
+        self.healthPoints = maxHealthPoints
         self.attackDmg = attackDmg
         self.armor = armor
         self.xpReward = xpReward
