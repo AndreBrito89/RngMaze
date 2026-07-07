@@ -1,10 +1,8 @@
-from Items import Potion
-from Items import Armor
+from Items.Potion import Potion
+from Items.Armor import Armor
 from WeaponFactory import catalystGenerator
 from WeaponFactory import meleeWeaponGenerator
 import random
-
-
 
 
 ###################
@@ -24,6 +22,7 @@ def armorGenerator(armorName):
         case 'Gold':
             newArmorDefenseValue = 14
     newArmor = Armor(armorName, newArmorDefenseValue)
+    return newArmor
 
 
 ######################
