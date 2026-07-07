@@ -1,5 +1,5 @@
-from Weapons import Melee
-from Weapons import Catalyst
+from Weapons.Melee import Melee
+from Weapons.Catalyst import Catalyst
 import random
 
 MELEE_WEAPONS = ['Sword', 'Pike', 'Mace', 'Axe']
@@ -54,7 +54,7 @@ def chestWeaponRarityGenerator():
     #assigns random rarity to a weapon
     weaponRarityValue = random.randint(1,100)
     newWeaponRarity
-    
+
     match weaponRarityValue:
         #70% normal
         case x if 1 <= x <= 70:

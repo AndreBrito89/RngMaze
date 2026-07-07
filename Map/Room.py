@@ -15,3 +15,4 @@ class Room:
         self.is_exit = False
 
         self.visited = False
+        self.cleared = False
