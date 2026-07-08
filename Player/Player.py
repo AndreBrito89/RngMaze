@@ -4,6 +4,7 @@
 # - armor = 1                           || - armor = 0
 # - base attack = 1                     || - base attack = 4
 # - sp = 15                             || - sp = 24
+ESCAPE_COST = 10
 
 class Player:
     #CONSTRUCTOR
@@ -34,12 +35,12 @@ class Player:
     def escape(self, escapeAttemptValue):
         #lose stamina for a 35% chance
         #of escaping the fight to next node
-        if(self.sP<10):
+        if(self.sP < ESCAPE_COST):
             print("SP insuficientes para escapar!")
             return False
         
-        self.sP -= 10
-        if(escapeAttemptValue<36):
+        self.sP -= ESCAPE_COST
+        if(escapeAttemptValue < 36):
             return True
         else:
             return False

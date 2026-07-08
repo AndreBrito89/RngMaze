@@ -15,6 +15,7 @@ STAGES  = {
 }
 
 
+
 # load stage
 def load(stage):
     
@@ -83,4 +84,3 @@ def assign_room_types(gameMap, possibleKeys, possibleExits, treasureRate):
             # checks for stage treasure rate
             if roomRandomValue <= treasureRate : 
                 room.roomType = RoomType.TREASURE
-                
