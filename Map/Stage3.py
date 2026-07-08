@@ -1,6 +1,9 @@
 from Map.Room import Room
 from Map.Map import Map
 
+POSSIBLE_KEY_ROOMS = [2,7,9,11]
+POSSIBLE_EXIT_ROOMS = [12,13,14,15]
+TREASURE_RATE = 40
 
 def create():
     # list of rooms
@@ -47,8 +50,5 @@ def create():
     rooms[14].parent = rooms[7]
     rooms[15].parent = rooms[7]
 
-    #assigns key and exit to proper rooms
-    rooms[11].has_key = True
-    rooms[12].is_exit = True
 
-    return Map(3, rooms[1])
+    return Map(3, rooms[1], rooms)

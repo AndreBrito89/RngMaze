@@ -7,7 +7,7 @@ CATALYSTS_WEAPONS = ['Staff', 'Wand', 'Grimoire']
 
 # STARTING GEAR
 # CREATES STARTING MELEE WEAPON
-def createStartingMeleeWeapon():
+def create_starting_melee_weapon():
     startingWeaponDmg = 0
 
     #randomizes starting weapon
@@ -28,7 +28,7 @@ def createStartingMeleeWeapon():
     return newWeapon
 
 # CREATES STARTING CATALYST
-def createStartingCatalystWeapon():
+def create_starting_catalyst_weapon():
     startingCatalystDmg = 0
 
     #randomizes starting weapon
@@ -50,7 +50,7 @@ def createStartingCatalystWeapon():
 ## CHEST WEAPON DROP RATE ##
 ############################
 # GERERATES A RARITY FOR A CHEST WEAPON
-def chestWeaponRarityGenerator():
+def chest_weapon_rarity_generator():
     #assigns random rarity to a weapon
     weaponRarityValue = random.randint(1,100)
     newWeaponRarity
@@ -74,7 +74,7 @@ def chestWeaponRarityGenerator():
 ## BOSS WEAPON DROP RATE ##
 ###########################
 # GERERATES A RARITY FOR A BOSS WEAPON
-def bossWeaponRarityGenerator():
+def boss_weapon_rarity_generator():
     #assigns random rarity to a weapon
     bossWeaponRarityValue = random.randint(1,100)
     newBossWeaponRarity
@@ -93,12 +93,12 @@ def bossWeaponRarityGenerator():
 
 
 # CREATES A NEW CATALYST
-def catalystGenerator(dropSource):
+def catalyst_generator(dropSource):
     newCatalystDmg = 0
 
     newCatalystName = random.choice(CATALYSTS_WEAPONS)
-    if dropSource == 'Boss': newCatalystRarity = bossWeaponRarityGenerator()
-    elif dropSource == 'Chest': newCatalystRarity = chestWeaponRarityGenerator()
+    if dropSource == 'Boss': newCatalystRarity = boss_weapon_rarity_generator()
+    elif dropSource == 'Chest': newCatalystRarity = chest_weapon_rarity_generator()
 
     match newCatalystName:
         # staff
@@ -139,12 +139,12 @@ def catalystGenerator(dropSource):
     return newCatalyst
 
 # CREATES A NEW MELEE WEAPON 
-def meleeWeaponGenerator(dropSource):
+def melee_weapon_generator(dropSource):
     
     newWeaponDmg = 0
     newWeaponName = random.choice(MELEE_WEAPONS)
-    if dropSource == 'Boss': newWeaponRarity = bossWeaponRarityGenerator()
-    elif dropSource == 'Chest': newWeaponRarity = chestWeaponRarityGenerator()
+    if dropSource == 'Boss': newWeaponRarity = boss_weapon_rarity_generator()
+    elif dropSource == 'Chest': newWeaponRarity = chest_weapon_rarity_generator()
     
     
    #assigns random dmg based on rarity and name of the weapon           

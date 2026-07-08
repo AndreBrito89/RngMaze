@@ -20,11 +20,11 @@ class Melee:
         self.baseDamage = baseDamage
         self.weaponName = weaponName
         self.weaponRarity = weaponRarity
-        self.rarity(weaponRarity)
+        self.rarity_modifier_bonus(weaponRarity)
         self.totaldmgValue = self.baseDamage * self.dmgModifier
     
     #checks weapon rarity to assign a dmg modifier
-    def rarity(self, weaponRarity):
+    def rarity_modifier_bonus(self, weaponRarity):
         match weaponRarity:
             case 'Normal':
                 self.dmgModifier = 1

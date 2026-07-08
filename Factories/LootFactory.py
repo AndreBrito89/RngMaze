@@ -1,14 +1,14 @@
 from Items.Potion import Potion
 from Items.Armor import Armor
-from WeaponFactory import catalystGenerator
-from WeaponFactory import meleeWeaponGenerator
+from WeaponFactory import catalyst_generator
+from WeaponFactory import melee_weapon_generator
 import random
 
 
 ###################
 ## creates armor ##
 ###################
-def armorGenerator(armorName):
+def armor_generator(armorName):
     
     match armorName:
         case 'Leather':
@@ -28,7 +28,7 @@ def armorGenerator(armorName):
 ######################
 ## creates a potion ##
 ######################
-def PotionGenerator():
+def potion_generator():
     #60% chance of beeing Large
     potionSizeValue = random.randint(1,10)
     potionSize = 'Large' if potionSizeValue > 4 else 'Small'
@@ -44,7 +44,7 @@ def PotionGenerator():
 #####################
 ## creates a chest ##
 #####################
-def createChest(playerClass):
+def create_chest(playerClass):
     #70% potion
     #10% armor
     #20% weapon
@@ -53,17 +53,17 @@ def createChest(playerClass):
     chestLoot =''
     #armor
     if (chestItemValue == 10):
-        chestLoot = armorGenerator(chestArmorNameGenerator())
+        chestLoot = armor_generator(chest_armor_name_generator())
     #weapon
     elif (chestItemValue == 9 or chestItemValue == 8):
         if playerClass == 'Warrior' : 
-            chestLoot = meleeWeaponGenerator('Chest')
+            chestLoot = melee_weapon_generator('Chest')
         if playerClass == 'Mage':
-            chestLoot = catalystGenerator('Chest')
+            chestLoot = catalyst_generator('Chest')
         return chestLoot
     #potion
     else:      
-        chestLoot = PotionGenerator()
+        chestLoot = potion_generator()
         return chestLoot
 
 
@@ -71,7 +71,7 @@ def createChest(playerClass):
 ###########################
 ## armor chest drop rate ##
 ###########################
-def chestArmorNameGenerator():
+def chest_armor_name_generator():
     
     armorRarityValue = random.randint(1,100)
 
@@ -97,7 +97,7 @@ def chestArmorNameGenerator():
 ###########################
 ## armor boss drop rate ##
 ###########################
-def bossArmorNameGenerator():
+def boss_armor_name_generator():
 
     armorRarityValue = random.randint(1,100)
     

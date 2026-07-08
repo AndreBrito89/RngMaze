@@ -45,7 +45,7 @@ class Player:
             return False
         
     #use potion function
-    def usePotion(self, potion):
+    def use_potion(self, potion):
         match potion.potionType:
             #Health potion
             case 'HP':
@@ -59,6 +59,6 @@ class Player:
                 self.sP + potion.potionRegenPoints,
                 self.maxSP)
     # lvl up
-    def levelUp(self, xpReceived):
+    def level_up(self, xpReceived):
         #kd a logica
         pass

@@ -1,11 +1,11 @@
 from Player.Player import Player
 from Items.Armor import Armor
-from WeaponFactory import createStartingMeleeWeapon
-from WeaponFactory import createStartingCatalystWeapon
+from WeaponFactory import create_starting_melee_weapon
+from WeaponFactory import create_starting_catalyst_weapon
 
 
 # create new player
-def createNewPlayer(playerName, playerClass, playerBonusPoints):
+def create_new_player(playerName, playerClass, playerBonusPoints):
  
     # assigns base stats based on the player's class
     match playerClass:
@@ -14,7 +14,7 @@ def createNewPlayer(playerName, playerClass, playerBonusPoints):
             newPlayerClass = 'Warrior'
             baseHp = 37
             baseSp = 15
-            startingWeapon = createStartingMeleeWeapon()
+            startingWeapon = create_starting_melee_weapon()
             startingArmor = Armor('Leather', 1)
             baseAttack = 1
                
@@ -22,7 +22,7 @@ def createNewPlayer(playerName, playerClass, playerBonusPoints):
             newPlayerClass = 'Mage'
             baseHp = 19
             baseSp = 24
-            startingWeapon = createStartingCatalystWeapon()
+            startingWeapon = create_starting_catalyst_weapon()
             startingArmor = Armor('No', 0)
             baseAttack = 4  
                 
