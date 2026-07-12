@@ -3,6 +3,7 @@ from Map.Room import RoomType
 import Map.Stage1 as Stage1
 import Map.Stage2 as Stage2
 import Map.Stage3 as Stage3
+from Systems import RoomController
 from Factories.EnemyFactory import create_enemy
 from Factories.EnemyFactory import create_boss
 
@@ -13,17 +14,18 @@ STAGES  = {
     2: Stage2,
     3: Stage3
 }
-
-
+# helper
+def get_stage_data(stage):
+    return STAGES[stage]
 
 # load stage
-def load(stage):
+def load(stage, player):
     
     # assigns current player stage to a variable
     currentStage = STAGES[stage]
     # gameMap receives an empty stage
     gameMap = currentStage.create()
-
+    
     # assigns room types
     assign_room_types(gameMap, currentStage.POSSIBLE_KEY_ROOMS, currentStage.POSSIBLE_EXIT_ROOMS, currentStage.TREASURE_RATE)
 
@@ -32,7 +34,7 @@ def load(stage):
     
     # marks first room as visited
     gameMap.root.visited = True
-
+    RoomController.enter_room(player, gameMap.root, gameMap)
     return gameMap
         
 # populate stage based on the room type

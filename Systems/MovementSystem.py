@@ -14,7 +14,6 @@ def move_left(gameMap, player):
     move_to(gameMap, player, current.left)
     
 
-
 # moves player right
 def move_right(gameMap, player):
     
@@ -34,12 +33,11 @@ def move_back(gameMap, player):
 
     current = current_room(gameMap)
 
-    # checks if there is a room there to move
+    # checks if you're at at first room
     if current.parent is None:
         print("You're already at the entrance.")
         return
 
-    # starts enter room from roomcontroller
     move_to(gameMap, player, current.parent)
 
 # UI assistant
@@ -65,7 +63,7 @@ def current_room(gameMap):
     return gameMap.currentRoom
 
 # movement assist
-def move_to(gameMap, player, room):
+def move_to(gameMap, player, new_room):
     # updates the current room
-    gameMap.currentRoom = room
-    RoomController.enter_room(player, room)
+    gameMap.currentRoom = new_room
+    RoomController.enter_room(player, new_room, gameMap)

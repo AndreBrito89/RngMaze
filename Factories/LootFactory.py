@@ -1,7 +1,7 @@
 from Items.Potion import Potion
 from Items.Armor import Armor
-from WeaponFactory import catalyst_generator
-from WeaponFactory import melee_weapon_generator
+from Factories.WeaponFactory import catalyst_generator
+from Factories.WeaponFactory import melee_weapon_generator
 import random
 
 

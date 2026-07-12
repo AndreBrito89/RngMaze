@@ -1,8 +1,10 @@
 import random
 from Map.Room import RoomType
+from Systems import CombatSystem
+from Systems import StageLoader
 
 # player enter a room
-def enter_room(player, room):
+def enter_room(player, room, gameMap):
 
     # marks room as visited
     room.visited = True
@@ -13,18 +15,8 @@ def enter_room(player, room):
     
     # starts combat if there are enemies
     if room.enemies:
-        
-        print("Combat starts here later.")
-        #clears room after combat ends
-        clear_room(room)
-    
-    # spawn chest
-    if room.hasChest:
-        print("Chest available.")
+        CombatSystem.start_combat(player, room, StageLoader.get_stage_data(gameMap.stage).ESCAPE_FAIL_MISS_RATE)
 
-    #gives player the key
-    if room.hasKey:
-        print("Key obtained.")
 
 # marks room as cleared
 def clear_room(room):

@@ -1,55 +1,163 @@
+import random
+from Systems import RoomController
+from Systems import StageLoader
+from Factories import LootFactory
 
-#battle
-def battle(player, enemy):
-    while True:
-        escapeState = ''
-        
-        print()
-        print(f"Um {enemy.name} apareceu!")
-        print(f"{player.name} HP: {player.healthPoints}/{player.maxHealthPoints}  |  SP: {player.sP}/{player.maxSP}")
-        print(f"{enemy.name} HP: {enemy.healthPoints}/{enemy.maxHealthPoints}")
-        print()
-        print("O que deseja fazer?")
-        print("1 - Attack")
-        print("2 - Use item")
-        print("3 - Attempt to escape")
+# combat flow:
+# checks room for enemies-> combat UI -> player turn -> resolve action -> enemy turn -> checks if someone died -> loop previous part -> victory
+
+# start combat
+def start_combat(player, room, escapeFailMissRate):
+    # main loop, stops when there are no enemies in room.enemies[]
+    while room.enemies:
+        # checks for the result of player_turn, if true stays in the main loop
+        combatContinues, enemyMisses = player_turn(player, room, escapeFailMissRate)
+        # checks if combat should start based on the return of previous line
+        if not combatContinues:
+            return
+        # checks if all the enemies in the room are dead after player turn
+        if not room.enemies:
+            break
+        # checks if enemy missed attack due to failed attempt escape
+        if enemyMisses:
+            continue
+
+        enemy_turn(player, room)
+        #checks if player died
+        if player.healthPoints <= 0:
+            player_death(player) 
+            return False
+    # victory screen after main loop ends (no more enemies in the room)
+    victory(player, room)
+
+
+############
+## PLAYER ##
+############
+# player turn
+def player_turn(player, room, escapeFailMissRate):
+    # prevents the user from breaking the game with a string input
+    while True :
+        enemy = current_enemy(room)
+        print("========================================================================================")
+        # prints enemy status
+        print(f"{enemy.name}")
+        # prints player status
+        print(f"HP: {enemy.healthPoints}/{enemy.maxHealthPoints}")
+        print(f"Jogador: {player.name}")
+        print(f"HP: {player.healthPoints}/{player.maxHealthPoints} | SP: {player.sP}/{player.maxSP}")
+        # prints player optios
+        print("Escolha sua acao")
+        print("1 - Atacar")
+        print("2 - Utilizar pocao")
+        print("3 - Tentar fugir")
+        print("========================================================================================")
+
         choice = input()
-        
-        # player attack
-        if(int(choice) == 1):
-            escapeState = False
-            enemy.defend(player.attack())
-            print(f"O jogador {player.name} atacou o {enemy.name} com {player.equipedWeapon.weaponName} e o dano foi: {player.attack()}")
-            # enemy attack
-            player.defend(enemy.attack())
-            print(f"O {enemy.name} atacou o jogador! O dano recebido foi: {enemy.attackDmg}")
-        # player uses item
-        elif(int(choice) == 2):
-            escapeState = False
-            print("work in progress, cant use items yet")
-        # attempts to escape
-        elif(int(choice) == 3):
-            escapeValue = random.randint(1,100)
-            escapeState = player.escape(escapeValue)
-            if(escapeState):
-                print(f"{player.name} escapou!")
-            else:
-                print(f"Fuga mal sucedida, {enemy.name} errou seu ataque!")
+
+        # validates that the input is numeric
+        if not choice.isdigit():    
+            print("Opcao invalida!")
+            continue
+        # action based on the player selection
+        match int(choice):
+            case 1:
+                player_attack(player, room)
+                return True, False
+            case 2:
+                player_use_potion(player)
+                return True, False
+            case 3:
+                return player_escape_attempt_result(player, room, escapeFailMissRate)
+            case _:
+                print("Opcao invalida!")
+
+# player attacks
+def player_attack(player, room):
+
+    enemy = current_enemy(room)
+
+    player_damage = player.attack()
+
+    enemy.defend(player_damage)
+
+    print(f"{player.name} atacou {enemy.name} usando {player.equippedWeapon.weaponName}!O dano foi: {player_damage}!")
+
+    if enemy.healthPoints <= 0:
+        print(f"{enemy.name} morreu!")
+        print(f"Voce ganhou {enemy.xpReward} xp!")
+        player.xpPoints += enemy.xpReward
+
+        room.enemies.remove(enemy)
 
 
-        # after choosing option
-        # checks if player successfully escaped
-        if(escapeState):
-            break
-        # checks if player died
-        if (player.healthPoints <= 0):
-            print("Você morreu!")
-            break
-        # checks if enemy died
-        if(enemy.healthPoints <= 0):
-            print(f"O {enemy.name} morreu!")
-            player.xpPoints += enemy.xpReward
-            print(f"Voce recebeu {enemy.xpReward} xp.")
-            print()
-            createChest()
-            break
+# player uses potion
+def player_use_potion(player):
+    print("inventario inativo")
+
+
+# player attempts to escape
+def player_escape_attempt_result(player, room, escapeFailMissRate):
+    # true/false from roomcontroller
+    escaped = RoomController.try_escape(player, room)
+
+    if escaped:
+        print("You escaped!")
+        return False, False
+
+    print("Escape failed!")
+
+    # checks if enemy whiffs the attack based on the escape fail miss rate from the stage
+    enemyMisses = (random.randint(1,100) <= escapeFailMissRate)
+
+    if enemyMisses:
+        print(f"{current_enemy(room).name} errou o ataque!")
+
+    return True, enemyMisses
+#############
+## ENEMIES ##
+#############
+
+# enemy turn
+def enemy_turn(player, room):
+    enemy = current_enemy(room)
+    
+    #calculates damage
+    enemy_damage = enemy.attack()
+    player.defend(enemy_damage)
+
+    # prints damage received after armor reduction
+    total_enemy_damage = max(0, enemy_damage - player.equippedArmor.armorDefenseValue)
+
+    print(f"{enemy.name} atacou! O dano recebido foi: {total_enemy_damage}")
+    
+# current enemy helper
+def current_enemy(room):
+    return room.enemies[0]
+
+#############
+## RESULTS ##
+#############
+
+# player clears room
+def victory(player, room):
+    
+    print("Victory!")
+
+    if room.hasChest:
+        room.hasChest = False
+        room.chest = LootFactory.create_chest(player.playerClass)
+        print("A chest appeared!")
+
+    if room.hasKey:
+        player.hasKey = True
+        room.hasKey = False
+        print("You obtained the key!")
+
+    RoomController.clear_room(room)
+
+# player dies (restart run?)
+def player_death(player):
+    print(f"{player.name} lutou bravamente até a morte.")
+    print("Game Over.")
+    return False 

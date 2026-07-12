@@ -8,7 +8,7 @@ ESCAPE_COST = 10
 
 class Player:
     #CONSTRUCTOR
-    def __init__(self, name, xpPoints, playerLevel, playerClass, maxHealthPoints, healthPoints, maxSP, sP, equipedWeapon, equipedArmor, baseAttack):
+    def __init__(self, name, xpPoints, playerLevel, playerClass, maxHealthPoints, healthPoints, maxSP, sP, equippedWeapon, equippedArmor, baseAttack):
         self.name = name
         self.xpPoints = xpPoints
         self.playerLevel = playerLevel
@@ -18,17 +18,17 @@ class Player:
         self.maxSP = maxSP
         self.sP = sP
         self.baseAttack = baseAttack
-        self.equipedWeapon = equipedWeapon
-        self.equipedArmor = equipedArmor
+        self.equippedWeapon = equippedWeapon
+        self.equippedArmor = equippedArmor
     
     #FUNCTIONS
     #attack
     def attack(self):
-        return self.equipedWeapon.totaldmgValue + self.baseAttack
+        return self.equippedWeapon.totaldmgValue + self.baseAttack
     
     #defend
     def defend(self, dmgReceived):
-        totalDmgReceived = dmgReceived - self.equipedArmor.armorDefenseValue
+        totalDmgReceived = dmgReceived - self.equippedArmor.armorDefenseValue
         self.healthPoints -= totalDmgReceived
 
     #escape function

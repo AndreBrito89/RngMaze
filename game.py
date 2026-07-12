@@ -1,10 +1,33 @@
-class Game:
+from Factories.PlayerFactory import create_new_player
+from Systems import StageLoader
+from Systems import MovementSystem
 
-    def __init__(self):
+player = create_new_player(
+    "Andre",
+    "1",
+    "1"
+)
 
-        self.player = None
-        self.current_map = None
-        self.current_room = None
+gameMap = StageLoader.load(1, player)
 
-    def new_game(self):
-        ...
+while True:
+
+    room = gameMap.currentRoom
+
+    print(f"\nYou are in room {room.id}")
+
+    MovementSystem.show_options(gameMap)
+
+    choice = input("> ")
+
+    if choice == "1":
+        MovementSystem.move_left(gameMap, player)
+
+    elif choice == "2":
+        MovementSystem.move_right(gameMap, player)
+
+    elif choice == "3":
+        MovementSystem.move_back(gameMap, player)
+
+    elif choice == "0":
+        break

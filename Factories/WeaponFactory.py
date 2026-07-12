@@ -53,7 +53,7 @@ def create_starting_catalyst_weapon():
 def chest_weapon_rarity_generator():
     #assigns random rarity to a weapon
     weaponRarityValue = random.randint(1,100)
-    newWeaponRarity
+    newWeaponRarity = ''
 
     match weaponRarityValue:
         #70% normal
@@ -77,7 +77,7 @@ def chest_weapon_rarity_generator():
 def boss_weapon_rarity_generator():
     #assigns random rarity to a weapon
     bossWeaponRarityValue = random.randint(1,100)
-    newBossWeaponRarity
+    newBossWeaponRarity = ''
 
     match bossWeaponRarityValue:
         #75% rare

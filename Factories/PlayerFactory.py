@@ -1,7 +1,7 @@
 from Player.Player import Player
 from Items.Armor import Armor
-from WeaponFactory import create_starting_melee_weapon
-from WeaponFactory import create_starting_catalyst_weapon
+from Factories.WeaponFactory import create_starting_melee_weapon
+from Factories.WeaponFactory import create_starting_catalyst_weapon
 
 
 # create new player

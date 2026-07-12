@@ -4,6 +4,7 @@ from Map.Map import Map
 POSSIBLE_KEY_ROOMS = [2,7,9,11]
 POSSIBLE_EXIT_ROOMS = [12,13,14,15]
 TREASURE_RATE = 40
+ESCAPE_FAIL_MISS_RATE = 35
 
 def create():
     # list of rooms
@@ -51,4 +52,4 @@ def create():
     rooms[15].parent = rooms[7]
 
 
-    return Map(3, rooms[1], rooms)
+    return Map(3, rooms[1], rooms, ESCAPE_FAIL_MISS_RATE)
