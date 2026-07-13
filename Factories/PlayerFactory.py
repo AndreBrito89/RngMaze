@@ -1,4 +1,4 @@
-from Player.Player import Player
+from Entities.Player import Player
 from Items.Armor import Armor
 from Factories.WeaponFactory import create_starting_melee_weapon
 from Factories.WeaponFactory import create_starting_catalyst_weapon

@@ -1,4 +1,4 @@
-from Enemies.Enemy import Enemy
+from Entities.Enemy import Enemy
 import random
 
 ##############################

@@ -1,6 +1,5 @@
 import random
 from Systems import RoomController
-from Systems import StageLoader
 from Factories import LootFactory
 
 # combat flow:
@@ -44,6 +43,7 @@ def player_turn(player, room, escapeFailMissRate):
         print(f"{enemy.name}")
         # prints player status
         print(f"HP: {enemy.healthPoints}/{enemy.maxHealthPoints}")
+        print("---------------------------------------------------------------------------------------")
         print(f"Jogador: {player.name}")
         print(f"HP: {player.healthPoints}/{player.maxHealthPoints} | SP: {player.sP}/{player.maxSP}")
         # prints player optios
@@ -81,7 +81,7 @@ def player_attack(player, room):
 
     enemy.defend(player_damage)
 
-    print(f"{player.name} atacou {enemy.name} usando {player.equippedWeapon.weaponName}!O dano foi: {player_damage}!")
+    print(f"{player.name} atacou {enemy.name} usando {player.equippedWeapon.weaponName}! O dano foi: {player_damage}!")
 
     if enemy.healthPoints <= 0:
         print(f"{enemy.name} morreu!")

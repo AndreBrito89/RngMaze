@@ -1,11 +1,13 @@
 from Factories.PlayerFactory import create_new_player
 from Systems import StageLoader
 from Systems import MovementSystem
+from Systems import UISystem
+
 
 player = create_new_player(
     "Andre",
     "1",
-    "1"
+    "2"
 )
 
 gameMap = StageLoader.load(1, player)
@@ -28,6 +30,12 @@ while True:
 
     elif choice == "3":
         MovementSystem.move_back(gameMap, player)
+
+    elif choice == "4":
+        UISystem.show_player_status(player)
+
+    elif choice == "5":
+        UISystem.show_map(gameMap)
 
     elif choice == "0":
         break

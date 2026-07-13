@@ -10,6 +10,7 @@ class Player:
     #CONSTRUCTOR
     def __init__(self, name, xpPoints, playerLevel, playerClass, maxHealthPoints, healthPoints, maxSP, sP, equippedWeapon, equippedArmor, baseAttack):
         self.name = name
+        #stats
         self.xpPoints = xpPoints
         self.playerLevel = playerLevel
         self.playerClass = playerClass
@@ -18,9 +19,13 @@ class Player:
         self.maxSP = maxSP
         self.sP = sP
         self.baseAttack = baseAttack
+        #inventory
         self.equippedWeapon = equippedWeapon
         self.equippedArmor = equippedArmor
-    
+        self.inventoryArmor
+        self.inventoryWeapon
+        self.potions = []
+        self.hasKey = False
     #FUNCTIONS
     #attack
     def attack(self):

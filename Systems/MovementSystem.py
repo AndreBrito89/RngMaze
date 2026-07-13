@@ -48,7 +48,7 @@ def show_options(gameMap):
 
     # prints its id
     print(f"\nRoom {room.id}")
-    # prints possible movement
+    # prints possible options and movement
     if room.left:
         print("1 - Left")
 
@@ -57,6 +57,11 @@ def show_options(gameMap):
 
     if room.parent:
         print("3 - Back")
+    
+    # prints player status
+    print("4 - Player status")
+    # prints map
+    print("5 - Map")
 
 # gives you the current room in which the player is located
 def current_room(gameMap):
