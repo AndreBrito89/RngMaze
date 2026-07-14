@@ -1,5 +1,66 @@
 from Map.Room import RoomType
 
+# prints combat options
+def combat_options(player, enemy):
+        print("========================================================================================")
+        # prints enemy status
+        print(f"Inimigo: {enemy.name}")
+        # prints player status
+        print(f"HP: {enemy.healthPoints}/{enemy.maxHealthPoints}")
+        print("---------------------------------------------------------------------------------------")
+        print(f"Jogador: {player.name}")
+        print(f"HP: {player.healthPoints}/{player.maxHealthPoints} | SP: {player.sP}/{player.maxSP}")
+        print("---------------------------------------------------------------------------------------")
+        # prints player optios
+        print("Escolha sua acao!")
+        print("1 - Atacar")
+        print("2 - Utilizar pocao")
+        print("3 - Tentar fugir")
+        print("========================================================================================")
+
+# gets player name, class and extra points
+def get_player_info():
+    # player name
+    print("Digite seu nome:")
+    newPlayerName = input()
+
+    while True:
+        # player class
+        print("Selecione sua classe:")
+        print("1 -> Warrior")
+        print("2-> Mage")
+        newPlayerClass = input()
+
+        if not newPlayerClass.isdigit():
+            print("Opcao invalida!")
+            continue
+        
+        match newPlayerClass:
+            case "1":
+                break
+            case "2":
+                break
+    while True:
+        # bonus points
+        print("Selecione um atributo para adicionar pontos extra:")
+        print("1-> HP")
+        print("2-> SP")
+        print("3-> Dano base")
+        newPlayerExtraPoints = input()
+
+        if not newPlayerExtraPoints.isdigit():
+            print("Opcao invalida!")
+            continue
+        match newPlayerExtraPoints:
+            case "1":
+                break
+            case "2":
+                break
+            case "3":
+                break
+
+    return newPlayerName, newPlayerClass, newPlayerExtraPoints
+
 # prints player status
 def show_player_status(player):
     print("        ---- STATUS ----")
@@ -21,11 +82,12 @@ def show_map(gameMap):
     draw_room(gameMap.root, "", True, gameMap.currentRoom)
     print("\n============================")
     print("[P] - posicao atual")
-    print("[X] - inimigos mortos")
-    print("[ ] - inimigos ativos")
+    print("[ ] - sala vazia")
+    print("[X] - sala com inimigos ativos")
     print("[B] - sala do chefe")
     print("[K] - sala da chave")
     print("... - caminho inexplorado")
+    print("============================\n")
 
 # draws room
 def draw_room(room, prefix, is_last, current):
@@ -40,9 +102,9 @@ def draw_room(room, prefix, is_last, current):
         symbol = "B"
     # checks if the room was cleared
     elif room.cleared:
-        symbol = "X"
-    else:
         symbol = " "
+    else:
+        symbol = "X"
     
     # ascii lines for room connection
     connector = "└── " if is_last else "├── "
@@ -62,7 +124,8 @@ def draw_room(room, prefix, is_last, current):
         children.append(room.right)
 
     new_prefix = prefix + ("    " if is_last else "│   ")
-
+    
+    # calls itself recursively drawing one side of the tree, then the other one
     for i, child in enumerate(children):
         draw_room(
             child,

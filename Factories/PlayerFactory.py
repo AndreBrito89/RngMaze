@@ -31,12 +31,12 @@ def create_new_player(playerName, playerClass, playerBonusPoints):
         #Health Points
         case "1":
             baseHp += 5
-        #Base Attack
-        case "2":
-            baseAttack += 5
         #Stamina/Special Points
-        case "3":
+        case "2":
             baseSp += 5
+        #Base Attack
+        case "3":
+            baseAttack += 5
     
         
     newPlayer = Player(playerName, 0, 1, newPlayerClass, baseHp, baseHp, baseSp, baseSp, startingWeapon, startingArmor, baseAttack) 

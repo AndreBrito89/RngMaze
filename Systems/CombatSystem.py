@@ -1,4 +1,5 @@
 import random
+from Systems import UISystem
 from Systems import RoomController
 from Factories import LootFactory
 
@@ -38,21 +39,8 @@ def player_turn(player, room, escapeFailMissRate):
     # prevents the user from breaking the game with a string input
     while True :
         enemy = current_enemy(room)
-        print("========================================================================================")
-        # prints enemy status
-        print(f"{enemy.name}")
-        # prints player status
-        print(f"HP: {enemy.healthPoints}/{enemy.maxHealthPoints}")
-        print("---------------------------------------------------------------------------------------")
-        print(f"Jogador: {player.name}")
-        print(f"HP: {player.healthPoints}/{player.maxHealthPoints} | SP: {player.sP}/{player.maxSP}")
-        # prints player optios
-        print("Escolha sua acao")
-        print("1 - Atacar")
-        print("2 - Utilizar pocao")
-        print("3 - Tentar fugir")
-        print("========================================================================================")
-
+        # prints combat options
+        UISystem.combat_options(player, enemy)
         choice = input()
 
         # validates that the input is numeric
@@ -158,6 +146,10 @@ def victory(player, room):
 
 # player dies (restart run?)
 def player_death(player):
-    print(f"{player.name} lutou bravamente até a morte.")
-    print("Game Over.")
+
+    print(f"\n* {player.name} lutou bravamente até a morte. *\n")
+    print("+------------+")
+    print("| Game Over. |")
+    print("+------------+")
+    
     return False 

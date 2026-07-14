@@ -62,6 +62,7 @@ def show_options(gameMap):
     print("4 - Player status")
     # prints map
     print("5 - Map")
+    print("0 - Exit game")
 
 # gives you the current room in which the player is located
 def current_room(gameMap):

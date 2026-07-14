@@ -22,8 +22,8 @@ class Player:
         #inventory
         self.equippedWeapon = equippedWeapon
         self.equippedArmor = equippedArmor
-        self.inventoryArmor
-        self.inventoryWeapon
+        self.inventoryArmor = None
+        self.inventoryWeapon = None
         self.potions = []
         self.hasKey = False
     #FUNCTIONS
