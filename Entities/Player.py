@@ -64,6 +64,14 @@ class Player:
                 self.sP = min(
                 self.sP + potion.potionRegenPoints,
                 self.maxSP)
+    # swaps inventory weapon and equipped weapon
+    def swap_weapons(self):
+        self.equippedWeapon, self.inventoryWeapon = ( self.inventoryWeapon, self.equippedWeapon)
+    
+    # swaps inventory armor and equipped amor
+    def swap_armors(self):
+        self.equippedArmor, self.inventoryArmor = (self.inventoryArmor, self.equippedArmor)
+
     # lvl up
     def level_up(self, xpReceived):
         #kd a logica
