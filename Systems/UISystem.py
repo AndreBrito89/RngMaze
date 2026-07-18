@@ -20,7 +20,6 @@ def clear_console():
 def combat_options(player, enemy):
         clear_console()
         print("========================================================================================")
-        print("---------------------------------------------------------------------------------------")
         print(f"Jogador: {player.name}")
         print(f"HP: {player.healthPoints}/{player.maxHealthPoints} | SP: {player.sP}/{player.maxSP}")
         print("---------------------------------------------------------------------------------------")
@@ -28,6 +27,7 @@ def combat_options(player, enemy):
         print(f"Inimigo: {enemy.name}")
         # prints player status
         print(f"HP: {enemy.healthPoints}/{enemy.maxHealthPoints}")
+        print("---------------------------------------------------------------------------------------")
         # prints player optios
         print("Escolha sua acao!")
         print("1 - Atacar")
@@ -98,6 +98,33 @@ def show_player_status(player):
     print("------------------------------------------------")
     print(f"Key: {'Yes' if player.hasKey else 'No'}")
     print("================================")
+# shows the list of the player's potions
+def show_player_potions(player):
+        
+        print("Pochete de pocoes")
+        print("----------------------------------")
+        # iterates instance of potion in player.potions
+        for i, potion in enumerate(player.potions, start=1):
+            print(f"{i} -> {potion.potionName} | +{potion.potionRegenPoints} {potion.potionType}")   
+        print("----------------------------------")
+
+# selects a potion from inventory to consume
+def select_inventory_potion(player):
+        while True:
+            print("Qual das pocoes acima gostaria de consumir?")
+            player_selected_potion = input()
+
+            if not player_selected_potion.isdigit():
+                print("Opcao invalida!")
+                continue
+            # int conversion
+            player_selected_potion = int(player_selected_potion)
+
+            # validates if the potion exists in the player's inventory
+            if 1 <= player_selected_potion <= len(player.potions):
+                return player_selected_potion
+        
+            print("Opcao invalida!")   
 
 # player chooses which weapon to discard after receiving a drop
 def choose_weapon_to_discard(player, newWeapon):
@@ -116,15 +143,10 @@ def choose_weapon_to_discard(player, newWeapon):
             print("Opcao invalida!")
             continue
         
-        match player_discarded_weapon:
-            case "1":
-                break
-            case "2":
-                break
-            case "3":
-                break
-        
-    return player_discarded_weapon
+        if player_discarded_weapon in ("1", "2", "3"):
+            return player_discarded_weapon
+
+        print("Opcao invalida!")
 
 
 # player chooses which armor to discard after receiving a drop
@@ -143,17 +165,49 @@ def choose_armor_to_discard(player, newArmor):
             print("Opcao invalida!")
             continue
         
-        match player_discarded_armor:
-            case "1":
-                break
-            case "2":
-                break
-            case "3":
-                break
+        if player_discarded_armor in ("1", "2", "3"):
+            return player_discarded_armor
+
+        print("Opcao invalida!")
+
+# player chooses a potion from either their inventory or the new one
+def choose_new_potion_option(player, newPotion):
+    # player chooses a potion
+    while True:
+        print("Voce nao pode carregar mais pocoes!")
+        print("Selecione uma pocao")
+        print("----------------------------------")
+        # iterates instance of potion in player.potions
+        for i, potion in enumerate(player.potions, start=1):
+            print(f"{i} -> {potion.potionName} | +{potion.potionRegenPoints} {potion.potionType}")
+        print(f"6 -> {newPotion.potionName} | +{newPotion.potionRegenPoints} {newPotion.potionType}")
+        print("----------------------------------")
         
-    return player_discarded_armor
+        player_selected_potion = input()
 
+        if not player_selected_potion.isdigit():
+            print("Opcao invalida!")
+            continue
+        player_selected_potion = int(player_selected_potion)
 
+        if 1 <= player_selected_potion <= 6:
+            return player_selected_potion
+        
+        print("Opcao invalida!")
+
+# player chooses to either discard or consume a potion
+def choose_potion_action():
+    while True:
+        print("Deseja consumir ou descartar esta pocao?")
+        print("1 -> Consumir")
+        print("2 -> Descartar")
+
+        potionOption = input()
+
+        if potionOption in ("1", "2"):
+            return potionOption
+
+        print("Opcao invalida!")                  
 ##################
 ## MAP RELATED ###
 ##################
