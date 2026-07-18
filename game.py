@@ -14,7 +14,7 @@ while True:
         break
     room = gameMap.currentRoom
 
-    print(f"\nYou are in room {room.id}")
+    print(f"\nVoce esta na sala {room.id}")
 
     MovementSystem.show_options(gameMap)
 
@@ -34,6 +34,14 @@ while True:
 
     elif choice == "5":
         UISystem.show_map(gameMap)
-
+    
     elif choice == "0":
         break
+
+
+
+
+
+
+### GOOD TIMES WONT EVER COME BACK
+### BUCKLE UP AND KEEP YOUR EYES ON THE TRACK
