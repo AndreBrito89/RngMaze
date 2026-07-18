@@ -1,16 +1,33 @@
 from Map.Room import RoomType
+import os
+import subprocess
+
+# helper
+def clear_console():
+    input("pressione enter para continuar...")
+    if os.name == 'nt':
+        # Windows requires executing 'cls' through the command interpreter
+        subprocess.run(['cmd', '/c', 'cls'])
+    else:
+        # Mac and Linux can call 'clear' directly
+        subprocess.run(['clear'])
+
+###########
+## MENUS ##
+###########
 
 # prints combat options
 def combat_options(player, enemy):
+        clear_console()
         print("========================================================================================")
-        # prints enemy status
-        print(f"Inimigo: {enemy.name}")
-        # prints player status
-        print(f"HP: {enemy.healthPoints}/{enemy.maxHealthPoints}")
         print("---------------------------------------------------------------------------------------")
         print(f"Jogador: {player.name}")
         print(f"HP: {player.healthPoints}/{player.maxHealthPoints} | SP: {player.sP}/{player.maxSP}")
         print("---------------------------------------------------------------------------------------")
+        # prints enemy status
+        print(f"Inimigo: {enemy.name}")
+        # prints player status
+        print(f"HP: {enemy.healthPoints}/{enemy.maxHealthPoints}")
         # prints player optios
         print("Escolha sua acao!")
         print("1 - Atacar")
@@ -24,10 +41,10 @@ def get_player_info():
     print("Digite seu nome:")
     newPlayerName = input()
 
+    # player class
     while True:
-        # player class
         print("Selecione sua classe:")
-        print("1 -> Warrior")
+        print("1-> Warrior")
         print("2-> Mage")
         newPlayerClass = input()
 
@@ -40,8 +57,9 @@ def get_player_info():
                 break
             case "2":
                 break
+    
+    # bonus points
     while True:
-        # bonus points
         print("Selecione um atributo para adicionar pontos extra:")
         print("1-> HP")
         print("2-> SP")
@@ -61,6 +79,11 @@ def get_player_info():
 
     return newPlayerName, newPlayerClass, newPlayerExtraPoints
 
+
+######################
+### PLAYER RELATED ###
+######################
+
 # prints player status
 def show_player_status(player):
     print("        ---- STATUS ----")
@@ -70,14 +93,74 @@ def show_player_status(player):
     print(f"HP: {player.healthPoints}/{player.maxHealthPoints}")
     print(f"SP: {player.sP}/{player.maxSP}")
     print("------------------------------------------------")
-    print(f"Arma: {player.equippedWeapon.weaponName} | Dano base: {player.equippedWeapon.totaldmgValue}")
+    print(f"Arma: {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totaldmgValue}")
     print(f"Armadura: {player.equippedArmor.armorName}| Dano reduzido: {player.equippedArmor.armorDefenseValue}")
     print("------------------------------------------------")
     print(f"Key: {'Yes' if player.hasKey else 'No'}")
     print("================================")
 
+# player chooses which weapon to discard after receiving a drop
+def choose_weapon_to_discard(player, newWeapon):
+    while True:
+        print("Escolha uma arma para descartar:")
+        print("\n* Lista de armas *")
+        print("+----------------------------------------------------------------------------------------------------------------------------------------+")
+        print(f"|1 -> Equipada: {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totalDmgValue} | Raridade: {player.equippedWeapon.weaponRarity} |")
+        print(f"|2 -> Inventario: {player.inventoryWeapon.weaponName} | Dano: {player.inventoryWeapon.totalDmgValue} | Raridade: {player.inventoryWeapon.weaponRarity}")
+        print(f"|3 -> Nova: {newWeapon.weaponName} | Dano: {newWeapon.totalDmgValue} | Raridade: {newWeapon.weaponRarity}")
+        print("+----------------------------------------------------------------------------------------------------------------------------------------+")
+        
+        player_discarded_weapon = input()
+
+        if not player_discarded_weapon.isdigit():
+            print("Opcao invalida!")
+            continue
+        
+        match player_discarded_weapon:
+            case "1":
+                break
+            case "2":
+                break
+            case "3":
+                break
+        
+    return player_discarded_weapon
+
+
+# player chooses which armor to discard after receiving a drop
+def choose_armor_to_discard(player, newArmor):
+    while True:
+        print("Escolha uma armadura para descartar:")
+        print("\n* Lista de armaduras *")
+        print("+-------------------------------------------------------------------------------------------------------+")
+        print(f"|1 -> Equipada: {player.equippedArmor.armorName} | Dano reduzido: {player.equippedArmor.armorDefenseValue} |")      
+        print(f"|2 -> Inventario: {player.inventoryArmor.armorName} | Dano Reduzido: {player.inventoryArmor.armorDefenseValue} |")       
+        print(f"|3 -> Nova: {newArmor.armorName} | Dano Reduzido: {newArmor.armorDefenseValue} |")       
+        print("+-------------------------------------------------------------------------------------------------------+")
+        player_discarded_armor = input()
+
+        if not player_discarded_armor.isdigit():
+            print("Opcao invalida!")
+            continue
+        
+        match player_discarded_armor:
+            case "1":
+                break
+            case "2":
+                break
+            case "3":
+                break
+        
+    return player_discarded_armor
+
+
+##################
+## MAP RELATED ###
+##################
+
 # prints map
 def show_map(gameMap):
+    clear_console()
     print("\n============ MAP ============")
     draw_room(gameMap.root, "", True, gameMap.currentRoom)
     print("\n============================")
