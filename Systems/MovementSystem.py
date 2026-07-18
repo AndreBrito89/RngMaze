@@ -7,7 +7,7 @@ def move_left(gameMap, player):
 
     # checks if there is a room there to move
     if current.left is None:
-        print("You can't go that way.")
+        print("Caminho sem saida...")
         return
 
     # starts enter room from roomcontroller
@@ -21,7 +21,7 @@ def move_right(gameMap, player):
 
     # checks if there is a room there to move
     if current.right is None:
-        print("You can't go that way.")
+        print("Caminho sem saida...")
         return
 
     # starts enter room from roomcontroller
@@ -35,7 +35,7 @@ def move_back(gameMap, player):
 
     # checks if you're at at first room
     if current.parent is None:
-        print("You're already at the entrance.")
+        print("Voce esta na primeira sala!")
         return
 
     move_to(gameMap, player, current.parent)
@@ -47,21 +47,21 @@ def show_options(gameMap):
     room = current_room(gameMap)
 
     # prints its id
-    print(f"\nRoom {room.id}")
+    print(f"\nSala {room.id}")
     # prints possible options and movement
     if room.left:
-        print("1 - Left")
+        print("1 - Esquerda")
 
     if room.right:
-        print("2 - Right")
+        print("2 - Direita")
 
     if room.parent:
-        print("3 - Back")
+        print("3 - Voltar")
     
     # prints player status
     print("4 - Player status")
     # prints map
-    print("5 - Map")
+    print("5 - Mapa")
     print("0 - Exit game")
 
 # gives you the current room in which the player is located

@@ -21,7 +21,7 @@ def start_combat(player, room, escapeFailMissRate):
         # checks if enemy missed attack due to failed attempt escape
         if enemyMisses:
             continue
-
+        # starts enemy turn
         enemy_turn(player, room)
         #checks if player died
         if player.healthPoints <= 0:
@@ -90,10 +90,10 @@ def player_escape_attempt_result(player, room, escapeFailMissRate):
     escaped = RoomController.try_escape(player, room)
 
     if escaped:
-        print("You escaped!")
+        print("Voce fugiu!")
         return False, False
 
-    print("Escape failed!")
+    print("Fuga mal sucedida!")
 
     # checks if enemy whiffs the attack based on the escape fail miss rate from the stage
     enemyMisses = (random.randint(1,100) <= escapeFailMissRate)
@@ -135,12 +135,12 @@ def victory(player, room):
     if room.hasChest:
         room.hasChest = False
         room.chest = LootFactory.create_chest(player.playerClass)
-        print("A chest appeared!")
+        print("Um bau apareceu!")
 
     if room.hasKey:
         player.hasKey = True
         room.hasKey = False
-        print("You obtained the key!")
+        print("Voce obteve a chave!")
 
     RoomController.clear_room(room)
 

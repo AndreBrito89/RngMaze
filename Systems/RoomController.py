@@ -22,7 +22,7 @@ def enter_room(player, room, gameMap):
 def clear_room(room):
     room.cleared = True
     room.enemies.clear()
-    print("Room cleared!")
+    print("Sala concluida!")
 
 
 # attempts to escape
@@ -30,7 +30,7 @@ def try_escape(player, room):
 
     # Boss rooms never allow escape
     if room.roomType == RoomType.EXIT:
-        print("You cannot escape from a boss fight!")
+        print("Voce nao pode fugir de uma batalha contra o chefe!")
         return False
 
     return player.escape(random.randint(1,100))
