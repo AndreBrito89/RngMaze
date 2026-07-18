@@ -5,7 +5,7 @@
 # - base attack = 1                     || - base attack = 4
 # - sp = 15                             || - sp = 24
 ESCAPE_COST = 10
-
+MAX_POTIONS = 5
 class Player:
     #CONSTRUCTOR
     def __init__(self, name, xpPoints, playerLevel, playerClass, maxHealthPoints, healthPoints, maxSP, sP, equippedWeapon, equippedArmor, baseAttack):
@@ -71,6 +71,16 @@ class Player:
     # swaps inventory armor and equipped amor
     def swap_armors(self):
         self.equippedArmor, self.inventoryArmor = (self.inventoryArmor, self.equippedArmor)
+
+    # checks for available slots
+    def has_weapon_slot(self):
+        return self.inventoryWeapon is None
+    
+    def has_armor_slot(self):
+        return self.inventoryArmor is None
+    
+    def has_potion_slot(self):
+        return len(self.potions) < MAX_POTIONS
 
     # lvl up
     def level_up(self, xpReceived):
