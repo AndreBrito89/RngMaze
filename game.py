@@ -37,11 +37,3 @@ while True:
     
     elif choice == "0":
         break
-
-
-
-
-
-
-### GOOD TIMES WONT EVER COME BACK
-### BUCKLE UP AND KEEP YOUR EYES ON THE TRACK
