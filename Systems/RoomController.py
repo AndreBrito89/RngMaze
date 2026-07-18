@@ -2,7 +2,7 @@ import random
 from Map.Room import RoomType
 from Systems import CombatSystem
 from Systems import StageLoader
-
+from Systems import ChestSystem
 # player enter a room
 def enter_room(player, room, gameMap):
 
@@ -17,6 +17,9 @@ def enter_room(player, room, gameMap):
     if room.enemies:
         CombatSystem.start_combat(player, room, StageLoader.get_stage_data(gameMap.stage).ESCAPE_FAIL_MISS_RATE)
 
+    # opens chests after battle
+    if room.chest:
+        ChestSystem.open_chest(player, room)
 
 # marks room as cleared
 def clear_room(room):
