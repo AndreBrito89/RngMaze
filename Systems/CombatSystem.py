@@ -1,6 +1,7 @@
 import random
 from Systems import UISystem
 from Systems import RoomController
+from Systems import InventorySystem
 from Factories import LootFactory
 
 # combat flow:
@@ -81,7 +82,7 @@ def player_attack(player, room):
 
 # player uses potion
 def player_use_potion(player):
-    print("inventario inativo")
+    InventorySystem.use_potion(player)
 
 
 # player attempts to escape
