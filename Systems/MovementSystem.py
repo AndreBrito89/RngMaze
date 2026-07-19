@@ -40,29 +40,6 @@ def move_back(gameMap, player):
 
     move_to(gameMap, player, current.parent)
 
-# UI assistant
-def show_options(gameMap):
-
-    # assigns current room to room
-    room = current_room(gameMap)
-
-    # prints its id
-    print(f"\nSala {room.id}")
-    # prints possible options and movement
-    if room.left:
-        print("1 - Esquerda")
-
-    if room.right:
-        print("2 - Direita")
-
-    if room.parent:
-        print("3 - Voltar")
-    
-    # prints player status
-    print("4 - Player status")
-    # prints map
-    print("5 - Mapa")
-    print("0 - Exit game")
 
 # gives you the current room in which the player is located
 def current_room(gameMap):

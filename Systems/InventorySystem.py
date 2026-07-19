@@ -73,6 +73,28 @@ def obtain_potion(player, newPotion):
     elif potionAction == "2" and selectedPotion == 6:
         print(f"Voce descartou {newPotion.potionName}")
 
+# INVENTORY ACTIONS
+def player_inventory_actions(player):
+
+    #receives selection from UI
+    selectedInventoryAction = UISystem.show_inventory_menu_options()
+    
+    # opens use potion menu
+    if selectedInventoryAction == 1:
+        use_potion(player)
+    # player swaps weapons
+    elif selectedInventoryAction == 2:
+        UISystem.show_player_weapons(player)
+        swap_weapons(player)
+    # player swaps armors
+    elif selectedInventoryAction == 3:
+        UISystem.show_player_armors(player)
+        swap_armors(player)
+
+#############
+## HELPERS ##
+#############
+# use potion
 def use_potion(player):
     # checks if the player has any potions
     if len(player.potions) == 0:
@@ -88,3 +110,21 @@ def use_potion(player):
     player.use_potion(potion)
 
     print(f"Voce consumiu {potion.potionName}!")
+
+# swap weapons
+def swap_weapons(player):
+    #checks if player has another weapon in the inventory
+    if player.has_weapon_slot():
+        print("Voce nao possui arma no inventario")
+        return
+    player.swap_weapons()
+    print(f"Voce equipou {player.equippedWeapon.weaponName}!")
+
+# swap armor
+def swap_armors(player):
+    #checks if player has another armor in the inventory
+    if player.has_armor_slot():
+        print("Voce nao possui armadura no inventario")
+        return
+    player.swap_armors()
+    print(f"Voce equipou {player.equippedArmor.armorName}!")

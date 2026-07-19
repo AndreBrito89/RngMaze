@@ -1,6 +1,7 @@
 from Factories.PlayerFactory import create_new_player
 from Systems import StageLoader
 from Systems import MovementSystem
+from Systems import InventorySystem
 from Systems import UISystem
 
 player_name, player_class, player_bonus_points = UISystem.get_player_info()
@@ -16,7 +17,7 @@ while True:
 
     print(f"\nVoce esta na sala {room.id}")
 
-    MovementSystem.show_options(gameMap)
+    UISystem.show_main_menu_options(gameMap)
 
     choice = input("> ")
 
@@ -33,7 +34,13 @@ while True:
         UISystem.show_player_status(player)
 
     elif choice == "5":
+        InventorySystem.player_inventory_actions(player)
+
+    elif choice == "6":
         UISystem.show_map(gameMap)
     
     elif choice == "0":
         break
+
+
+# ADD OPTION TO NOT CONSUME ANY POTION, NOT CHANGE THE WEAPON/ARMOR

@@ -1,4 +1,5 @@
 from Map.Room import RoomType
+from Systems import MovementSystem
 import os
 import subprocess
 
@@ -15,6 +16,52 @@ def clear_console():
 ###########
 ## MENUS ##
 ###########
+# MAIN MENU OPTIONS
+def show_main_menu_options(gameMap):
+
+    # assigns current room to room
+    room = MovementSystem.current_room(gameMap)
+
+    # prints its id
+    print(f"\nSala {room.id}")
+
+    # prints possible movement options
+    if room.left:
+        print("1 - Esquerda")
+
+    if room.right:
+        print("2 - Direita")
+
+    if room.parent:
+        print("3 - Voltar")
+    
+    # extra options
+    print("4 - Status do Jogador")
+    print("5 - Inventario")
+    print("6 - Mapa")
+    print("0 - Exit game")
+
+# inventory menu options
+def show_inventory_menu_options():
+    while True:
+        print("1 -> Pochete de Pocoes")
+        print("2 -> Trocar arma")
+        print("3 -> Trocar armadura")
+
+        selectedInventoryOption = input()
+
+        if not selectedInventoryOption.isdigit():
+            print("Opcao invalida")
+            continue
+        #int conversion
+        selectedInventoryOption = int(selectedInventoryOption)
+
+        if 1 <= selectedInventoryOption <= 3:
+            return selectedInventoryOption
+        
+        print("Opcao invalida")
+        
+
 
 # prints combat options
 def combat_options(player, enemy):
@@ -93,11 +140,31 @@ def show_player_status(player):
     print(f"HP: {player.healthPoints}/{player.maxHealthPoints}")
     print(f"SP: {player.sP}/{player.maxSP}")
     print("------------------------------------------------")
-    print(f"Arma: {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totaldmgValue}")
+    print(f"Arma: {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totaldmgValue} | Raridade: {player.equippedWeapon.weaponRarity}")
     print(f"Armadura: {player.equippedArmor.armorName}| Dano reduzido: {player.equippedArmor.armorDefenseValue}")
     print("------------------------------------------------")
     print(f"Key: {'Yes' if player.hasKey else 'No'}")
     print("================================")
+
+# shows player's available weapons
+def show_player_weapons(player):
+    print("        ---- ARMAS ----")
+    print("==========================================================================")
+    print(f"Equipada: {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totaldmgValue} | Raridade: {player.equippedWeapon.weaponRarity}")
+    if not player.has_weapon_slot():
+        print(f"Inventario: {player.inventoryWeapon.weaponName} | Dano: {player.inventoryWeapon.totaldmgValue} | Raridade: {player.inventoryWeapon.weaponRarity}")
+    print("==========================================================================")
+
+# shows player's available armors
+def show_player_armors(player):
+    print("        ---- ARMADURAS ----")
+    print("=====================================================================================")
+    print(f"Equipada: {player.equippedArmor.armorName} | Dano Reduzido: {player.equippedArmor.armorDefenseValue}")
+    if not player.has_armor_slot():
+        print(f"Equipada: {player.inventoryArmor.armorName} | Dano Reduzido: {player.inventoryArmor.armorDefenseValue}")
+    print("=====================================================================================")
+    
+
 # shows the list of the player's potions
 def show_player_potions(player):
         
