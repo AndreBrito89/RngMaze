@@ -53,7 +53,7 @@ def obtain_potion(player, newPotion):
         return
     
     # selects a potion
-    selectedPotion = UISystem.choose_new_potion_option(player, newPotion)
+    selectedPotion = UISystem.choose_new_potion_option(player)
 
     # asks if player wants to consume or discard the selected potion
     potionAction = UISystem.choose_potion_action()
@@ -81,21 +81,19 @@ def player_inventory_actions(player):
     
     # opens use potion menu
     if selectedInventoryAction == 1:
-        use_potion(player)
+        potion_options(player)
     # player swaps weapons
     elif selectedInventoryAction == 2:
-        UISystem.show_player_weapons(player)
-        swap_weapons(player)
+        weapon_options(player)
     # player swaps armors
     elif selectedInventoryAction == 3:
-        UISystem.show_player_armors(player)
-        swap_armors(player)
+        armor_options(player)
 
 #############
 ## HELPERS ##
 #############
 # use potion
-def use_potion(player):
+def potion_options(player):
     # checks if the player has any potions
     if len(player.potions) == 0:
         print("Voce nao possui pocoes!")
@@ -104,27 +102,41 @@ def use_potion(player):
     UISystem.show_player_potions(player)
 
     selectedPotion = UISystem.select_inventory_potion(player)
-    # assigns the removed potion to the potion variable
-    potion = player.potions.pop(selectedPotion - 1)
-
-    player.use_potion(potion)
-
-    print(f"Voce consumiu {potion.potionName}!")
-
+    
+    print(f"Pressione 1 para consumir {player.potions[selectedPotion - 1].potionName}, qualquer outra tecla para voltar")
+    potionConsume = input()
+    
+    if potionConsume == "1":
+        # assigns the removed potion to the potion variable
+        potion = player.potions.pop(selectedPotion - 1)
+        player.use_potion(potion)
+        print(f"Voce consumiu {potion.potionName}!")
+    
 # swap weapons
-def swap_weapons(player):
+def weapon_options(player):
     #checks if player has another weapon in the inventory
     if player.has_weapon_slot():
         print("Voce nao possui arma no inventario")
         return
-    player.swap_weapons()
-    print(f"Voce equipou {player.equippedWeapon.weaponName}!")
+    
+    UISystem.show_player_weapons(player)
+    
+    print("Pressione 1 para trocar de arma, qualquer outra tecla para voltar")
+    weaponSwap = input()
+    if weaponSwap == "1":
+        player.swap_weapons()
+        print(f"Voce equipou {player.equippedWeapon.weaponName}!")
 
 # swap armor
-def swap_armors(player):
+def armor_options(player):
     #checks if player has another armor in the inventory
     if player.has_armor_slot():
         print("Voce nao possui armadura no inventario")
         return
-    player.swap_armors()
-    print(f"Voce equipou {player.equippedArmor.armorName}!")
+    
+    UISystem.show_player_armors(player)
+    print("Pressione 1 para trocar de arma, qualquer outra tecla para voltar")
+    armorSwap = input()
+    if armorSwap == "1":
+        player.swap_armors()
+        print(f"Voce equipou {player.equippedArmor.armorName}!")

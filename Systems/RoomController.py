@@ -3,16 +3,14 @@ from Map.Room import RoomType
 from Systems import CombatSystem
 from Systems import StageLoader
 from Systems import ChestSystem
+from Systems import UISystem
 # player enter a room
 def enter_room(player, room, gameMap):
 
     # marks room as visited
     room.visited = True
 
-    # check if the room is already clear
-    if room.cleared:
-        return
-    
+
     # starts combat if there are enemies
     if room.enemies:
         CombatSystem.start_combat(player, room, StageLoader.get_stage_data(gameMap.stage).ESCAPE_FAIL_MISS_RATE)
@@ -20,12 +18,17 @@ def enter_room(player, room, gameMap):
     # opens chests after battle
     if room.chest:
         ChestSystem.open_chest(player, room)
+    
+    # check if the room is already clear
+    if room.cleared:
+        return
+    
 
 # marks room as cleared
 def clear_room(room):
     room.cleared = True
     room.enemies.clear()
-    print("Sala concluida!")
+    print("\nSala concluida!\n")
 
 
 # attempts to escape

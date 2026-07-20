@@ -82,7 +82,7 @@ def player_attack(player, room):
 
 # player uses potion
 def player_use_potion(player):
-    InventorySystem.use_potion(player)
+    InventorySystem.potion_options(player)
 
 
 # player attempts to escape
@@ -131,7 +131,7 @@ def current_enemy(room):
 # player clears room
 def victory(player, room):
     
-    print("Victory!")
+    print("Voce venceu a batalha!")
 
     if room.hasChest:
         room.hasChest = False
@@ -141,7 +141,7 @@ def victory(player, room):
     if room.hasKey:
         player.hasKey = True
         room.hasKey = False
-        print("Voce obteve a chave!")
+        print("\n**Voce obteve a chave!**\n")
 
     RoomController.clear_room(room)
 

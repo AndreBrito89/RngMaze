@@ -38,11 +38,11 @@ def show_main_menu_options(gameMap):
     # extra options
     print("4 - Status do Jogador")
     print("5 - Inventario")
-    print("6 - Mapa")
     print("0 - Exit game")
 
 # inventory menu options
 def show_inventory_menu_options():
+    clear_console()
     while True:
         print("1 -> Pochete de Pocoes")
         print("2 -> Trocar arma")
@@ -135,7 +135,7 @@ def get_player_info():
 def show_player_status(player):
     print("        ---- STATUS ----")
     print("================================")
-    print(f"Jogador: {player.name}")
+    print(f"Jogador: {player.name} | XP: {player.xpPoints}")
     print("------------------------------------------------")
     print(f"HP: {player.healthPoints}/{player.maxHealthPoints}")
     print(f"SP: {player.sP}/{player.maxSP}")
@@ -145,6 +145,7 @@ def show_player_status(player):
     print("------------------------------------------------")
     print(f"Key: {'Yes' if player.hasKey else 'No'}")
     print("================================")
+    clear_console()
 
 # shows player's available weapons
 def show_player_weapons(player):
@@ -238,17 +239,13 @@ def choose_armor_to_discard(player, newArmor):
         print("Opcao invalida!")
 
 # player chooses a potion from either their inventory or the new one
-def choose_new_potion_option(player, newPotion):
+def choose_new_potion_option(player):
     # player chooses a potion
     while True:
         print("Voce nao pode carregar mais pocoes!")
         print("Selecione uma pocao")
-        print("----------------------------------")
-        # iterates instance of potion in player.potions
-        for i, potion in enumerate(player.potions, start=1):
-            print(f"{i} -> {potion.potionName} | +{potion.potionRegenPoints} {potion.potionType}")
-        print(f"6 -> {newPotion.potionName} | +{newPotion.potionRegenPoints} {newPotion.potionType}")
-        print("----------------------------------")
+
+        show_player_potions(player)
         
         player_selected_potion = input()
 
@@ -275,16 +272,18 @@ def choose_potion_action():
             return potionOption
 
         print("Opcao invalida!")                  
+
 ##################
 ## MAP RELATED ###
 ##################
-
 # prints map
 def show_map(gameMap):
-    clear_console()
-    print("\n============ MAP ============")
+    # prints map
+    print("\n============ MAPA ============")
     draw_room(gameMap.root, "", True, gameMap.currentRoom)
     print("\n============================")
+
+    # prints room symbol
     print("[P] - posicao atual")
     print("[ ] - sala vazia")
     print("[X] - sala com inimigos ativos")

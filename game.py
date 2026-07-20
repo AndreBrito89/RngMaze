@@ -15,6 +15,8 @@ while True:
         break
     room = gameMap.currentRoom
 
+
+    UISystem.show_map(gameMap)
     print(f"\nVoce esta na sala {room.id}")
 
     UISystem.show_main_menu_options(gameMap)
@@ -35,9 +37,6 @@ while True:
 
     elif choice == "5":
         InventorySystem.player_inventory_actions(player)
-
-    elif choice == "6":
-        UISystem.show_map(gameMap)
     
     elif choice == "0":
         break
