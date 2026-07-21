@@ -45,19 +45,19 @@ def populate(gameMap):
         match room.roomType:
             # creates 1 enemy
             case RoomType.NORMAL:
+                room.enemies = create_normal_encounter(gameMap.stage)
 
-                room.enemies = [create_enemy(gameMap.stage)]
             # creates 2 enemies + chest after victory
             case RoomType.TREASURE:
-
-                room.enemies = [create_enemy(gameMap.stage), create_enemy(gameMap.stage)]
+                room.enemies = create_treasure_encounter(gameMap.stage)
                 room.hasChest = True
+
             # creates 2 enemies + chest and key after victory
             case RoomType.KEY:
-
-                room.enemies = [create_enemy(gameMap.stage), create_enemy(gameMap.stage)]
+                room.enemies = create_key_encounter(gameMap.stage)
                 room.hasKey = True
                 room.hasChest = True
+
             # creates a boss with an exit door. Player can go through to the next stage if they've got the key
             case RoomType.EXIT:
 
@@ -86,3 +86,27 @@ def assign_room_types(gameMap, possibleKeys, possibleExits, treasureRate):
             # checks for stage treasure rate
             if roomRandomValue <= treasureRate : 
                 room.roomType = RoomType.TREASURE
+
+#############
+## HELPERS ##
+#############
+
+# random enemy
+def create_normal_encounter(stage):
+    return [
+        create_enemy(stage)
+    ]
+
+# 1x tier1 enemy + random enemy
+def create_treasure_encounter(stage):
+    return [
+        create_enemy(stage, 1),
+        create_enemy(stage, random.choice([1, 2, 3]))
+    ]
+
+# 1x tier1 enemy + tier2 OR tier3
+def create_key_encounter(stage):
+    return [
+        create_enemy(stage, 1),
+        create_enemy(stage, random.choice([2, 3]))
+    ]

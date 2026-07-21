@@ -40,9 +40,12 @@ BOSSES = {
 
 
 # creates an enemy based on the stage
-def create_enemy(stage):
+def create_enemy(stage, tier=None):
 
-    enemyData = random.choice(ENEMIES[stage])
+    if tier is None:
+        enemyData = random.choice(ENEMIES[stage])
+    else:
+        enemyData = ENEMIES[stage][tier - 1]
 
 # => *enemyData is equivalent to:
 #
