@@ -42,4 +42,5 @@ while True:
         break
 
 
-# fix populate enemy issue
+# work on lvl up
+# add stage transition
