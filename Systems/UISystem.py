@@ -1,7 +1,8 @@
-from Map.Room import RoomType
-from Systems import MovementSystem
 import os
 import subprocess
+from Map.Room import RoomType
+from Systems import MovementSystem
+
 
 # helper
 def clear_console():
@@ -61,7 +62,9 @@ def show_inventory_menu_options():
         
         print("Opcao invalida")
         
-
+######################
+### PLAYER RELATED ###
+######################
 
 # prints combat options
 def combat_options(player, enemy):
@@ -99,11 +102,9 @@ def get_player_info():
             print("Opcao invalida!")
             continue
         
-        match newPlayerClass:
-            case "1":
-                break
-            case "2":
-                break
+        if newPlayerClass in ('1', '2', '3'):
+            break
+            
     
     # bonus points
     while True:
@@ -116,20 +117,11 @@ def get_player_info():
         if not newPlayerExtraPoints.isdigit():
             print("Opcao invalida!")
             continue
-        match newPlayerExtraPoints:
-            case "1":
-                break
-            case "2":
-                break
-            case "3":
+        if newPlayerExtraPoints in ('1','2','3'):
                 break
 
     return newPlayerName, newPlayerClass, newPlayerExtraPoints
 
-
-######################
-### PLAYER RELATED ###
-######################
 
 # prints player status
 def show_player_status(player):
@@ -200,9 +192,9 @@ def choose_weapon_to_discard(player, newWeapon):
         print("Escolha uma arma para descartar:")
         print("\n* Lista de armas *")
         print("+----------------------------------------------------------------------------------------------------------------------------------------+")
-        print(f"|1 -> Equipada: {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totalDmgValue} | Raridade: {player.equippedWeapon.weaponRarity} |")
-        print(f"|2 -> Inventario: {player.inventoryWeapon.weaponName} | Dano: {player.inventoryWeapon.totalDmgValue} | Raridade: {player.inventoryWeapon.weaponRarity}")
-        print(f"|3 -> Nova: {newWeapon.weaponName} | Dano: {newWeapon.totalDmgValue} | Raridade: {newWeapon.weaponRarity}")
+        print(f"|1 -> Equipada: {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totaldmgValue} | Raridade: {player.equippedWeapon.weaponRarity} |")
+        print(f"|2 -> Inventario: {player.inventoryWeapon.weaponName} | Dano: {player.inventoryWeapon.totaldmgValue} | Raridade: {player.inventoryWeapon.weaponRarity}")
+        print(f"|3 -> Nova: {newWeapon.weaponName} | Dano: {newWeapon.totaldmgValue} | Raridade: {newWeapon.weaponRarity}")
         print("+----------------------------------------------------------------------------------------------------------------------------------------+")
         
         player_discarded_weapon = input()
@@ -239,7 +231,7 @@ def choose_armor_to_discard(player, newArmor):
         print("Opcao invalida!")
 
 # player chooses a potion from either their inventory or the new one
-def choose_new_potion_option(player):
+def choose_max_potion_option(player):
     # player chooses a potion
     while True:
         print("Voce nao pode carregar mais pocoes!")
@@ -260,7 +252,7 @@ def choose_new_potion_option(player):
         print("Opcao invalida!")
 
 # player chooses to either discard or consume a potion
-def choose_potion_action():
+def choose_max_potion_action():
     while True:
         print("Deseja consumir ou descartar esta pocao?")
         print("1 -> Consumir")

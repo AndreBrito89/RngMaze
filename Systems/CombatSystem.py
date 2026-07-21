@@ -2,6 +2,7 @@ import random
 from Systems import UISystem
 from Systems import RoomController
 from Systems import InventorySystem
+from Systems import ChestSystem
 from Factories import LootFactory
 
 # combat flow:
@@ -115,9 +116,9 @@ def enemy_turn(player, room):
     enemy_damage = enemy.attack()
     player.defend(enemy_damage)
 
-    # prints damage received after armor reduction
     total_enemy_damage = max(0, enemy_damage - player.equippedArmor.armorDefenseValue)
 
+    # prints damage received after armor reduction
     print(f"{enemy.name} atacou! O dano recebido foi: {total_enemy_damage}")
     
 # current enemy helper
@@ -136,7 +137,8 @@ def victory(player, room):
     if room.hasChest:
         room.hasChest = False
         room.chest = LootFactory.create_chest(player.playerClass)
-        print("Um bau apareceu!")
+        print("\nUm bau apareceu!\n")
+        ChestSystem.open_chest(player, room)
 
     if room.hasKey:
         player.hasKey = True

@@ -42,4 +42,4 @@ while True:
         break
 
 
-# ADD OPTION TO NOT CONSUME ANY POTION, NOT CHANGE THE WEAPON/ARMOR
+# fix populate enemy issue

@@ -34,6 +34,9 @@ class Player:
     #defend
     def defend(self, dmgReceived):
         totalDmgReceived = dmgReceived - self.equippedArmor.armorDefenseValue
+        if totalDmgReceived <= 0:
+            print(f"Sua {self.equippedArmor.armorName} absorveu o dano recebido!")
+            return
         self.healthPoints -= totalDmgReceived
 
     #escape function

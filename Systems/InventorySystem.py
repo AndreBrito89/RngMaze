@@ -53,10 +53,10 @@ def obtain_potion(player, newPotion):
         return
     
     # selects a potion
-    selectedPotion = UISystem.choose_new_potion_option(player)
+    selectedPotion = UISystem.choose_max_potion_option(player)
 
     # asks if player wants to consume or discard the selected potion
-    potionAction = UISystem.choose_potion_action()
+    potionAction = UISystem.choose_max_potion_action()
 
     if potionAction == "1" and selectedPotion < 6:
         print(f"Voce recebeu +{player.potions[selectedPotion - 1].potionRegenPoints} {player.potions[selectedPotion - 1].potionType}")
@@ -100,13 +100,13 @@ def potion_options(player):
         return
 
     UISystem.show_player_potions(player)
-
-    selectedPotion = UISystem.select_inventory_potion(player)
+    print("Gostaria de consumir uma pocao?")
+    print("1 - Sim\n2 - Voltar")
+    potionConsumptionOption = input()
     
-    print(f"Pressione 1 para consumir {player.potions[selectedPotion - 1].potionName}, qualquer outra tecla para voltar")
-    potionConsume = input()
-    
-    if potionConsume == "1":
+    if potionConsumptionOption == "1":
+        selectedPotion = UISystem.select_inventory_potion(player)
+        
         # assigns the removed potion to the potion variable
         potion = player.potions.pop(selectedPotion - 1)
         player.use_potion(potion)
