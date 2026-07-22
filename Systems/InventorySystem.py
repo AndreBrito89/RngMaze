@@ -158,7 +158,6 @@ def player_level_up(player):
 
     # player selects attribute for the extra level
     if can_player_levelup:
-        pass
         # selects extra point
         selectedLevelUpExtraPoints = UISystem.select_levelup_extra_point()
         # assigns extra point based on the player level

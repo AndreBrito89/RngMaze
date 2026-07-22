@@ -2,6 +2,7 @@ import os
 import subprocess
 from Map.Room import RoomType
 from Systems import MovementSystem
+from Systems import ProgressionSystem
 
 
 # helper
@@ -143,7 +144,7 @@ def select_levelup_extra_point():
 def show_player_status(player):
     print("        ---- STATUS ----")
     print("================================")
-    print(f"Jogador: {player.name} | Level: {player.playerLevel} | XP: {player.xpPoints}")
+    print(f"Jogador: {player.name} | Level: {player.playerLevel} | XP: {player.xpPoints}/{ProgressionSystem.xp_required_for_next_level(player.playerLevel)}")
     print("------------------------------------------------")
     print(f"HP: {player.healthPoints}/{player.maxHealthPoints}")
     print(f"SP: {player.sP}/{player.maxSP}")
