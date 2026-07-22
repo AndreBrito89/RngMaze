@@ -38,16 +38,16 @@ def show_main_menu_options(gameMap):
     
     # extra options
     print("4 - Status do Jogador")
-    print("5 - Inventario")
     print("0 - Exit game")
 
 # inventory menu options
 def show_inventory_menu_options():
-    clear_console()
     while True:
-        print("1 -> Pochete de Pocoes")
+        print("1 - Level up")
         print("2 -> Trocar arma")
         print("3 -> Trocar armadura")
+        print("4 -> Pochete de Pocoes")
+        print("5 -> Voltar")
 
         selectedInventoryOption = input()
 
@@ -57,7 +57,7 @@ def show_inventory_menu_options():
         #int conversion
         selectedInventoryOption = int(selectedInventoryOption)
 
-        if 1 <= selectedInventoryOption <= 3:
+        if 1 <= selectedInventoryOption <= 5:
             return selectedInventoryOption
         
         print("Opcao invalida")
@@ -122,12 +122,28 @@ def get_player_info():
 
     return newPlayerName, newPlayerClass, newPlayerExtraPoints
 
+# receives player's selected attribute from level up
+def select_levelup_extra_point():
+
+    while True:
+
+        print("Escolha um atributo:")
+        print("1 - HP")
+        print("2 - SP")
+        print("3 - Dano")
+
+        playerLevelUpExtraPoints = input()
+
+        if playerLevelUpExtraPoints in ("1", "2", "3"):
+            return int(playerLevelUpExtraPoints)
+
+        print("Opcao invalida!")
 
 # prints player status
 def show_player_status(player):
     print("        ---- STATUS ----")
     print("================================")
-    print(f"Jogador: {player.name} | XP: {player.xpPoints}")
+    print(f"Jogador: {player.name} | Level: {player.playerLevel} | XP: {player.xpPoints}")
     print("------------------------------------------------")
     print(f"HP: {player.healthPoints}/{player.maxHealthPoints}")
     print(f"SP: {player.sP}/{player.maxSP}")
@@ -137,7 +153,6 @@ def show_player_status(player):
     print("------------------------------------------------")
     print(f"Key: {'Yes' if player.hasKey else 'No'}")
     print("================================")
-    clear_console()
 
 # shows player's available weapons
 def show_player_weapons(player):

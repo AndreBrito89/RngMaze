@@ -33,14 +33,10 @@ while True:
         MovementSystem.move_back(gameMap, player)
 
     elif choice == "4":
-        UISystem.show_player_status(player)
-
-    elif choice == "5":
-        InventorySystem.player_inventory_actions(player)
-    
+        InventorySystem.player_menu_actions(player)
+        
     elif choice == "0":
         break
 
 
-# work on lvl up
 # add stage transition

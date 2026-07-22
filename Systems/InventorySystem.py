@@ -1,4 +1,5 @@
 from Systems import UISystem
+from Systems import ProgressionSystem
 
 # player gets a weapon drop
 def obtain_weapon(player, newWeapon):
@@ -74,20 +75,29 @@ def obtain_potion(player, newPotion):
         print(f"Voce descartou {newPotion.potionName}")
 
 # INVENTORY ACTIONS
-def player_inventory_actions(player):
+def player_menu_actions(player):
+    # shows player's status
+    UISystem.show_player_status(player)
 
     #receives selection from UI
     selectedInventoryAction = UISystem.show_inventory_menu_options()
     
-    # opens use potion menu
+    # level up
     if selectedInventoryAction == 1:
-        potion_options(player)
+        player_level_up(player)
     # player swaps weapons
     elif selectedInventoryAction == 2:
         weapon_options(player)
     # player swaps armors
     elif selectedInventoryAction == 3:
         armor_options(player)
+    # potion options
+    elif selectedInventoryAction == 4:
+        potion_options(player)
+    # exits inventory menu
+    else:
+        return
+
 
 #############
 ## HELPERS ##
@@ -140,3 +150,16 @@ def armor_options(player):
     if armorSwap == "1":
         player.swap_armors()
         print(f"Voce equipou {player.equippedArmor.armorName}!")
+
+def player_level_up(player):
+
+    # checks if player can level up
+    can_player_levelup = player.level_up(ProgressionSystem.xp_required_for_next_level(player.playerLevel))
+
+    # player selects attribute for the extra level
+    if can_player_levelup:
+        pass
+        # selects extra point
+        selectedLevelUpExtraPoints = UISystem.select_levelup_extra_point()
+        # assigns extra point based on the player level
+        ProgressionSystem.level_up_extra_points(player, selectedLevelUpExtraPoints)

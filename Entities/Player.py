@@ -6,6 +6,7 @@
 # - sp = 15                             || - sp = 24
 ESCAPE_COST = 10
 MAX_POTIONS = 5
+MAX_LEVEL = 10
 class Player:
     #CONSTRUCTOR
     def __init__(self, name, xpPoints, playerLevel, playerClass, maxHealthPoints, healthPoints, maxSP, sP, equippedWeapon, equippedArmor, baseAttack):
@@ -85,7 +86,21 @@ class Player:
     def has_potion_slot(self):
         return len(self.potions) < MAX_POTIONS
 
+    
     # lvl up
-    def level_up(self, xpReceived):
-        #kd a logica
-        pass
+    def level_up(self, requiredXP):
+        # checks if player is already at max lvl
+        if self.playerLevel == MAX_LEVEL:
+            print("Voce atingiu o nivel maximo!")
+            return False
+        # checks if player has enough xp points
+        if self.xpPoints < requiredXP:
+            print("Voce nao tem xp suficientes para subir de nivel!")
+            return False
+        # removes xp from the player and concedes a level
+        self.xpPoints -= requiredXP
+        self.playerLevel += 1
+        return True
+
+        
+        
