@@ -6,8 +6,8 @@ def xp_required_for_next_level(playerLevel):
 # extra points gained based on player level
 def level_up_extra_points(player, selectedStat):
 
-    # Levels 2-5 (player just reached these levels)
-    if player.playerLevel <= 5:
+    # Levels 2-4
+    if player.playerLevel <= 4:
         if player.playerClass == "Warrior":
             hpBonus = 8
             spBonus = 4
@@ -16,7 +16,7 @@ def level_up_extra_points(player, selectedStat):
             hpBonus = 4
             spBonus = 8
             dmgBonus = 2
-    # Levels 6-8
+    # Levels 5-8
     elif player.playerLevel <= 8:
         if player.playerClass == "Warrior":
             hpBonus = 6
@@ -38,14 +38,14 @@ def level_up_extra_points(player, selectedStat):
             dmgBonus = 1
 
     match selectedStat:
-
+        # HP
         case 1:
             player.maxHealthPoints += hpBonus
             player.healthPoints += hpBonus
-
+        # SP
         case 2:
             player.maxSP += spBonus
             player.sP += spBonus
-
+        # DMG
         case 3:
             player.baseAttack += dmgBonus
