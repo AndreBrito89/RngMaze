@@ -2,6 +2,7 @@ from Factories.PlayerFactory import create_new_player
 from Systems import StageLoader
 from Systems import MovementSystem
 from Systems import InventorySystem
+from Systems import ProgressionSystem
 from Systems import UISystem
 
 player_name, player_class, player_bonus_points = UISystem.get_player_info()
@@ -34,9 +35,12 @@ while True:
 
     elif choice == "4":
         InventorySystem.player_menu_actions(player)
-        
+
+    elif choice == "5":
+        gameMap = ProgressionSystem.try_enter_next_stage(player, gameMap)       
     elif choice == "0":
         break
 
 
-# add stage transition
+# fix gameMap.currenRoom 'nonetype' after finishing stage 3
+# fix enemy dmg numbers

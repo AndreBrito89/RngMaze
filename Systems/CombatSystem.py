@@ -4,6 +4,7 @@ from Systems import RoomController
 from Systems import InventorySystem
 from Systems import ChestSystem
 from Factories import LootFactory
+from Map import Room
 
 # combat flow:
 # checks room for enemies-> combat UI -> player turn -> resolve action -> enemy turn -> checks if someone died -> loop previous part -> victory
@@ -145,6 +146,11 @@ def victory(player, room):
         room.hasKey = False
         print("\n**Voce obteve a chave!**\n")
 
+    if room.roomType == Room.RoomType.EXIT:
+        room.chest = LootFactory.create_boss_chest(player.playerClass)
+        print("O chefe guardava um baú!")
+        ChestSystem.open_chest(player, room)
+        
     RoomController.clear_room(room)
 
 # player dies (restart run?)

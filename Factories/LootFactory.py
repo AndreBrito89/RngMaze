@@ -65,6 +65,20 @@ def create_chest(playerClass):
     else:      
         chestLoot = potion_generator()
         return chestLoot
+def create_boss_chest(playerClass):
+    #65% weapon
+    #35 armor
+    bossChestItemValue = random.randint(1,100)
+    if (bossChestItemValue > 35):
+        if playerClass == "Warrior":
+            bossDrop = melee_weapon_generator('Boss')
+            return bossDrop
+        if playerClass == "Mage":
+            bossDrop = catalyst_generator('Boss')
+            return bossDrop
+    else:
+        bossDrop = armor_generator(boss_armor_name_generator())
+        return bossDrop
 
 
 

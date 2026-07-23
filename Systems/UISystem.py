@@ -39,6 +39,7 @@ def show_main_menu_options(gameMap):
     
     # extra options
     print("4 - Status do Jogador")
+    print("5 - Procurar Porta Secreta")
     print("0 - Exit game")
 
 # inventory menu options
@@ -143,8 +144,10 @@ def select_levelup_extra_point():
 # prints player status
 def show_player_status(player):
     print("        ---- STATUS ----")
-    print("================================")
+    print("================================================")
     print(f"Jogador: {player.name} | Level: {player.playerLevel} | XP: {player.xpPoints}/{ProgressionSystem.xp_required_for_next_level(player.playerLevel)}")
+    print("------------------------------------------------")
+    print(f"Classe: {player.playerClass}           | Dano Base: {player.baseAttack}")
     print("------------------------------------------------")
     print(f"HP: {player.healthPoints}/{player.maxHealthPoints}")
     print(f"SP: {player.sP}/{player.maxSP}")
@@ -153,7 +156,7 @@ def show_player_status(player):
     print(f"Armadura: {player.equippedArmor.armorName}| Dano reduzido: {player.equippedArmor.armorDefenseValue}")
     print("------------------------------------------------")
     print(f"Key: {'Yes' if player.hasKey else 'No'}")
-    print("================================")
+    print("================================================")
 
 # shows player's available weapons
 def show_player_weapons(player):
@@ -207,11 +210,11 @@ def choose_weapon_to_discard(player, newWeapon):
     while True:
         print("Escolha uma arma para descartar:")
         print("\n* Lista de armas *")
-        print("+----------------------------------------------------------------------------------------------------------------------------------------+")
+        print("+-----------------------------------------------------------------------------------------------------------------+")
         print(f"|1 -> Equipada: {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totaldmgValue} | Raridade: {player.equippedWeapon.weaponRarity} |")
-        print(f"|2 -> Inventario: {player.inventoryWeapon.weaponName} | Dano: {player.inventoryWeapon.totaldmgValue} | Raridade: {player.inventoryWeapon.weaponRarity}")
-        print(f"|3 -> Nova: {newWeapon.weaponName} | Dano: {newWeapon.totaldmgValue} | Raridade: {newWeapon.weaponRarity}")
-        print("+----------------------------------------------------------------------------------------------------------------------------------------+")
+        print(f"|2 -> Inventario: {player.inventoryWeapon.weaponName} | Dano: {player.inventoryWeapon.totaldmgValue} | Raridade: {player.inventoryWeapon.weaponRarity} |")
+        print(f"|3 -> Nova: {newWeapon.weaponName} | Dano: {newWeapon.totaldmgValue} | Raridade: {newWeapon.weaponRarity} |")
+        print("+-----------------------------------------------------------------------------------------------------------------+")
         
         player_discarded_weapon = input()
 
@@ -287,9 +290,9 @@ def choose_max_potion_action():
 # prints map
 def show_map(gameMap):
     # prints map
-    print("\n============ MAPA ============")
+    print("\n============= MAPA =============\n")
     draw_room(gameMap.root, "", True, gameMap.currentRoom)
-    print("\n============================")
+    print("\n==============================")
 
     # prints room symbol
     print("[P] - posicao atual")
@@ -298,7 +301,7 @@ def show_map(gameMap):
     print("[B] - sala do chefe")
     print("[K] - sala da chave")
     print("... - caminho inexplorado")
-    print("============================\n")
+    print("==============================\n")
 
 # draws room
 def draw_room(room, prefix, is_last, current):

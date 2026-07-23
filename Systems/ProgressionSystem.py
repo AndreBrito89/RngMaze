@@ -1,3 +1,5 @@
+from Map import Room
+from Systems import StageLoader
 
 # ammount of xp needed for each level up
 def xp_required_for_next_level(playerLevel):
@@ -49,3 +51,32 @@ def level_up_extra_points(player, selectedStat):
         # DMG
         case 3:
             player.baseAttack += dmgBonus
+
+# stage progression
+def try_enter_next_stage(player, gameMap):
+
+    room = gameMap.currentRoom
+
+    if room.roomType != Room.RoomType.EXIT:
+        print("Nao ha nenhuma saida aqui.")
+        return gameMap
+
+    if room.enemies:
+        print("O chefe ainda esta vivo!")
+        return gameMap
+
+    if not player.hasKey:
+        print("Voce precisa da chave.")
+        return gameMap
+
+    if gameMap.stage == 3:
+        print("Parabens! Voce concluiu o jogo!")
+        return None
+
+    player.hasKey = False
+
+    nextStage = gameMap.stage + 1
+
+    print(f"Entrando na fase {nextStage}...")
+
+    return StageLoader.load(nextStage, player)
