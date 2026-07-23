@@ -109,12 +109,12 @@ def potion_options(player):
         print("Voce nao possui pocoes!")
         return
 
-    UISystem.show_player_potions(player)
     print("Gostaria de consumir uma pocao?")
     print("1 - Sim\n2 - Voltar")
     potionConsumptionOption = input()
     
     if potionConsumptionOption == "1":
+        UISystem.show_player_potions(player)
         selectedPotion = UISystem.select_inventory_potion(player)
         
         # assigns the removed potion to the potion variable

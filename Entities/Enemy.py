@@ -1,26 +1,26 @@
 # __________________________________________________
 #|  STAGE 1 ENEMIES                                 |
 #|__________________________________________________|
-#| *rat => (12, 3, 0, 20) #hp, dmg, armor, xp       |
-#| *skelleton => (19, 6, 0, 25) #hp, dmg, armor, xp |
-#| *goblin => (21, 9, 1, 30) #hp, dmg, armor, xp    |
-#| *lich => (69, 12, 4, 100) #hp, dmg, armor, xp    | => BOSS AT THE DOOR
+#| *rat => (12, 2, 0, 20) #hp, dmg, armor, xp       |
+#| *skelleton => (19, 4, 0, 25) #hp, dmg, armor, xp |
+#| *goblin => (21, 7, 1, 30) #hp, dmg, armor, xp    |
+#| *lich => (69, 10, 3, 100) #hp, dmg, armor, xp    | => BOSS AT THE DOOR
 #+--------------------------------------------------+
 # __________________________________________________
 #|  STAGE 2 ENEMIES                                 |
 #|__________________________________________________|
-#| *wolf => (14, 4, 0, 25) #hp, dmg, armor, xp      |
-#| *zombie => (21, 7, 1, 30) #hp, dmg, armor, xp    |
-#| *orc => (32, 10, 2, 35) #hp, dmg, armor, xp      |
-#| *giant => (72, 14, 5, 110) #hp, dmg, armor, xp   | => BOSS AT THE DOOR
+#| *wolf => (14, 3, 0, 25) #hp, dmg, armor, xp      |
+#| *zombie => (21, 6, 1, 30) #hp, dmg, armor, xp    |
+#| *orc => (30, 8, 2, 35) #hp, dmg, armor, xp      |
+#| *giant => (78, 12, 5, 140) #hp, dmg, armor, xp   | => BOSS AT THE DOOR
 #+--------------------------------------------------+
 # __________________________________________________
 #|  STAGE 3 ENEMIES                                 |
 #|__________________________________________________|
 #| *bear => (16, 5, 2, 35) #hp, dmg, armor, xp      |
-#| *wraith => (25, 8, 4, 40) #hp, dmg, armor, xp    |
-#| *ogre => (38, 11, 6, 45) #hp, dmg, armor, xp     |
-#| *dragon => (80, 16, 11, 200) #hp, dmg, armor, xp | => BOSS AT THE DOOR
+#| *wraith => (24, 8, 3, 40) #hp, dmg, armor, xp    |
+#| *ogre => (38, 11, 5, 45) #hp, dmg, armor, xp     |
+#| *dragon => (92, 18, 11, 200) #hp, dmg, armor, xp | => BOSS AT THE DOOR
 #+--------------------------------------------------+
 
 #TO DO

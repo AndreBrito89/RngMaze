@@ -14,8 +14,10 @@ while True:
     # checks if player is dead
     if player.healthPoints <= 0:
         break
+    # checks if player reached last stage
+    if gameMap == None:
+        break
     room = gameMap.currentRoom
-
 
     UISystem.show_map(gameMap)
     print(f"\nVoce esta na sala {room.id}")
@@ -42,5 +44,4 @@ while True:
         break
 
 
-# fix gameMap.currenRoom 'nonetype' after finishing stage 3
-# fix enemy dmg numbers
+# fix random empty chest

@@ -65,6 +65,8 @@ def create_chest(playerClass):
     else:      
         chestLoot = potion_generator()
         return chestLoot
+    
+# creates a boss chest    
 def create_boss_chest(playerClass):
     #65% weapon
     #35 armor

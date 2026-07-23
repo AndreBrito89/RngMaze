@@ -58,7 +58,7 @@ def try_enter_next_stage(player, gameMap):
     room = gameMap.currentRoom
 
     if room.roomType != Room.RoomType.EXIT:
-        print("Nao ha nenhuma saida aqui.")
+        print("A porta secreta nao fica nesta sala.")
         return gameMap
 
     if room.enemies:

@@ -48,7 +48,7 @@ def show_inventory_menu_options():
         print("1 - Level up")
         print("2 -> Trocar arma")
         print("3 -> Trocar armadura")
-        print("4 -> Pochete de Pocoes")
+        print("4 -> Utilizar uma pocao")
         print("5 -> Voltar")
 
         selectedInventoryOption = input()
