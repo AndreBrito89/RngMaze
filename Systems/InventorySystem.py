@@ -54,7 +54,7 @@ def obtain_potion(player, newPotion):
         return
     
     # selects a potion
-    selectedPotion = UISystem.choose_max_potion_option(player)
+    selectedPotion = UISystem.choose_max_potion_option(player, newPotion)
 
     # asks if player wants to consume or discard the selected potion
     potionAction = UISystem.choose_max_potion_action()
@@ -109,14 +109,9 @@ def potion_options(player):
         print("Voce nao possui pocoes!")
         return
 
-    print("Gostaria de consumir uma pocao?")
-    print("1 - Sim\n2 - Voltar")
-    potionConsumptionOption = input()
-    
-    if potionConsumptionOption == "1":
-        UISystem.show_player_potions(player)
-        selectedPotion = UISystem.select_inventory_potion(player)
-        
+    UISystem.show_player_potions(player)
+    selectedPotion = UISystem.select_inventory_potion(player)
+    if selectedPotion != 0:
         # assigns the removed potion to the potion variable
         potion = player.potions.pop(selectedPotion - 1)
         player.use_potion(potion)

@@ -173,7 +173,7 @@ def show_player_armors(player):
     print("=====================================================================================")
     print(f"Equipada: {player.equippedArmor.armorName} | Dano Reduzido: {player.equippedArmor.armorDefenseValue}")
     if not player.has_armor_slot():
-        print(f"Equipada: {player.inventoryArmor.armorName} | Dano Reduzido: {player.inventoryArmor.armorDefenseValue}")
+        print(f"Inventario: {player.inventoryArmor.armorName} | Dano Reduzido: {player.inventoryArmor.armorDefenseValue}")
     print("=====================================================================================")
     
 
@@ -190,7 +190,8 @@ def show_player_potions(player):
 # selects a potion from inventory to consume
 def select_inventory_potion(player):
         while True:
-            print("Qual das pocoes acima gostaria de consumir?")
+            print("\nQual das pocoes acima gostaria de consumir?")
+            print("(Pressione 0 para voltar ao menu anterior)")
             player_selected_potion = input()
 
             if not player_selected_potion.isdigit():
@@ -200,7 +201,7 @@ def select_inventory_potion(player):
             player_selected_potion = int(player_selected_potion)
 
             # validates if the potion exists in the player's inventory
-            if 1 <= player_selected_potion <= len(player.potions):
+            if 1 <= player_selected_potion <= len(player.potions) or player_selected_potion == 0:
                 return player_selected_potion
         
             print("Opcao invalida!")   
@@ -250,14 +251,16 @@ def choose_armor_to_discard(player, newArmor):
         print("Opcao invalida!")
 
 # player chooses a potion from either their inventory or the new one
-def choose_max_potion_option(player):
+def choose_max_potion_option(player, newPotion):
     # player chooses a potion
     while True:
         print("Voce nao pode carregar mais pocoes!")
-        print("Selecione uma pocao")
+        print("Selecione uma pocao\n")
 
+        # shows player's potion and new potion
         show_player_potions(player)
-        
+        print(f"{6} -> {newPotion.potionName} | +{newPotion.potionRegenPoints} {newPotion.potionType}")
+
         player_selected_potion = input()
 
         if not player_selected_potion.isdigit():

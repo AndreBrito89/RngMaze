@@ -45,3 +45,5 @@ while True:
 
 
 # fix random empty chest
+# ->primeira vez bau vazio debugando rolled 10(armor)
+# when player uses potion, skip enemy turn

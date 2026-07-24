@@ -33,9 +33,9 @@ def potion_generator():
     potionSizeValue = random.randint(1,10)
     potionSize = 'Large' if potionSizeValue > 4 else 'Small'
 
-    #70% chance of beeing HP
+    #80% chance of beeing HP
     potionTypeValue = random.randint(1,10)
-    potionType = 'HP' if potionTypeValue > 3 else 'SP'
+    potionType = 'HP' if potionTypeValue > 2 else 'SP'
 
     newPotion = Potion(potionSize, potionType)
     return newPotion
@@ -50,13 +50,12 @@ def create_chest(playerClass):
     #20% weapon
     
     chestItemValue = random.randint(1,10)
-    chestLoot =''
     #armor
     if (chestItemValue == 10):
         chestLoot = armor_generator(chest_armor_name_generator())
     #weapon
     elif (chestItemValue == 9 or chestItemValue == 8):
-        if playerClass == 'Warrior' : 
+        if playerClass == 'Warrior': 
             chestLoot = melee_weapon_generator('Chest')
         if playerClass == 'Mage':
             chestLoot = catalyst_generator('Chest')
