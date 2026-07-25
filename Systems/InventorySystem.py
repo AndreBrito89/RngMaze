@@ -107,15 +107,19 @@ def potion_options(player):
     # checks if the player has any potions
     if len(player.potions) == 0:
         print("Voce nao possui pocoes!")
-        return
+        return False
 
     UISystem.show_player_potions(player)
     selectedPotion = UISystem.select_inventory_potion(player)
-    if selectedPotion != 0:
-        # assigns the removed potion to the potion variable
-        potion = player.potions.pop(selectedPotion - 1)
-        player.use_potion(potion)
-        print(f"Voce consumiu {potion.potionName}!")
+    # player returns to previous menu
+    if selectedPotion == 0:
+        return False
+
+    # assigns the removed potion to the potion variable
+    potion = player.potions.pop(selectedPotion - 1)
+    player.use_potion(potion)
+    print(f"Voce consumiu {potion.potionName}!")
+    return True
     
 # swap weapons
 def weapon_options(player):

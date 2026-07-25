@@ -16,13 +16,13 @@ def armor_generator(armorName):
         case 'Iron':
             newArmorDefenseValue = 2
         case 'Bronze':
-            newArmorDefenseValue = 5
+            newArmorDefenseValue = 3
         case 'Silver':
-            newArmorDefenseValue = 8
+            newArmorDefenseValue = 4
         case 'Gold':
-            newArmorDefenseValue = 14
-    newArmor = Armor(armorName, newArmorDefenseValue)
-    return newArmor
+            newArmorDefenseValue = 6
+    return Armor(armorName, newArmorDefenseValue)
+    
 
 
 ######################
@@ -37,8 +37,7 @@ def potion_generator():
     potionTypeValue = random.randint(1,10)
     potionType = 'HP' if potionTypeValue > 2 else 'SP'
 
-    newPotion = Potion(potionSize, potionType)
-    return newPotion
+    return Potion(potionSize, potionType)
 
 
 #####################
@@ -50,20 +49,31 @@ def create_chest(playerClass):
     #20% weapon
     
     chestItemValue = random.randint(1,10)
-    #armor
-    if (chestItemValue == 10):
-        chestLoot = armor_generator(chest_armor_name_generator())
+    print(f"DEBUG: roll = {chestItemValue}")
+    #potion
+    if (chestItemValue < 8):
+        # DEBUGBAUVAZIO
+        chestLoot = potion_generator()
+        print(f"DEBUG: returning {type(chestLoot)}")
+        return chestLoot 
     #weapon
     elif (chestItemValue == 9 or chestItemValue == 8):
-        if playerClass == 'Warrior': 
+        if playerClass == 'Warrior':
+            # DEBUGBAUVAZIO
             chestLoot = melee_weapon_generator('Chest')
+            print(f"DEBUG: returning {type(chestLoot)}") 
         if playerClass == 'Mage':
+            # DEBUGBAUVAZIO
             chestLoot = catalyst_generator('Chest')
+            print(f"DEBUG: returning {type(chestLoot)}")
         return chestLoot
-    #potion
-    else:      
-        chestLoot = potion_generator()
+    #armor
+    else:
+        # DEBUGBAUVAZIO
+        chestLoot = armor_generator(chest_armor_name_generator())
+        print(f"DEBUG: returning {type(chestLoot)}")
         return chestLoot
+        
     
 # creates a boss chest    
 def create_boss_chest(playerClass):
@@ -93,20 +103,20 @@ def chest_armor_name_generator():
     match armorRarityValue:
         #50% Leather
         case x if 1 <= x <= 50:
-            newArmorName = 'Leather'
+            return 'Leather'
         #30% Iron
         case x if 51 <= x <= 80:
-            newArmorName = 'Iron'
+            return 'Iron'
         #10% Bronze
         case x if 81 <= x <= 90:
-            newArmorName = 'Bronze'
+            return 'Bronze'
         #8% Silver
         case x if 91 <= x <= 98:
-            newArmorName = 'Silver'
+            return 'Silver'
         #2% Gold
         case x if 99 <= x <= 100 :
-            newArmorName = 'Gold'
-    return newArmorName
+            return 'Gold'
+    
 
 
 ###########################
@@ -119,11 +129,11 @@ def boss_armor_name_generator():
     match armorRarityValue:
         #70% Bronze
         case x if 1 <= x <= 70:
-            newArmorName = 'Bronze'
+            return 'Bronze'
         #23% Silver
         case x if 71 <= x <= 93:
-            newArmorName = 'Silver'
+            return 'Silver'
         #7% Gold
         case x if 94 <= x <= 100:
-            newArmorName = 'Gold'
-    return newArmorName
+            return 'Gold'
+    

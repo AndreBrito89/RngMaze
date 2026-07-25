@@ -17,15 +17,12 @@
 # __________________________________________________
 #|  STAGE 3 ENEMIES                                 |
 #|__________________________________________________|
-#| *bear => (16, 5, 2, 35) #hp, dmg, armor, xp      |
-#| *wraith => (24, 8, 2, 40) #hp, dmg, armor, xp    |
+#| *bear => (16, 7, 2, 35) #hp, dmg, armor, xp      |
+#| *wraith => (24, 9, 2, 40) #hp, dmg, armor, xp    |
 #| *ogre => (38, 11, 4, 45) #hp, dmg, armor, xp     |
-#| *dragon => (92, 18, 9, 200) #hp, dmg, armor, xp | => BOSS AT THE DOOR
+#| *dragon => (92, 19, 9, 200) #hp, dmg, armor, xp | => BOSS AT THE DOOR
 #+--------------------------------------------------+
 
-#TO DO
-# Create a child class from enemy called `boss` with
-# weapon drop that got better rarity rate. (7-3 => weapon/armor)
 class Enemy:
     #constructor
     def __init__(self, name, maxHealthPoints, attackDmg, armor, xpReward):

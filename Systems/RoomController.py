@@ -15,7 +15,8 @@ def enter_room(player, room, gameMap):
 
     # starts combat if there are enemies
     if room.enemies:
-        CombatSystem.start_combat(player, room, StageLoader.get_stage_data(gameMap.stage).ESCAPE_FAIL_MISS_RATE)
+        stageData = StageLoader.get_stage_data(gameMap.stage)
+        CombatSystem.start_combat(player, room, stageData)
         
 
 # marks room as cleared

@@ -31,9 +31,9 @@ class Melee:
             case 'Rare':
                 self.dmgModifier = 1.2
             case 'Legendary':
-                self.dmgModifier = 1.5
+                self.dmgModifier = 1.4
             case 'God':
-                self.dmgModifier = 1.8
+                self.dmgModifier = 1.6
             case _:
                 self.dmgModifier = 0
 

@@ -2,7 +2,7 @@
 #  +-----------------------------------------+
 #  |Leather| Iron | Bronze | Silver |  Gold  |    
 #  +-----------------------------------------+
-#  |   1   |   2  |   5    |   8    |   14   |
+#  |   1   |   2  |   3    |   4    |   6   |
 #  +-----------------------------------------+
 #   table of drop rate for armors
 #  +-----------------------------------------+
@@ -14,7 +14,7 @@
 class Armor:
     #constructor
     def __init__(self, armorName, armorDefenseValue):
-        self.armorName = f"{armorName} armor."
+        self.armorName = f"{armorName} armor"
         self.armorDefenseValue = armorDefenseValue
     
     

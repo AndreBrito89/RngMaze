@@ -5,7 +5,7 @@ POSSIBLE_KEY_ROOMS = [5,7,8,9]
 POSSIBLE_EXIT_ROOMS = [11,13,14]
 TREASURE_RATE = 30
 ESCAPE_FAIL_MISS_RATE = 45
-
+ESCAPE_XP_REWARD = 20
 def create():
     # list of rooms
     rooms = {}
