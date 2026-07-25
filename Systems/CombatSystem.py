@@ -143,10 +143,6 @@ def victory(player, room):
     if room.hasChest:
         room.hasChest = False
         room.chest = LootFactory.create_chest(player.playerClass)
-        # DEBUGBAUVAZIO
-        print(room.chest)
-        print(type(room.chest))
-
         print("\nUm bau apareceu!\n")
         ChestSystem.open_chest(player, room)
 

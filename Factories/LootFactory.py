@@ -52,26 +52,18 @@ def create_chest(playerClass):
     print(f"DEBUG: roll = {chestItemValue}")
     #potion
     if (chestItemValue < 8):
-        # DEBUGBAUVAZIO
         chestLoot = potion_generator()
-        print(f"DEBUG: returning {type(chestLoot)}")
         return chestLoot 
     #weapon
     elif (chestItemValue == 9 or chestItemValue == 8):
         if playerClass == 'Warrior':
-            # DEBUGBAUVAZIO
             chestLoot = melee_weapon_generator('Chest')
-            print(f"DEBUG: returning {type(chestLoot)}") 
         if playerClass == 'Mage':
-            # DEBUGBAUVAZIO
             chestLoot = catalyst_generator('Chest')
-            print(f"DEBUG: returning {type(chestLoot)}")
         return chestLoot
     #armor
     else:
-        # DEBUGBAUVAZIO
         chestLoot = armor_generator(chest_armor_name_generator())
-        print(f"DEBUG: returning {type(chestLoot)}")
         return chestLoot
         
     
