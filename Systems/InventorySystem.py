@@ -167,4 +167,4 @@ def player_level_up(player):
         lvlUpSpBonus = 2 * player.playerLevel
 
         player.healthPoints = min(player.healthPoints + lvlUpHpBonus, player.maxHealthPoints)
-        player.sP = min(player.sp + lvlUpSpBonus, player.maxSP)
+        player.sP = min(player.sP + lvlUpSpBonus, player.maxSP)

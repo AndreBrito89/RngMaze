@@ -1,9 +1,14 @@
 import os
 import subprocess
+from collections import deque
 from Map.Room import RoomType
 from Systems import MovementSystem
 from Systems import ProgressionSystem
 
+# map constants
+CANVAS_WIDTH = 120
+ROW_HEIGHT = 4        # distance between rows
+LEAF_SPACING = 8      # horizontal distance between leaf nodes
 
 # helper
 def clear_console():
@@ -294,7 +299,7 @@ def choose_max_potion_action():
 def show_map(gameMap):
     # prints map
     print("\n============= MAPA =============\n")
-    draw_room(gameMap.root, "", True, gameMap.currentRoom)
+    draw_level_map(gameMap.root, gameMap.currentRoom)
     print("\n==============================")
 
     # prints room symbol
@@ -305,48 +310,166 @@ def show_map(gameMap):
     print("[K] - sala da chave")
     print("... - caminho inexplorado")
     print("==============================\n")
+# room symbol helper
+def room_symbol(room, current):
 
-# draws room
-def draw_room(room, prefix, is_last, current):
-    # marks player's current room
-    if room == current:
-        symbol = "P"
-    # checks if the cleared room was a key room
-    elif room.cleared and room.roomType == RoomType.KEY:
-        symbol = "K"
-    # checks if the cleared room was a boss room
-    elif room.cleared and room.roomType == RoomType.EXIT:
-        symbol = "B"
-    # checks if the room was cleared
-    elif room.cleared:
-        symbol = " "
-    else:
-        symbol = "X"
-    
-    # ascii lines for room connection
-    connector = "└── " if is_last else "├── "
-    # checks if the room was visited, if it wasnt, stops printing that maze branch
+    if room is None:
+        return "   "
+
     if not room.visited:
-        print(prefix + connector + "...")
-        return
+        return "..."
 
-    print(prefix + connector + f"[{symbol}] Room {room.id}")
+    if room == current:
+        return "[P]"
 
-    children = []
-    # checks if there are rooms forward
-    if room.left:
-        children.append(room.left)
+    if room.cleared:
 
-    if room.right:
-        children.append(room.right)
+        if room.roomType == RoomType.KEY:
+            return "[K]"
 
-    new_prefix = prefix + ("    " if is_last else "│   ")
-    
-    # calls itself recursively drawing one side of the tree, then the other one
-    for i, child in enumerate(children):
-        draw_room(
-            child,
-            new_prefix,
-            i == len(children)-1,
-            current
-        )
+        if room.roomType == RoomType.EXIT:
+            return "[B]"
+
+        return "[ ]"
+
+    return "[X]"
+
+# positions
+def compute_positions(root):
+
+    positions = {}
+
+    max_depth = get_depth(root)
+
+    leaf = 0
+
+    def visit(node, depth):
+
+        nonlocal leaf
+
+        if node is None:
+            return None
+
+        #
+        # Unknown room
+        #
+        if not node.visited:
+
+            x = leaf * LEAF_SPACING
+
+            positions[node] = (x, depth)
+
+            leaf += 1
+
+            return x
+
+        #
+        # Leaf
+        #
+        if node.left is None and node.right is None:
+
+            x = leaf * LEAF_SPACING
+
+            positions[node] = (x, depth)
+
+            leaf += 1
+
+            return x
+
+        #
+        # Explore children
+        #
+        left_x = None
+        right_x = None
+
+        if node.left:
+            left_x = visit(node.left, depth + 1)
+
+        if node.right:
+            right_x = visit(node.right, depth + 1)
+
+        #
+        # Center parent
+        #
+        if left_x is not None and right_x is not None:
+            x = (left_x + right_x) // 2
+
+        elif left_x is not None:
+            x = left_x + LEAF_SPACING // 2
+
+        else:
+            x = right_x + LEAF_SPACING // 2
+
+        positions[node] = (x, depth)
+
+        return x
+
+    visit(root, 0)
+
+    return positions
+# HELPER depth of the tree
+def get_depth(node):
+
+    if node is None:
+        return 0
+
+    return 1 + max(
+        get_depth(node.left),
+        get_depth(node.right)
+    )
+
+# draws map
+def draw_level_map(root, current):
+
+    positions = compute_positions(root)
+
+    height = get_depth(root) * ROW_HEIGHT + 2
+
+    canvas = [
+        [" "] * CANVAS_WIDTH
+        for _ in range(height)
+    ]
+
+    #
+    # Draw rooms
+    #
+    for room, (x, depth) in positions.items():
+
+        y = depth * ROW_HEIGHT
+
+        text = room_symbol(room, current)
+
+        for i, c in enumerate(text):
+
+            if 0 <= x + i < CANVAS_WIDTH:
+                canvas[y][x + i] = c
+
+    #
+    # Draw connections
+    #
+    for room, (x, depth) in positions.items():
+
+        if not room.visited:
+            continue
+
+        y = depth * ROW_HEIGHT
+
+        if room.left and room.left in positions:
+
+            child_x, child_depth = positions[room.left]
+            child_y = child_depth * ROW_HEIGHT
+
+            canvas[y + 1][x] = "/"
+
+        if room.right and room.right in positions:
+
+            child_x, child_depth = positions[room.right]
+            child_y = child_depth * ROW_HEIGHT
+
+            canvas[y + 1][x + 2] = "\\"
+
+    #
+    # Print
+    #
+    for row in canvas:
+        print("".join(row).rstrip())
