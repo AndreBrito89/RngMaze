@@ -161,5 +161,10 @@ def player_level_up(player):
         selectedLevelUpExtraPoints = UISystem.select_levelup_extra_point()
         # assigns extra point based on the player level
         ProgressionSystem.level_up_extra_points(player, selectedLevelUpExtraPoints)
-        player.healthPoints = min(player.healthPoints + 10, player.maxHealthPoints)
-        player.sP = min(player.sP + 10, player.maxSP)
+
+        #lvl up regen
+        lvlUpHpBonus = 3 * player.playerLevel
+        lvlUpSpBonus = 2 * player.playerLevel
+
+        player.healthPoints = min(player.healthPoints + lvlUpHpBonus, player.maxHealthPoints)
+        player.sP = min(player.sp + lvlUpSpBonus, player.maxSP)

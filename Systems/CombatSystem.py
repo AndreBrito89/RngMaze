@@ -42,7 +42,7 @@ def player_turn(player, room, stageData):
         enemy = current_enemy(room)
         # prints combat options
         UISystem.combat_options(player, enemy)
-        choice = input()
+        choice = input("> ")
 
         # validates that the input is numeric
         if not choice.isdigit():    

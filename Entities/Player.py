@@ -6,7 +6,7 @@
 # - sp = 15                             || - sp = 24
 ESCAPE_COST = 10
 MAX_POTIONS = 5
-MAX_LEVEL = 10
+MAX_LEVEL = 15
 class Player:
     #CONSTRUCTOR
     def __init__(self, name, xpPoints, playerLevel, playerClass, maxHealthPoints, healthPoints, maxSP, sP, equippedWeapon, equippedArmor, baseAttack):

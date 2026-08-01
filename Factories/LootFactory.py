@@ -49,7 +49,7 @@ def create_chest(playerClass):
     #20% weapon
     
     chestItemValue = random.randint(1,10)
-    print(f"DEBUG: roll = {chestItemValue}")
+    
     #potion
     if (chestItemValue < 8):
         chestLoot = potion_generator()

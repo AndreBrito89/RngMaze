@@ -51,7 +51,7 @@ def show_inventory_menu_options():
         print("4 -> Utilizar uma pocao")
         print("5 -> Voltar")
 
-        selectedInventoryOption = input()
+        selectedInventoryOption = input("> ")
 
         if not selectedInventoryOption.isdigit():
             print("Opcao invalida")
@@ -91,14 +91,14 @@ def combat_options(player, enemy):
 def get_player_info():
     # player name
     print("Digite seu nome:")
-    newPlayerName = input()
+    newPlayerName = input("> ")
 
     # player class
     while True:
         print("Selecione sua classe:")
         print("1-> Warrior")
         print("2-> Mage")
-        newPlayerClass = input()
+        newPlayerClass = input("> ")
 
         if not newPlayerClass.isdigit():
             print("Opcao invalida!")
@@ -114,7 +114,7 @@ def get_player_info():
         print("1-> HP")
         print("2-> SP")
         print("3-> Dano base")
-        newPlayerExtraPoints = input()
+        newPlayerExtraPoints = input("> ")
 
         if not newPlayerExtraPoints.isdigit():
             print("Opcao invalida!")
@@ -134,7 +134,7 @@ def select_levelup_extra_point():
         print("2 - SP")
         print("3 - Dano")
 
-        playerLevelUpExtraPoints = input()
+        playerLevelUpExtraPoints = input("> ")
 
         if playerLevelUpExtraPoints in ("1", "2", "3"):
             return int(playerLevelUpExtraPoints)
@@ -192,7 +192,7 @@ def select_inventory_potion(player):
         while True:
             print("\nQual das pocoes acima gostaria de consumir?")
             print("(Pressione 0 para voltar ao menu anterior)")
-            player_selected_potion = input()
+            player_selected_potion = input("> ")
 
             if not player_selected_potion.isdigit():
                 print("Opcao invalida!")
@@ -217,7 +217,7 @@ def choose_weapon_to_discard(player, newWeapon):
         print(f"|3 -> Nova: {newWeapon.weaponName} | Dano: {newWeapon.totaldmgValue} | Raridade: {newWeapon.weaponRarity} |")
         print("+-----------------------------------------------------------------------------------------------------------------+")
         
-        player_discarded_weapon = input()
+        player_discarded_weapon = input("> ")
 
         if not player_discarded_weapon.isdigit():
             print("Opcao invalida!")
@@ -239,7 +239,7 @@ def choose_armor_to_discard(player, newArmor):
         print(f"|2 -> Inventario: {player.inventoryArmor.armorName} | Dano Reduzido: {player.inventoryArmor.armorDefenseValue} |")       
         print(f"|3 -> Nova: {newArmor.armorName} | Dano Reduzido: {newArmor.armorDefenseValue} |")       
         print("+-------------------------------------------------------------------------------------------------------+")
-        player_discarded_armor = input()
+        player_discarded_armor = input("> ")
 
         if not player_discarded_armor.isdigit():
             print("Opcao invalida!")
@@ -261,7 +261,7 @@ def choose_max_potion_option(player, newPotion):
         show_player_potions(player)
         print(f"{6} -> {newPotion.potionName} | +{newPotion.potionRegenPoints} {newPotion.potionType}")
 
-        player_selected_potion = input()
+        player_selected_potion = input("> ")
 
         if not player_selected_potion.isdigit():
             print("Opcao invalida!")
@@ -280,7 +280,7 @@ def choose_max_potion_action():
         print("1 -> Consumir")
         print("2 -> Descartar")
 
-        potionOption = input()
+        potionOption = input("> ")
 
         if potionOption in ("1", "2"):
             return potionOption

@@ -22,32 +22,30 @@ def level_up_extra_points(player, selectedStat):
     elif player.playerLevel <= 8:
         if player.playerClass == "Warrior":
             hpBonus = 6
-            spBonus = 3
-            dmgBonus = 1
+            spBonus = 1
+            dmgBonus = 2
         if player.playerClass == "Mage":
-            hpBonus = 3
+            hpBonus = 4
             spBonus = 6
             dmgBonus = 1
-    # Levels 9-10
+    # Levels 9-15
     else:
         if player.playerClass == "Warrior":
-            hpBonus = 3
-            spBonus = 2
+            hpBonus = 4
+            spBonus = 1
             dmgBonus = 1
         if player.playerClass == "Mage":
             hpBonus = 2
-            spBonus = 3
-            dmgBonus = 1
+            spBonus = 4
+            dmgBonus = 0.5
 
     match selectedStat:
         # HP
         case 1:
             player.maxHealthPoints += hpBonus
-            player.healthPoints += hpBonus
         # SP
         case 2:
             player.maxSP += spBonus
-            player.sP += spBonus
         # DMG
         case 3:
             player.baseAttack += dmgBonus

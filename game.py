@@ -44,6 +44,15 @@ while True:
         break
 
 
-# fix random empty chest
-# ->primeira vez bau vazio debugando rolled 10(armor)
-# when player uses potion, skip enemy turn
+# add merchant at room 1 after defeating enemies
+# merchant sells: 
+#               -> every potion
+# merchant tradeup:
+#               -> potion toka koka -> switches HP/SP
+#               -> armor toka koka -> 1 armor for 1 weapon (same tier)
+#               -> weapon toka koka -> 1 weapon for 1 armor (same tier)
+# merchant upgrades:
+#               -> 2 weapons for 1 weapon next rarity (weapons must be same rarity)
+#               -> 2 armors for 1 armor next rarity (armors must be same rarity)
+# merchant buys:
+#               -> armors and weapons (value based on rarity)
