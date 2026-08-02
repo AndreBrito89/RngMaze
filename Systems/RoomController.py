@@ -2,6 +2,7 @@ import random
 from Map.Room import RoomType
 from Systems import CombatSystem
 from Systems import StageLoader
+from Systems import UISystem
 
 # player enter a room
 def enter_room(player, room, gameMap):
@@ -24,6 +25,7 @@ def clear_room(room):
     room.cleared = True
     room.enemies.clear()
     print("\nSala concluida!\n")
+    UISystem.clear_console()
 
 
 # attempts to escape

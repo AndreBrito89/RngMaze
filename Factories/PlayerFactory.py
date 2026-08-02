@@ -12,19 +12,19 @@ def create_new_player(playerName, playerClass, playerBonusPoints):
             
         case "1":
             newPlayerClass = 'Warrior'
-            baseHp = 37
-            baseSp = 15
+            baseHp = 40
+            baseSp = 16
             startingWeapon = create_starting_melee_weapon()
             startingArmor = Armor('Leather', 1)
-            baseAttack = 1
+            baseAttack = 1.5
                
         case "2":
             newPlayerClass = 'Mage'
             baseHp = 19
-            baseSp = 24
+            baseSp = 25
             startingWeapon = create_starting_catalyst_weapon()
             startingArmor = Armor('No', 0)
-            baseAttack = 4  
+            baseAttack = 3  
         case "3":
             newPlayerClass = 'Mage'
             baseHp = 420

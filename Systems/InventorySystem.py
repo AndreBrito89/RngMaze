@@ -163,8 +163,13 @@ def player_level_up(player):
         ProgressionSystem.level_up_extra_points(player, selectedLevelUpExtraPoints)
 
         #lvl up regen
-        lvlUpHpBonus = 3 * player.playerLevel
-        lvlUpSpBonus = 2 * player.playerLevel
+        match player.playerClass:
+            case 'Warrior':
+                lvlUpHpBonus = 4 * player.playerLevel
+                lvlUpSpBonus = 1 * player.playerLevel
+            case 'Mage':
+                lvlUpHpBonus = 1 * player.playerLevel
+                lvlUpSpBonus = 4 * player.playerLevel                
 
         player.healthPoints = min(player.healthPoints + lvlUpHpBonus, player.maxHealthPoints)
         player.sP = min(player.sP + lvlUpSpBonus, player.maxSP)
