@@ -142,6 +142,7 @@ def merchant_buy_equipment():
             print("3 - Voltar")
             selectedEquipmentType = input("> ")
 
+            selectedEquipmentType = int(selectedEquipmentType)
             if not selectedEquipmentType.isdigit():
                 print("Opcao invalida")
                 continue
@@ -158,7 +159,7 @@ def merchant_buy_weapon_selection(player):
             print(f"2 - {player.inventoryWeapon.weaponName}")
             print("3 - Voltar")
             selectedWeapon = input("> ")
-
+            selectedWeapon = int(selectedWeapon)
             if not selectedWeapon.isdigit():
                 print("Opcao invalida")
                 continue
@@ -176,6 +177,7 @@ def merchant_buy_armor_selection(player):
             print("3 - Voltar")
             selectedArmor = input("> ")
 
+            selectedArmor = int(selectedArmor)
             if not selectedArmor.isdigit():
                 print("Opcao invalida")
                 continue

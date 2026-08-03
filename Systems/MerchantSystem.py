@@ -89,11 +89,13 @@ def swap_potion(player):
     player.xpPoints -= potionSwapCost
     # swaps potion type
     if selectedSwapPotion.potionType == "HP":
-        selectedSwapPotion.potionType = "SP"
-    else:
-        selectedSwapPotion.potionType = "HP"
+        newPotion_Type = "SP"
+        newPotion_Size = selectedSwapPotion.potionSize
+    elif selectedSwapPotion.potionType == "SP":
+        newPotion_Type = "HP"
+        newPotion_Size = selectedSwapPotion.potionSize
 
-    InventorySystem.obtain_potion(player, selectedSwapPotion)
+    InventorySystem.obtain_potion(player, LootFactory.potion_generator(newPotion_Size, newPotion_Type))
 
 # buys equipment from the player
 def buy_menu(player):
