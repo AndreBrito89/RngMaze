@@ -142,10 +142,10 @@ def merchant_buy_equipment():
             print("3 - Voltar")
             selectedEquipmentType = input("> ")
 
-            selectedEquipmentType = int(selectedEquipmentType)
             if not selectedEquipmentType.isdigit():
                 print("Opcao invalida")
                 continue
+            selectedEquipmentType = int(selectedEquipmentType)
             if 1 <= selectedEquipmentType <= 3:
                 return selectedEquipmentType
             
@@ -155,14 +155,14 @@ def merchant_buy_weapon_selection(player):
     while True:
             show_player_weapons(player)
             print("Qual das armas acima gostaria de vender?")
-            print(f"1 - {player.equippedWeapon.weaponName}")
-            print(f"2 - {player.inventoryWeapon.weaponName}")
+            print(f"1 - {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totaldmgValue} ")
+            print(f"2 - {player.inventoryWeapon.weaponName} | Dano: {player.inventoryWeapon.totaldmgValue}")
             print("3 - Voltar")
             selectedWeapon = input("> ")
-            selectedWeapon = int(selectedWeapon)
             if not selectedWeapon.isdigit():
                 print("Opcao invalida")
                 continue
+            selectedWeapon = int(selectedWeapon)
             if 1 <= selectedWeapon <= 3:
                 return selectedWeapon
             
@@ -172,15 +172,15 @@ def merchant_buy_armor_selection(player):
     while True:
             show_player_armors(player)
             print("Qual das armaduras acima gostaria de vender?")
-            print(f"1 - {player.equippedArmor.armorName}")
-            print(f"2 - {player.inventoryArmor.armorName}")
+            print(f"1 - {player.equippedArmor.armorName} armor | Dano reduzido:{player.equippedArmor.armorDefenseValue}")
+            print(f"2 - {player.inventoryArmor.armorName} armor | Dano reduzido:{player.equippedArmor.armorDefenseValue}")
             print("3 - Voltar")
             selectedArmor = input("> ")
 
-            selectedArmor = int(selectedArmor)
             if not selectedArmor.isdigit():
                 print("Opcao invalida")
                 continue
+            selectedArmor = int(selectedArmor)
             if 1 <= selectedArmor <= 3:
                 return selectedArmor
             
@@ -274,7 +274,7 @@ def show_player_status(player):
     print(f"SP: {player.sP}/{player.maxSP}")
     print("------------------------------------------------")
     print(f"Arma: {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totaldmgValue} | Raridade: {player.equippedWeapon.weaponRarity}")
-    print(f"Armadura: {player.equippedArmor.armorName}| Dano reduzido: {player.equippedArmor.armorDefenseValue}")
+    print(f"Armadura: {player.equippedArmor.armorName} armor | Dano reduzido: {player.equippedArmor.armorDefenseValue}")
     print("------------------------------------------------")
     print(f"Key: {'Yes' if player.hasKey else 'No'}")
     print("================================================")
@@ -292,9 +292,9 @@ def show_player_weapons(player):
 def show_player_armors(player):
     print("        ---- ARMADURAS ----")
     print("=====================================================================================")
-    print(f"Equipada: {player.equippedArmor.armorName} | Dano Reduzido: {player.equippedArmor.armorDefenseValue}")
+    print(f"Equipada: {player.equippedArmor.armorName} armor | Dano Reduzido: {player.equippedArmor.armorDefenseValue}")
     if not player.has_armor_slot():
-        print(f"Inventario: {player.inventoryArmor.armorName} | Dano Reduzido: {player.inventoryArmor.armorDefenseValue}")
+        print(f"Inventario: {player.inventoryArmor.armorName} armor | Dano Reduzido: {player.inventoryArmor.armorDefenseValue}")
     print("=====================================================================================")
     
 # shows the list of the player's potions
@@ -309,7 +309,7 @@ def show_player_potions(player):
 # selects a potion from inventory to consume
 def select_inventory_potion(player):
         while True:
-            print("Selecione uma das pocoes acima")
+            print("Selecione uma das pocoes acima\nDigite 0 para voltar.")
             player_selected_potion = input("> ")
 
             if not player_selected_potion.isdigit():

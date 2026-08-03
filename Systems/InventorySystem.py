@@ -151,7 +151,7 @@ def armor_options(player):
     armorSwap = input()
     if armorSwap == "1":
         player.swap_armors()
-        print(f"Voce equipou {player.equippedArmor.armorName}!")
+        print(f"Voce equipou {player.equippedArmor.armorName} armor!")
 
 def player_level_up(player):
 

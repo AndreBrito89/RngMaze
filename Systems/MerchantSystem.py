@@ -105,7 +105,7 @@ def buy_menu(player):
     # buys weapon
     if selectedEquipmentType == 1:
         # checks if player has an extra weapon to sell
-        if not player.has_weapon_slot():
+        if  player.has_weapon_slot():
             print("Voce nao pode vender a arma equipada!")
             return
         else:
@@ -113,7 +113,7 @@ def buy_menu(player):
     # buys armor
     elif selectedEquipmentType == 2:
         # checks if player has an extra armor to sell
-        if not player.has_armor_slot():
+        if  player.has_armor_slot():
             print("Voce nao pode vender a armadura equipada")
         else:
             buy_armor(player)

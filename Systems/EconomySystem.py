@@ -31,6 +31,7 @@ WEAPON_PRICE = {
     "God": 360
 }
 ARMOR_PRICE = {
+    "No": 10,
     "Leather": 40,
     "Iron": 60,
     "Bronze": 120,
