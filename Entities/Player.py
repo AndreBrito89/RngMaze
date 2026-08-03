@@ -36,20 +36,20 @@ class Player:
     def defend(self, dmgReceived):
         totalDmgReceived = dmgReceived - self.equippedArmor.armorDefenseValue
         if totalDmgReceived <= 0:
-            print(f"Sua {self.equippedArmor.armorName} absorveu o dano recebido!")
+            print(f"Sua {self.equippedArmor.armorName} armor absorveu o dano recebido!")
             return
         self.healthPoints -= totalDmgReceived
 
     #escape function
     def escape(self, escapeAttemptValue):
-        #lose stamina for a 35% chance
+        #lose stamina for a 40% chance
         #of escaping the fight to next node
         if(self.sP < ESCAPE_COST):
             print("SP insuficientes para escapar!")
             return False
         
         self.sP -= ESCAPE_COST
-        if(escapeAttemptValue < 36):
+        if(escapeAttemptValue < 41):
             return True
         else:
             return False

@@ -16,11 +16,11 @@ def armor_generator(armorName):
         case 'Iron':
             newArmorDefenseValue = 2
         case 'Bronze':
-            newArmorDefenseValue = 3
-        case 'Silver':
             newArmorDefenseValue = 4
-        case 'Gold':
+        case 'Silver':
             newArmorDefenseValue = 6
+        case 'Gold':
+            newArmorDefenseValue = 8
     return Armor(armorName, newArmorDefenseValue)
     
 
@@ -28,7 +28,7 @@ def armor_generator(armorName):
 ######################
 ## creates a potion ##
 ######################
-def potion_generator():
+def chest_potion_generator():
     #60% chance of beeing Large
     potionSizeValue = random.randint(1,10)
     potionSize = 'Large' if potionSizeValue > 4 else 'Small'
@@ -38,7 +38,8 @@ def potion_generator():
     potionType = 'HP' if potionTypeValue > 2 else 'SP'
 
     return Potion(potionSize, potionType)
-
+def potion_generator(potionSize, potionType):
+    return Potion(potionSize, potionType)
 
 #####################
 ## creates a chest ##
@@ -52,7 +53,7 @@ def create_chest(playerClass):
     
     #potion
     if (chestItemValue < 8):
-        chestLoot = potion_generator()
+        chestLoot = chest_potion_generator()
         return chestLoot 
     #weapon
     elif (chestItemValue == 9 or chestItemValue == 8):

@@ -20,10 +20,7 @@ while True:
     room = gameMap.currentRoom
 
     UISystem.show_map(gameMap)
-    print(f"\nVoce esta na sala {room.id}")
-
     UISystem.show_main_menu_options(gameMap)
-
     choice = input("> ")
 
     if choice == "1":
@@ -39,7 +36,8 @@ while True:
         InventorySystem.player_menu_actions(player)
 
     elif choice == "5":
-        gameMap = ProgressionSystem.try_enter_next_stage(player, gameMap)       
+        gameMap = ProgressionSystem.try_enter_next_stage(player, gameMap)      
+         
     elif choice == "0":
         break
 

@@ -26,21 +26,21 @@ def obtain_weapon(player, newWeapon):
 def obtain_armor(player, newArmor):
     # checks if the player have an available slot
     if player.has_armor_slot():
-        print(f"Voce recebeu {newArmor.armorName}")
+        print(f"Voce recebeu {newArmor.armorName} armor.")
         player.inventoryArmor = newArmor
         return
     playerDiscardedArmor = UISystem.choose_armor_to_discard(player, newArmor)
 
     match playerDiscardedArmor:
         case "1":
-            print(f"Voce descartou {player.equippedArmor.armorName}!\n {player.inventoryArmor.armorName} foi equipada!")
+            print(f"Voce descartou {player.equippedArmor.armorName} armor!\n {player.inventoryArmor.armorName} armor foi equipada!")
             player.swap_armors()
             player.inventoryArmor = newArmor
         case "2":
-            print(f"Voce descartou {player.inventoryArmor.armorName}!")
+            print(f"Voce descartou {player.inventoryArmor.armorName} armor!")
             player.inventoryArmor = newArmor
         case "3":
-            print(f"Voce descartou {newArmor.armorName}!")
+            print(f"Voce descartou {newArmor.armorName} armor!")
             pass
 
     
@@ -110,6 +110,9 @@ def potion_options(player):
         return False
 
     UISystem.show_player_potions(player)
+    print("\nQual das pocoes acima gostaria de consumir?")
+    print("(Pressione 0 para voltar ao menu anterior)")
+
     selectedPotion = UISystem.select_inventory_potion(player)
     # player returns to previous menu
     if selectedPotion == 0:
@@ -165,7 +168,7 @@ def player_level_up(player):
         #lvl up regen
         match player.playerClass:
             case 'Warrior':
-                lvlUpHpBonus = 4 * player.playerLevel
+                lvlUpHpBonus = 5 * player.playerLevel
                 lvlUpSpBonus = 1 * player.playerLevel
             case 'Mage':
                 lvlUpHpBonus = 1 * player.playerLevel

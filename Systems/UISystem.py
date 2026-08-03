@@ -28,9 +28,7 @@ def show_main_menu_options(gameMap):
 
     # assigns current room to room
     room = MovementSystem.current_room(gameMap)
-
-    # prints its id
-    print(f"\nSala {room.id}")
+    print(f"\nVoce esta na sala {room.id}\n")
 
     # prints possible movement options
     if room.left:
@@ -68,7 +66,123 @@ def show_inventory_menu_options():
             return selectedInventoryOption
         
         print("Opcao invalida")
+
+########################
+### MERCHANT RELATED ###
+########################
+# main menu
+def merchant_main_menu():
+    print("Bem-vindo a minha tenda...")
+    while True:
+            print("\n=== Mercador ===\n")
+            print("1 - Comprar Pocoes")
+            print("2 - Trocar Pocoes")
+            print("3 - Vender Equipamento")
+            print("4 - Trocar Equipamento")
+            print("5 - Melhorar Equipamento")
+            print("6 - Sair")
+            merchantSelectedAction = input("> ")
+
+            if not merchantSelectedAction.isdigit():
+                print("Opcao invalida")
+                continue
+
+            merchantSelectedAction = int(merchantSelectedAction)
+
+            if 1 <= merchantSelectedAction <= 6:
+                return merchantSelectedAction
+
+            print("Opcao invalida")
+# potion selling
+def merchant_sell_potion_size_selection():
+    while True:
+        print("Selecione o tamanho da pocao")
+        print("1 -> Small")
+        print("2 -> Large")
+        print("3 -> Voltar")
+
+        selectedPotionSize = input("> ")
+
+        if not selectedPotionSize.isdigit():
+            print("Opcao invalida")
+            continue
+        #int conversion
+        selectedPotionSize = int(selectedPotionSize)
+
+        if 1 <= selectedPotionSize <= 3:
+            return selectedPotionSize
         
+        print("Opcao invalida")
+# potion selling
+def merchant_sell_potion_type_selection():
+    while True:
+        print("Selecione o tipo da pocao")
+        print("1 - HP")
+        print("2 - SP")
+        print("3 - Voltar")
+
+        selectedPotionType = input("> ")
+
+        if not selectedPotionType.isdigit():
+            print("Opcao invalida")
+            continue
+
+        selectedPotionType = int(selectedPotionType)
+
+        if 1 <= selectedPotionType <= 3:
+            return selectedPotionType
+
+        print("Opcao invalida")
+# equipment buying
+def merchant_buy_equipment():
+    while True:
+            print("Entao voce tem tesouros para vender?")
+            print("1 - Armas")
+            print("2 - Armaduras")
+            print("3 - Voltar")
+            selectedEquipmentType = input("> ")
+
+            if not selectedEquipmentType.isdigit():
+                print("Opcao invalida")
+                continue
+            if 1 <= selectedEquipmentType <= 3:
+                return selectedEquipmentType
+            
+            print("Opcao invalida")
+# sell weapon sub-menu
+def merchant_buy_weapon_selection(player):
+    while True:
+            show_player_weapons(player)
+            print("Qual das armas acima gostaria de vender?")
+            print(f"1 - {player.equippedWeapon.weaponName}")
+            print(f"2 - {player.inventoryWeapon.weaponName}")
+            print("3 - Voltar")
+            selectedWeapon = input("> ")
+
+            if not selectedWeapon.isdigit():
+                print("Opcao invalida")
+                continue
+            if 1 <= selectedWeapon <= 3:
+                return selectedWeapon
+            
+            print("Opcao invalida")
+# sell armor sub-menu
+def merchant_buy_armor_selection(player):
+    while True:
+            show_player_armors(player)
+            print("Qual das armaduras acima gostaria de vender?")
+            print(f"1 - {player.equippedArmor.armorName}")
+            print(f"2 - {player.inventoryArmor.armorName}")
+            print("3 - Voltar")
+            selectedArmor = input("> ")
+
+            if not selectedArmor.isdigit():
+                print("Opcao invalida")
+                continue
+            if 1 <= selectedArmor <= 3:
+                return selectedArmor
+            
+            print("Opcao invalida")            
 ######################
 ### PLAYER RELATED ###
 ######################
@@ -181,10 +295,8 @@ def show_player_armors(player):
         print(f"Inventario: {player.inventoryArmor.armorName} | Dano Reduzido: {player.inventoryArmor.armorDefenseValue}")
     print("=====================================================================================")
     
-
 # shows the list of the player's potions
-def show_player_potions(player):
-        
+def show_player_potions(player): 
         print("Pochete de pocoes")
         print("----------------------------------")
         # iterates instance of potion in player.potions
@@ -195,8 +307,7 @@ def show_player_potions(player):
 # selects a potion from inventory to consume
 def select_inventory_potion(player):
         while True:
-            print("\nQual das pocoes acima gostaria de consumir?")
-            print("(Pressione 0 para voltar ao menu anterior)")
+            print("Selecione uma das pocoes acima")
             player_selected_potion = input("> ")
 
             if not player_selected_potion.isdigit():
@@ -232,7 +343,6 @@ def choose_weapon_to_discard(player, newWeapon):
             return player_discarded_weapon
 
         print("Opcao invalida!")
-
 
 # player chooses which armor to discard after receiving a drop
 def choose_armor_to_discard(player, newArmor):
@@ -298,9 +408,10 @@ def choose_max_potion_action():
 # prints map
 def show_map(gameMap):
     # prints map
-    print("\n============= MAPA =============\n")
+    print(f"              Fase {gameMap.stage}\n")
+    print("============= MAPA =============\n")
     draw_level_map(gameMap.root, gameMap.currentRoom)
-    print("\n==============================")
+    print("==============================")
 
     # prints room symbol
     print("[P] - posicao atual")
@@ -407,6 +518,7 @@ def compute_positions(root):
     visit(root, 0)
 
     return positions
+
 # HELPER depth of the tree
 def get_depth(node):
 

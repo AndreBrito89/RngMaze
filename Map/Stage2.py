@@ -1,11 +1,14 @@
 from Map.Room import Room
 from Map.Map import Map
-
+# merchant
+MERCHANT_MAX_WEAPON_TIER = 3
+# rooms
 POSSIBLE_KEY_ROOMS = [5,7,8,9]
 POSSIBLE_EXIT_ROOMS = [11,13,14]
 TREASURE_RATE = 30
+# escape
 ESCAPE_FAIL_MISS_RATE = 45
-ESCAPE_XP_REWARD = 20
+ESCAPE_XP_REWARD = 35
 def create():
     # list of rooms
     rooms = {}

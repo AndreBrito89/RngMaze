@@ -31,11 +31,11 @@ ENEMIES = {
 #############################
 BOSSES = {
 
-    1: ("Lich", 69, 6, 2, 100),
+    1: ("Lich", 69, 6, 2, 160),
 
-    2: ("Giant", 78, 12, 4, 140),
+    2: ("Giant", 78, 12, 4, 220),
 
-    3: ("Dragon", 92, 19, 9, 200)
+    3: ("Dragon", 92, 19, 9, 450)
 }
 
 
@@ -59,6 +59,4 @@ def create_enemy(stage, tier=None):
 
 # creates a boss based on the stage
 def create_boss(stage):
-
-    #switch to boss later
     return Enemy(*BOSSES[stage])

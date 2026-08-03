@@ -28,7 +28,7 @@ class Catalyst:
             case 'Normal':
                 self.dmgModifier = 1
             case 'Rare':
-                self.dmgModifier = 1.3
+                self.dmgModifier = 1.2
             case 'Legendary':
                 self.dmgModifier = 1.5
             case 'God':

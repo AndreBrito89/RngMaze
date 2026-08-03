@@ -89,7 +89,6 @@ def player_use_potion(player):
     return InventorySystem.potion_options(player)
     
 
-
 # player attempts to escape
 def player_escape_attempt_result(player, room, stageData):
     # true/false from roomcontroller
@@ -99,6 +98,7 @@ def player_escape_attempt_result(player, room, stageData):
         player.xpPoints += stageData.ESCAPE_XP_REWARD
         print("Voce fugiu!")
         print(f"{player.name} recebeu {stageData.ESCAPE_XP_REWARD} xp.")
+        UISystem.clear_console()
         return False, False
 
     print("Fuga mal sucedida!")

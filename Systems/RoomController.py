@@ -3,6 +3,7 @@ from Map.Room import RoomType
 from Systems import CombatSystem
 from Systems import StageLoader
 from Systems import UISystem
+from Systems import MerchantSystem
 
 # player enter a room
 def enter_room(player, room, gameMap):
@@ -10,6 +11,8 @@ def enter_room(player, room, gameMap):
     # marks room as visited
     room.visited = True
 
+    if room.id == 1 and room.cleared:
+        MerchantSystem.enter_shop(player, gameMap)
     # check if the room is already clear
     if room.cleared:
         return
@@ -18,7 +21,7 @@ def enter_room(player, room, gameMap):
     if room.enemies:
         stageData = StageLoader.get_stage_data(gameMap.stage)
         CombatSystem.start_combat(player, room, stageData)
-        
+
 
 # marks room as cleared
 def clear_room(room):
