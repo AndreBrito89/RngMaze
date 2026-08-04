@@ -99,7 +99,7 @@ def catalyst_generator(dropSource):
     newCatalystName = random.choice(CATALYSTS_WEAPONS)
     if dropSource == 'Boss': newCatalystRarity = boss_weapon_rarity_generator()
     elif dropSource == 'Chest': newCatalystRarity = chest_weapon_rarity_generator()
-    else : newWeaponRarity = dropSource
+    else : newCatalystRarity = dropSource
     match newCatalystName:
         # staff
         case 'Staff':
