@@ -196,25 +196,41 @@ def equipment_swap_menu(player, stageData):
 
         selectedEquipment = UISystem.merchant_swap_weapon_selection()
 
-        #removes weapon
+        #removes weapon and calculates the cost
         if selectedEquipment == 1:
             selectedEquipment = player.equippedWeapon
             player.swap_weapons()
             player.inventoryWeapon = None
-            if can_merchant_upgrade_or_swap(EconomySystem.WEAPONS_TIER[selectedEquipment.weaponRarity], stageData):
-                # checks weapon rarity for the armor swap
-                newArmorName = EconomySystem.ARMORS_TIER[selectedEquipment.weaponRarity]
-                newArmor = LootFactory.armor_generator(newArmorName)
-                InventorySystem.obtain_armor(player, newArmor)
-        #removes inventory weapon
+            swapCost = EconomySystem.weapon_swap_price(selectedEquipment.weaponRarity)
+            if can_merchant_swap(EconomySystem.WEAPONS_TIER[selectedEquipment.weaponRarity], stageData):
+                # checks if player can pay the transaction
+                if player.xpPoints >= swapCost:
+                    # player pays the cost
+                    player.xpPoints -= swapCost
+                    # checks weapon rarity for the armor swap
+                    newArmorName = EconomySystem.ARMORS_TIER[selectedEquipment.weaponRarity]
+                    newArmor = LootFactory.armor_generator(newArmorName)
+                    InventorySystem.obtain_armor(player, newArmor)
+                else:
+                    print("Voce nao tem xp suficientes para a troca!")
+                    return
+        #removes inventory weapon and calculates the cost
         elif selectedEquipment == 2:
             selectedEquipment = player.inventoryWeapon
             player.inventoryWeapon = None
-            if can_merchant_upgrade_or_swap(EconomySystem.WEAPONS_TIER[selectedEquipment.weaponRarity], stageData):
-                # checks weapon rarity for the armor swap
-                newArmorName = EconomySystem.ARMORS_TIER[selectedEquipment.weaponRarity]
-                newArmor = LootFactory.armor_generator(newArmorName)
-                InventorySystem.obtain_armor(player, newArmor)
+            swapCost = EconomySystem.weapon_swap_price(selectedEquipment.weaponRarity)
+            if can_merchant_swap(EconomySystem.WEAPONS_TIER[selectedEquipment.weaponRarity], stageData):
+                # checks if player can pay the transaction
+                if player.xpPoints >= swapCost:
+                    # player pays the cost
+                    player.xpPoints -= swapCost
+                    # checks weapon rarity for the armor swap
+                    newArmorName = EconomySystem.ARMORS_TIER[selectedEquipment.weaponRarity]
+                    newArmor = LootFactory.armor_generator(newArmorName)
+                    InventorySystem.obtain_armor(player, newArmor)
+                else:
+                    print("Voce nao tem xp suficientes para a troca!")
+                    return
 
     # SWAPS ARMOR        
     elif selectedEquipment == 2:
@@ -228,38 +244,56 @@ def equipment_swap_menu(player, stageData):
         print("Estes sao meus valores, sem barganhas...")
         selectedEquipment = UISystem.merchant_swap_armor_selection()
 
-        #removes armor 
+        # removes armor and calculates the cost
         if selectedEquipment == 1:
             selectedEquipment = player.equippedArmor
             player.swap_armors()
             player.inventoryArmor = None
-            if can_merchant_upgrade_or_swap(EconomySystem.ARMORS_TIER[selectedEquipment.armorName], stageData):
-                # checks armor rarity for the weapon swap
-                newWeaponRarity = EconomySystem.ARMORS_TIER[selectedEquipment.armorName]
-                # checks player class
-                if player.playerClass == "Mage":
-                    newWeapon = WeaponFactory.catalyst_generator(newWeaponRarity)
-                elif player.playerClass == "Warrior":
-                    newWeapon = WeaponFactory.melee_weapon_generator(newWeaponRarity)
-                InventorySystem.obtain_weapon(player, newWeapon)
+            swapCost = EconomySystem.armor_swap_price(selectedEquipment.armorName)
+            if can_merchant_swap(EconomySystem.ARMORS_TIER[selectedEquipment.armorName], stageData):
+                # checks if player can pay the transaction
+                if player.xpPoints >= swapCost:
+                    # player pays the cost
+                    player.xpPoints -= swapCost
+                    # checks armor rarity for the weapon swap
+                    newWeaponRarity = EconomySystem.ARMORS_TIER[selectedEquipment.armorName]
+                    # checks player class
+                    if player.playerClass == "Mage":
+                        newWeapon = WeaponFactory.catalyst_generator(newWeaponRarity)
+                    elif player.playerClass == "Warrior":
+                        newWeapon = WeaponFactory.melee_weapon_generator(newWeaponRarity)
+                    InventorySystem.obtain_weapon(player, newWeapon)
+                else:
+                    print("Voce nao tem xp suficientes para a troca!")
+                    return
+
+        # removes inventory armor and calculates the cost
         elif selectedEquipment == 2:
             selectedEquipment = player.inventoryArmor
             player.inventoryArmor = None
-            if can_merchant_upgrade_or_swap(EconomySystem.ARMORS_TIER[selectedEquipment.armorName], stageData):
-                # checks armor rarity for the weapon swap
-                newWeaponRarity = EconomySystem.ARMORS_TIER[selectedEquipment.armorName]
-                # checks player class
-                if player.playerClass == "Mage":
-                    newWeapon = WeaponFactory.catalyst_generator(newWeaponRarity)
-                elif player.playerClass == "Warrior":
-                    newWeapon = WeaponFactory.melee_weapon_generator(newWeaponRarity)
-                InventorySystem.obtain_weapon(player, newWeapon)
+            swapCost = EconomySystem.armor_swap_price(selectedEquipment.armorName)
+            if can_merchant_swap(EconomySystem.ARMORS_TIER[selectedEquipment.armorName], stageData):
+                # checks if player can pay the transaction
+                if player.xpPoints >= swapCost:
+                    # player pays the cost
+                    player.xpPoints -= swapCost
+                    # checks armor rarity for the weapon swap
+                    newWeaponRarity = EconomySystem.ARMORS_TIER[selectedEquipment.armorName]
+                    # checks player class
+                    if player.playerClass == "Mage":
+                        newWeapon = WeaponFactory.catalyst_generator(newWeaponRarity)
+                    elif player.playerClass == "Warrior":
+                        newWeapon = WeaponFactory.melee_weapon_generator(newWeaponRarity)
+                    InventorySystem.obtain_weapon(player, newWeapon)
+                else:
+                    print("Voce nao tem xp suficientes para a troca!")
+                    return
     # CLOSES SWAP MENU
     else:
         return
     
-# checks if merchant action is available (equipmentTier+1 for upgrades)
-def can_merchant_upgrade_or_swap(equipmentTier, stageData):
+# helpers
+def can_merchant_swap(equipmentTier, stageData):
     if stageData.MERCHANT_MAX_TRANSACTION_TIER >= equipmentTier:
         return True
     else:
