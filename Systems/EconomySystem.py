@@ -7,7 +7,7 @@ WEAPONS_TIER = {
     "Legendary": 3,
     "God": 4
 }
-ARMORS = {
+ARMORS_TIER = {
     "Leather": 1,
     "Iron": 1,
     "Bronze": 2,
@@ -24,13 +24,13 @@ POTIONS_SELL_PRICE = {
     "Small": 25,
     "Large": 40
 }
-WEAPON_PRICE = {
+WEAPON_SELL_PRICE = {
     "Normal": 50,
     "Rare": 85,
     "Legendary": 160,
     "God": 360
 }
-ARMOR_PRICE = {
+ARMOR_SELL_PRICE = {
     "No": 10,
     "Leather": 40,
     "Iron": 60,
@@ -80,10 +80,10 @@ def potion_sell_price(potion):
     return POTIONS_SELL_PRICE[potion.potionSize]
 # weapons
 def weapon_sell_price(weapon):
-    return WEAPON_PRICE[weapon.weaponRarity]
+    return WEAPON_SELL_PRICE[weapon.weaponRarity]
 # armor
 def armor_sell_price(armor):
-    return ARMOR_PRICE[armor.armorName]
+    return ARMOR_SELL_PRICE[armor.armorName]
 
 # swaping
 

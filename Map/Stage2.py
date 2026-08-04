@@ -1,7 +1,7 @@
 from Map.Room import Room
 from Map.Map import Map
 # merchant
-MERCHANT_MAX_WEAPON_TIER = 3
+MERCHANT_MAX_TRANSACTION_TIER = 3
 # rooms
 POSSIBLE_KEY_ROOMS = [5,7,8,9]
 POSSIBLE_EXIT_ROOMS = [11,13,14]

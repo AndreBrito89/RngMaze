@@ -1,10 +1,13 @@
 from Systems import EconomySystem
 from Systems import InventorySystem
 from Systems import UISystem
+from Systems import StageLoader
 from Factories import LootFactory
+from Factories import WeaponFactory
 # main menu
-def enter_shop(player, stageData):
+def enter_shop(player, gameMap):
 
+    stageData = StageLoader.get_stage_data(gameMap.stage)
     UISystem.clear_console()
     selectedMerchantAction = UISystem.merchant_main_menu()
 
@@ -19,6 +22,8 @@ def enter_shop(player, stageData):
         case 3:
             buy_menu(player)
         # swap equipment
+        case 4:
+            equipment_swap_menu(player, stageData)
         # upgrade equipment
         # exit merchant
         case 6:
@@ -124,7 +129,7 @@ def buy_menu(player):
 # buys weapon
 def buy_weapon(player):
     # Shows prices for each rarity
-    for tier, value in EconomySystem.WEAPON_PRICE.items():
+    for tier, value in EconomySystem.WEAPON_SELL_PRICE.items():
         print(f"{tier}: {value} xp")
     print("Estes sao meus valores, sem barganhas...")
 
@@ -151,7 +156,7 @@ def buy_weapon(player):
 # buys armor
 def buy_armor(player):
     # Shows prices for each rarity
-    for tier, value in EconomySystem.ARMOR_PRICE.items():
+    for tier, value in EconomySystem.ARMOR_SELL_PRICE.items():
         print(f"{tier}: {value} xp")
     print("Estes sao meus valores, sem barganhas...")
 
@@ -173,5 +178,90 @@ def buy_armor(player):
     player.xpPoints += armorValue
     print(f"Voce recebeu {armorValue} xp.")
 
+# equipment swap menu
+def equipment_swap_menu(player, stageData):
+
+    selectedEquipment = UISystem.merchant_swap_equipment_menu()
+
+    # SWAPS WEAPON        
+    if selectedEquipment == 1:
+        if player.has_weapon_slot():
+            print("Eu nao te deixaria sozinho nesta caverna sem uma arma...")
+            return
+
+        # Shows prices for each rarity
+        for tier, value in EconomySystem.WEAPON_SWAP_PRICE.items():
+            print(f"{tier}: {value} xp")
+        print("Estes sao meus valores, sem barganhas...")
+
+        selectedEquipment = UISystem.merchant_swap_weapon_selection()
+
+        #removes weapon
+        if selectedEquipment == 1:
+            selectedEquipment = player.equippedWeapon
+            player.swap_weapons()
+            player.inventoryWeapon = None
+            if can_merchant_upgrade_or_swap(EconomySystem.WEAPONS_TIER[selectedEquipment.weaponRarity], stageData):
+                # checks weapon rarity for the armor swap
+                newArmorName = EconomySystem.ARMORS_TIER[selectedEquipment.weaponRarity]
+                newArmor = LootFactory.armor_generator(newArmorName)
+                InventorySystem.obtain_armor(player, newArmor)
+        #removes inventory weapon
+        elif selectedEquipment == 2:
+            selectedEquipment = player.inventoryWeapon
+            player.inventoryWeapon = None
+            if can_merchant_upgrade_or_swap(EconomySystem.WEAPONS_TIER[selectedEquipment.weaponRarity], stageData):
+                # checks weapon rarity for the armor swap
+                newArmorName = EconomySystem.ARMORS_TIER[selectedEquipment.weaponRarity]
+                newArmor = LootFactory.armor_generator(newArmorName)
+                InventorySystem.obtain_armor(player, newArmor)
+
+    # SWAPS ARMOR        
+    elif selectedEquipment == 2:
+        if player.has_armor_slot():
+            print("Eu nao te deixaria sozinho nesta caverna sem sua armadura...")
+            return
+
+        # Shows prices for each rarity
+        for tier, value in EconomySystem.ARMOR_SWAP_PRICE.items():
+            print(f"{tier}: {value} xp")
+        print("Estes sao meus valores, sem barganhas...")
+        selectedEquipment = UISystem.merchant_swap_armor_selection()
+
+        #removes armor 
+        if selectedEquipment == 1:
+            selectedEquipment = player.equippedArmor
+            player.swap_armors()
+            player.inventoryArmor = None
+            if can_merchant_upgrade_or_swap(EconomySystem.ARMORS_TIER[selectedEquipment.armorName], stageData):
+                # checks armor rarity for the weapon swap
+                newWeaponRarity = EconomySystem.ARMORS_TIER[selectedEquipment.armorName]
+                # checks player class
+                if player.playerClass == "Mage":
+                    newWeapon = WeaponFactory.catalyst_generator(newWeaponRarity)
+                elif player.playerClass == "Warrior":
+                    newWeapon = WeaponFactory.melee_weapon_generator(newWeaponRarity)
+                InventorySystem.obtain_weapon(player, newWeapon)
+        elif selectedEquipment == 2:
+            selectedEquipment = player.inventoryArmor
+            player.inventoryArmor = None
+            if can_merchant_upgrade_or_swap(EconomySystem.ARMORS_TIER[selectedEquipment.armorName], stageData):
+                # checks armor rarity for the weapon swap
+                newWeaponRarity = EconomySystem.ARMORS_TIER[selectedEquipment.armorName]
+                # checks player class
+                if player.playerClass == "Mage":
+                    newWeapon = WeaponFactory.catalyst_generator(newWeaponRarity)
+                elif player.playerClass == "Warrior":
+                    newWeapon = WeaponFactory.melee_weapon_generator(newWeaponRarity)
+                InventorySystem.obtain_weapon(player, newWeapon)
+    # CLOSES SWAP MENU
+    else:
+        return
     
-    
+# checks if merchant action is available (equipmentTier+1 for upgrades)
+def can_merchant_upgrade_or_swap(equipmentTier, stageData):
+    if stageData.MERCHANT_MAX_TRANSACTION_TIER >= equipmentTier:
+        return True
+    else:
+        print("Desculpe, nao sei fazer isso muito bem...")
+        return False

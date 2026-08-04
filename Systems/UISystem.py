@@ -184,7 +184,58 @@ def merchant_buy_armor_selection(player):
             if 1 <= selectedArmor <= 3:
                 return selectedArmor
             
-            print("Opcao invalida")            
+            print("Opcao invalida")
+# equipment swapping
+def merchant_swap_equipment_menu():
+    while True:
+            print("Entao voce quer trocar tesouros?")
+            print("1 - Armas")
+            print("2 - Armaduras")
+            print("3 - Voltar")
+            selectedEquipmentType = input("> ")
+
+            if not selectedEquipmentType.isdigit():
+                print("Opcao invalida")
+                continue
+            selectedEquipmentType = int(selectedEquipmentType)
+            if 1 <= selectedEquipmentType <= 3:
+                return selectedEquipmentType
+            
+            print("Opcao invalida")
+# swap weapon sub-menu
+def merchant_swap_weapon_selection(player):
+    while True:
+            show_player_weapons(player)
+            print("Qual das armas acima gostaria de trocar?")
+            print(f"1 - {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totaldmgValue} ")
+            print(f"2 - {player.inventoryWeapon.weaponName} | Dano: {player.inventoryWeapon.totaldmgValue}")
+            print("3 - Voltar")
+            selectedWeapon = input("> ")
+            if not selectedWeapon.isdigit():
+                print("Opcao invalida")
+                continue
+            selectedWeapon = int(selectedWeapon)
+            if 1 <= selectedWeapon <= 3:
+                return selectedWeapon
+            
+            print("Opcao invalida")
+def merchant_swap_armor_selection(player):
+    while True:
+            show_player_armors(player)
+            print("Qual das armaduras acima gostaria de trocar?")
+            print(f"1 - {player.equippedArmor.armorName} armor | Dano reduzido:{player.equippedArmor.armorDefenseValue}")
+            print(f"2 - {player.inventoryArmor.armorName} armor | Dano reduzido:{player.equippedArmor.armorDefenseValue}")
+            print("3 - Voltar")
+            selectedArmor = input("> ")
+
+            if not selectedArmor.isdigit():
+                print("Opcao invalida")
+                continue
+            selectedArmor = int(selectedArmor)
+            if 1 <= selectedArmor <= 3:
+                return selectedArmor
+            
+            print("Opcao invalida")       
 ######################
 ### PLAYER RELATED ###
 ######################

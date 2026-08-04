@@ -99,7 +99,7 @@ def catalyst_generator(dropSource):
     newCatalystName = random.choice(CATALYSTS_WEAPONS)
     if dropSource == 'Boss': newCatalystRarity = boss_weapon_rarity_generator()
     elif dropSource == 'Chest': newCatalystRarity = chest_weapon_rarity_generator()
-
+    else : newWeaponRarity = dropSource
     match newCatalystName:
         # staff
         case 'Staff':
@@ -145,6 +145,7 @@ def melee_weapon_generator(dropSource):
     newWeaponName = random.choice(MELEE_WEAPONS)
     if dropSource == 'Boss': newWeaponRarity = boss_weapon_rarity_generator()
     elif dropSource == 'Chest': newWeaponRarity = chest_weapon_rarity_generator()
+    else : newWeaponRarity = dropSource
     
     
    #assigns random dmg based on rarity and name of the weapon           
