@@ -14,7 +14,20 @@ ARMORS_TIER = {
     "Silver": 3,
     "Gold": 4
 }
+TIER_TO_WEAPON = {
+    1: "Normal",
+    2: "Rare",
+    3: "Legendary",
+    4: "God"
+}
 
+TIER_TO_ARMOR = {
+    1: "Leather",
+    1: "Iron",      
+    2: "Bronze",
+    3: "Silver",
+    4: "Gold"
+}
 ##########################
 ### TRANSACTION VALUES ###
 ##########################
@@ -96,7 +109,11 @@ def weapon_swap_price(weapon):
 # armor
 def armor_swap_price(armor):
     return ARMOR_SWAP_PRICE[armor.armorName]
-
+# helpers
+def armor_name_from_tier(tier):
+    return TIER_TO_ARMOR[tier]
+def weapon_rarity_from_tier(tier):
+    return TIER_TO_WEAPON[tier]
 # upgrades
 
 # weapon

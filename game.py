@@ -45,6 +45,8 @@ while True:
 # add merchant at room 1 after defeating enemies
 # merchant sells: 
 #               -> every potion - OK
+# merchant buys:
+#               -> armors and weapons (value based on rarity) - OK
 # merchant tradeup:
 #               -> potion toka koka -> switches HP/SP - OK
 #               -> armor toka koka -> 1 armor for 1 weapon (same tier) - test phase
@@ -52,5 +54,3 @@ while True:
 # merchant upgrades:
 #               -> 2 weapons for 1 weapon next rarity (weapons must be same rarity)
 #               -> 2 armors for 1 armor next rarity (armors must be same rarity)
-# merchant buys:
-#               -> armors and weapons (value based on rarity) - OK

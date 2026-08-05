@@ -147,7 +147,7 @@ def armor_options(player):
         return
     
     UISystem.show_player_armors(player)
-    print("Pressione 1 para trocar de arma, qualquer outra tecla para voltar")
+    print("Pressione 1 para trocar de armadura, qualquer outra tecla para voltar")
     armorSwap = input()
     if armorSwap == "1":
         player.swap_armors()
