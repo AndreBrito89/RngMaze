@@ -41,7 +41,9 @@ while True:
     elif choice == "0":
         break
 
-
+# - QOL:
+#       *fix floating point hp numbers (0.2f)
+#       *show player's xp at merchant
 # add merchant at room 1 after defeating enemies
 # merchant sells: 
 #               -> every potion - OK

@@ -338,9 +338,9 @@ def equipment_upgrade_menu(player, stageData):
                     # player receives and equips new weapon
                     InventorySystem.obtain_weapon(player, newWeapon)
                     player.swap_weapons()
-        else:
-            print("Voce nao tem xp suficientes para a troca!")
-            return
+                else:
+                    print("Voce nao tem xp suficientes para a troca!")
+                    return
         
     # UPGRADES ARMOR        
     elif selectedEquipment == 2:

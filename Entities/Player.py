@@ -1,9 +1,9 @@
 # base points for warrior class lvl 1   || base points for mage class lvl 1
 #=======================================||=======================================
-# - maxHealthPoints = 37                || - maxHealthPoints = 19
+# - maxHealthPoints = 30                || - maxHealthPoints = 19
 # - armor = 1                           || - armor = 0
-# - base attack = 1                     || - base attack = 4
-# - sp = 15                             || - sp = 24
+# - base attack = 1.5                   || - base attack = 3
+# - sp = 16                             || - sp = 25
 ESCAPE_COST = 10
 MAX_POTIONS = 5
 MAX_LEVEL = 15
