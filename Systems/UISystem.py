@@ -219,6 +219,7 @@ def merchant_swap_weapon_selection(player):
                 return selectedWeapon
             
             print("Opcao invalida")
+# swap armor sub-menu
 def merchant_swap_armor_selection(player):
     while True:
             show_player_armors(player)
@@ -235,7 +236,24 @@ def merchant_swap_armor_selection(player):
             if 1 <= selectedArmor <= 3:
                 return selectedArmor
             
-            print("Opcao invalida")       
+            print("Opcao invalida")
+# equipment upgrade
+def merchant_upgrade_equipment_menu():
+    while True:
+            print("Entao voce quer melhorar tesouros?")
+            print("1 - Armas")
+            print("2 - Armaduras")
+            print("3 - Voltar")
+            selectedEquipmentType = input("> ")
+
+            if not selectedEquipmentType.isdigit():
+                print("Opcao invalida")
+                continue
+            selectedEquipmentType = int(selectedEquipmentType)
+            if 1 <= selectedEquipmentType <= 3:
+                return selectedEquipmentType
+            
+            print("Opcao invalida") 
 ######################
 ### PLAYER RELATED ###
 ######################
