@@ -332,14 +332,14 @@ def equipment_upgrade_menu(player, stageData):
                     # checks weapon rarity for the armor swap
                     newWeaponTier = EconomySystem.WEAPONS_TIER[player.equippedWeapon.weaponRarity] + 1
                     if player.playerClass == 'Mage':
-                        newWeapon = LootFactory.catalyst_generator_generator(EconomySystem.weapon_rarity_from_tier(newWeaponTier))
+                        newWeapon = WeaponFactory.catalyst_generator(EconomySystem.weapon_rarity_from_tier(newWeaponTier))
                     elif player.playerClass == 'Warrior':
-                        newWeapon = LootFactory.melee_weapon_generator(EconomySystem.weapon_rarity_from_tier(newWeaponTier))
+                        newWeapon = WeaponFactory.melee_weapon_generator(EconomySystem.weapon_rarity_from_tier(newWeaponTier))
                     # player receives and equips new weapon
                     InventorySystem.obtain_weapon(player, newWeapon)
                     player.swap_weapons()
                 else:
-                    print("Voce nao tem xp suficientes para a troca!")
+                    print("Voce nao tem xp suficientes para a melhoria!")
                     return
         
     # UPGRADES ARMOR        
@@ -369,11 +369,11 @@ def equipment_upgrade_menu(player, stageData):
                 player.xpPoints -= swapCost
                 # checks armor rarity for the weapon swap
                 newArmorTier = EconomySystem.ARMORS_TIER[player.equippedArmor.armorName] + 1
-                newArmorName = EconomySystem.weapon_rarity_from_tier(newArmorTier)
-                newArmor = WeaponFactory.melee_weapon_generator(newArmorName)
+                newArmorName = EconomySystem.armor_name_from_tier(newArmorTier)
+                newArmor = LootFactory.armor_generator(newArmorName)
                 InventorySystem.obtain_armor(player, newArmor)
             else:
-                print("Voce nao tem xp suficientes para a troca!")
+                print("Voce nao tem xp suficientes para a melhoria!")
                 return
     # CLOSES UPGRADE MENU
     else:
