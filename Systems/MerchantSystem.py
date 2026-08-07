@@ -321,21 +321,25 @@ def equipment_upgrade_menu(player, stageData):
             return
         # checks if transaction is available
         if can_merchant_upgrade(equippedWeaponTier, stageData):
-                swapCost = EconomySystem.weapon_upgrade_price(player.equippedWeapon.weaponRarity)
+                swapCost = EconomySystem.weapon_upgrade_price(player.equippedWeapon)
                 # checks if player can pay the transaction
                 if player.xpPoints >= swapCost:
                     # player pays the cost
                     player.xpPoints -= swapCost
-                    # removes both player's weapons
+                    # removes both player's weapons and save the rarity
+                    oldWeaponsRarity = player.equippedWeapon.weaponRarity
                     player.equippedWeapon = None
                     player.inventoryWeapon = None
                     # checks weapon rarity for the armor swap
-                    newWeaponTier = EconomySystem.WEAPONS_TIER[player.equippedWeapon.weaponRarity] + 1
+                    newWeaponTier = EconomySystem.WEAPONS_TIER[oldWeaponsRarity]
                     if player.playerClass == 'Mage':
-                        newWeapon = WeaponFactory.catalyst_generator(EconomySystem.weapon_rarity_from_tier(newWeaponTier))
+                        newWeapon = WeaponFactory.catalyst_generator(EconomySystem.weapon_rarity_from_tier(newWeaponTier + 1))
                     elif player.playerClass == 'Warrior':
-                        newWeapon = WeaponFactory.melee_weapon_generator(EconomySystem.weapon_rarity_from_tier(newWeaponTier))
+                        newWeapon = WeaponFactory.melee_weapon_generator(EconomySystem.weapon_rarity_from_tier(newWeaponTier + 1))
                     # player receives and equips new weapon
+                    print("Plim! Plim! Plom!")
+                    print("Melhorae irmom!")
+                    UISystem.clear_console()
                     InventorySystem.obtain_weapon(player, newWeapon)
                     player.swap_weapons()
                 else:
@@ -360,17 +364,23 @@ def equipment_upgrade_menu(player, stageData):
             print("Suas duas armaduras precisam ter a mesma raridade, desculpe...")
             return
         if can_merchant_upgrade(EconomySystem.ARMORS_TIER[player.equippedArmor.armorName], stageData):
-            # removes inventory armor and calculates the cost
-            player.inventoryArmor = None
-            swapCost = EconomySystem.armor_upgrade_price(player.equippedArmor.armorName)
+            # calculates the cost
+            swapCost = EconomySystem.armor_upgrade_price(player.equippedArmor)
             # checks if player can pay the transaction
             if player.xpPoints >= swapCost:
                 # player pays the cost
                 player.xpPoints -= swapCost
+                # removes player's armors and save the name
+                oldArmorsName = player.equippedArmor.armorName
+                player.equippedArmor = None
+                player.inventoryArmor = None
                 # checks armor rarity for the weapon swap
-                newArmorTier = EconomySystem.ARMORS_TIER[player.equippedArmor.armorName] + 1
-                newArmorName = EconomySystem.armor_name_from_tier(newArmorTier)
+                newArmorTier = EconomySystem.ARMORS_TIER[oldArmorsName]
+                newArmorName = EconomySystem.armor_name_from_tier(newArmorTier + 1)
                 newArmor = LootFactory.armor_generator(newArmorName)
+                print("Plim! Plim! Plom!")
+                print("Melhorae irmom!")
+                UISystem.clear_console()
                 InventorySystem.obtain_armor(player, newArmor)
             else:
                 print("Voce nao tem xp suficientes para a melhoria!")

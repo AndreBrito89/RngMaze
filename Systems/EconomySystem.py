@@ -109,11 +109,7 @@ def weapon_swap_price(weapon):
 # armor
 def armor_swap_price(armor):
     return ARMOR_SWAP_PRICE[armor.armorName]
-# helpers
-def armor_name_from_tier(tier):
-    return TIER_TO_ARMOR[tier]
-def weapon_rarity_from_tier(tier):
-    return TIER_TO_WEAPON[tier]
+
 # upgrades
 
 # weapon
@@ -122,3 +118,9 @@ def weapon_upgrade_price(weapon):
 # armor
 def armor_upgrade_price(armor):
     return ARMOR_UPGRADE_PRICE[armor.armorName]
+
+# helpers
+def armor_name_from_tier(tier):
+    return TIER_TO_ARMOR[tier]
+def weapon_rarity_from_tier(tier):
+    return TIER_TO_WEAPON[tier]

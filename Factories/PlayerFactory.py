@@ -33,6 +33,9 @@ def create_new_player(playerName, playerClass, playerBonusPoints):
             startingArmor = Armor('Leather', 5)
             baseAttack = 12
             playerName = 'To Xitado'
+            newPlayer = Player(playerName, 0, 1, newPlayerClass, baseHp, baseHp, baseSp, baseSp, startingWeapon, startingArmor, baseAttack)
+            newPlayer.inventoryWeapon = create_starting_catalyst_weapon()
+            return newPlayer
     # assigns bonus points to the attribute selected by the player
     match playerBonusPoints:
         #Health Points

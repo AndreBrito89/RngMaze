@@ -173,7 +173,7 @@ def merchant_buy_armor_selection(player):
             show_player_armors(player)
             print("Qual das armaduras acima gostaria de vender?")
             print(f"1 - {player.equippedArmor.armorName} armor | Dano reduzido:{player.equippedArmor.armorDefenseValue}")
-            print(f"2 - {player.inventoryArmor.armorName} armor | Dano reduzido:{player.equippedArmor.armorDefenseValue}")
+            print(f"2 - {player.inventoryArmor.armorName} armor | Dano reduzido:{player.inventoryArmor.armorDefenseValue}")
             print("3 - Voltar")
             selectedArmor = input("> ")
 
