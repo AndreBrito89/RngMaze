@@ -382,6 +382,7 @@ def equipment_upgrade_menu(player, stageData):
                 print("Melhorae irmom!")
                 UISystem.clear_console()
                 InventorySystem.obtain_armor(player, newArmor)
+                player.swap_armors()
             else:
                 print("Voce nao tem xp suficientes para a melhoria!")
                 return
