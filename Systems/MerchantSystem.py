@@ -75,10 +75,15 @@ def merchant_sell_potion(player):
 
 # swap potion type
 def merchant_swap_potion(player):
+
+    if not player.potions:
+        print("EI! Voce nao tem nenhuma pocao para trocar no momento...")
+        return
+
     print(f"Voce tem {player.xpPoints}\n")
     print("Esses são meus valores, sem barganhas...")
     print("Small - 10 xp\nLarge - 20 xp")
-
+    
     UISystem.show_player_potions(player)
     selectedSwapPotion = UISystem.select_inventory_potion(player)
     # checks if selected potion is valid
