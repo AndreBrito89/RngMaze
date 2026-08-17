@@ -32,7 +32,7 @@ def create():
     rooms[4].right = rooms[8]
     rooms[4].parent = rooms[2]
 
-    rooms[6].right = rooms[10]
+    rooms[6].left = rooms[10]
     rooms[6].parent = rooms[3]
 
     rooms[10].left = rooms[12]

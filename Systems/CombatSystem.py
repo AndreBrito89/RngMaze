@@ -74,7 +74,7 @@ def player_attack(player, room):
 
     enemy.defend(player_damage)
 
-    print(f"{player.name} atacou {enemy.name} usando {player.equippedWeapon.weaponName}! O dano foi: {player_damage}!")
+    print(f"{player.name} atacou {enemy.name} usando {player.equippedWeapon.weaponName}! O dano foi: {player_damage:.2f}!")
 
     if enemy.healthPoints <= 0:
         print(f"{enemy.name} morreu!")

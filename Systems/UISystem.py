@@ -263,12 +263,12 @@ def combat_options(player, enemy):
         clear_console()
         print("========================================================================================")
         print(f"Jogador: {player.name}")
-        print(f"HP: {player.healthPoints}/{player.maxHealthPoints} | SP: {player.sP}/{player.maxSP}")
+        print(f"HP: {player.healthPoints:.2f}/{player.maxHealthPoints} | SP: {player.sP}/{player.maxSP}")
         print("---------------------------------------------------------------------------------------")
         # prints enemy status
         print(f"Inimigo: {enemy.name}")
         # prints player status
-        print(f"HP: {enemy.healthPoints}/{enemy.maxHealthPoints}")
+        print(f"HP: {enemy.healthPoints:.2f}/{enemy.maxHealthPoints}")
         print("---------------------------------------------------------------------------------------")
         # prints player optios
         print("Escolha sua acao!")
@@ -342,7 +342,7 @@ def show_player_status(player):
     print(f"HP: {player.healthPoints}/{player.maxHealthPoints}")
     print(f"SP: {player.sP}/{player.maxSP}")
     print("------------------------------------------------")
-    print(f"Arma: {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totaldmgValue} | Raridade: {player.equippedWeapon.weaponRarity}")
+    print(f"Arma: {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totaldmgValue:.2f} | Raridade: {player.equippedWeapon.weaponRarity}")
     print(f"Armadura: {player.equippedArmor.armorName} armor | Dano reduzido: {player.equippedArmor.armorDefenseValue}")
     print("------------------------------------------------")
     print(f"Key: {'Yes' if player.hasKey else 'No'}")
@@ -352,9 +352,9 @@ def show_player_status(player):
 def show_player_weapons(player):
     print("        ---- ARMAS ----")
     print("==========================================================================")
-    print(f"Equipada: {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totaldmgValue} | Raridade: {player.equippedWeapon.weaponRarity}")
+    print(f"Equipada: {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totaldmgValue:.2f} | Raridade: {player.equippedWeapon.weaponRarity}")
     if not player.has_weapon_slot():
-        print(f"Inventario: {player.inventoryWeapon.weaponName} | Dano: {player.inventoryWeapon.totaldmgValue} | Raridade: {player.inventoryWeapon.weaponRarity}")
+        print(f"Inventario: {player.inventoryWeapon.weaponName} | Dano: {player.inventoryWeapon.totaldmgValue:.2f} | Raridade: {player.inventoryWeapon.weaponRarity}")
     print("==========================================================================")
 
 # shows player's available armors
@@ -399,8 +399,8 @@ def choose_weapon_to_discard(player, newWeapon):
         print("Escolha uma arma para descartar:")
         print("\n* Lista de armas *")
         print("+-----------------------------------------------------------------------------------------------------------------+")
-        print(f"|1 -> Equipada: {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totaldmgValue} | Raridade: {player.equippedWeapon.weaponRarity} |")
-        print(f"|2 -> Inventario: {player.inventoryWeapon.weaponName} | Dano: {player.inventoryWeapon.totaldmgValue} | Raridade: {player.inventoryWeapon.weaponRarity} |")
+        print(f"|1 -> Equipada: {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totaldmgValue:.2f} | Raridade: {player.equippedWeapon.weaponRarity} |")
+        print(f"|2 -> Inventario: {player.inventoryWeapon.weaponName} | Dano: {player.inventoryWeapon.totaldmgValue:.2f} | Raridade: {player.inventoryWeapon.weaponRarity} |")
         print(f"|3 -> Nova: {newWeapon.weaponName} | Dano: {newWeapon.totaldmgValue} | Raridade: {newWeapon.weaponRarity} |")
         print("+-----------------------------------------------------------------------------------------------------------------+")
         

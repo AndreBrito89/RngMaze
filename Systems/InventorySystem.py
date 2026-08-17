@@ -171,7 +171,7 @@ def player_level_up(player):
                 lvlUpHpBonus = 5 * player.playerLevel
                 lvlUpSpBonus = 1 * player.playerLevel
             case 'Mage':
-                lvlUpHpBonus = 1 * player.playerLevel
+                lvlUpHpBonus = 2 * player.playerLevel
                 lvlUpSpBonus = 4 * player.playerLevel                
 
         player.healthPoints = min(player.healthPoints + lvlUpHpBonus, player.maxHealthPoints)

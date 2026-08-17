@@ -20,7 +20,7 @@ def armor_generator(armorName):
         case 'Silver':
             newArmorDefenseValue = 6
         case 'Gold':
-            newArmorDefenseValue = 8
+            newArmorDefenseValue = 9
     return Armor(armorName, newArmorDefenseValue)
     
 
