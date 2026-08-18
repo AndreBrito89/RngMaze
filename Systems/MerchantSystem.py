@@ -7,30 +7,33 @@ from Factories import WeaponFactory
 # main menu
 def enter_shop(player, gameMap):
 
-    stageData = StageLoader.get_stage_data(gameMap.stage)
-    UISystem.clear_console()
-    selectedMerchantAction = UISystem.merchant_main_menu()
+    player_is_shopping = True
 
-    match selectedMerchantAction:
-        # sell potion
-        case 1:
-            merchant_sell_potion(player)
-        # swap potion
-        case 2:
-            merchant_swap_potion(player)
-        # buy equipment
-        case 3:
-            merchant_buy_menu(player)
-        # swap equipment
-        case 4:
-            merchant_equipment_swap_menu(player, stageData)
-        # upgrade equipment
-        case 5:
-            merchant_equipment_upgrade_menu(player, stageData)
-        # exit merchant
-        case 6:
-            print("Ate nosso proximo encontro, hehe...")
-            return
+    while player_is_shopping:
+        stageData = StageLoader.get_stage_data(gameMap.stage)
+        UISystem.clear_console()
+        selectedMerchantAction = UISystem.merchant_main_menu()
+
+        match selectedMerchantAction:
+            # sell potion
+            case 1:
+                merchant_sell_potion(player)
+            # swap potion
+            case 2:
+                merchant_swap_potion(player)
+            # buy equipment
+            case 3:
+                merchant_buy_menu(player)
+            # swap equipment
+            case 4:
+                merchant_equipment_swap_menu(player, stageData)
+            # upgrade equipment
+            case 5:
+                merchant_equipment_upgrade_menu(player, stageData)
+            # exit merchant
+            case 6:
+                print("Ate nosso proximo encontro, hehe...")
+                player_is_shopping = False
 
 
 # merchant sells potions
