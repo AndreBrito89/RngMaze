@@ -1,4 +1,5 @@
 from Map import Room
+from Systems import UISystem
 from Systems import StageLoader
 
 # ammount of xp needed for each level up
@@ -69,6 +70,7 @@ def try_enter_next_stage(player, gameMap):
 
     if gameMap.stage == 3:
         print("Parabens! Voce concluiu o jogo!")
+        UISystem.clear_console()
         return None
 
     player.hasKey = False

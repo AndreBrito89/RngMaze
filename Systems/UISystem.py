@@ -317,7 +317,7 @@ def get_player_info():
             print("Opcao invalida!")
             continue
         
-        if newPlayerClass in ('1', '2', '3'):
+        if newPlayerClass in ('1', '2'):
             break
             
     
