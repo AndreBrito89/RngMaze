@@ -5,6 +5,8 @@ from Systems import InventorySystem
 from Systems import ProgressionSystem
 from Systems import UISystem
 
+UISystem.game_start_header()
+# player info
 player_name, player_class, player_bonus_points = UISystem.get_player_info()
 player = create_new_player(player_name, player_class, player_bonus_points)
 
