@@ -7,7 +7,7 @@ from Systems import ProgressionSystem
 
 # map constants
 CANVAS_WIDTH = 120
-ROW_HEIGHT = 4        # distance between rows
+ROW_HEIGHT = 3        # distance between rows
 LEAF_SPACING = 8      # horizontal distance between leaf nodes
 
 # helper
@@ -502,8 +502,8 @@ def choose_max_potion_action():
 # prints map
 def show_map(gameMap):
     # prints map
-    print(f"              Fase {gameMap.stage}\n")
-    print("============= MAPA =============\n")
+    print(f"              Fase {gameMap.stage}")
+    print("============= MAPA =============")
     draw_level_map(gameMap.root, gameMap.currentRoom)
     print("==============================")
 
@@ -514,7 +514,7 @@ def show_map(gameMap):
     print("[B] - sala do chefe")
     print("[K] - sala da chave")
     print("... - caminho inexplorado")
-    print("==============================\n")
+    print("==============================")
 # room symbol helper
 def room_symbol(room, current):
 
@@ -629,7 +629,12 @@ def draw_level_map(root, current):
 
     positions = compute_positions(root)
 
-    height = get_depth(root) * ROW_HEIGHT + 2
+    if positions:
+        max_depth = max(depth for x, depth in positions.values())
+    else:
+        max_depth = 0
+
+    height = max_depth * ROW_HEIGHT + 2
 
     canvas = [
         [" "] * CANVAS_WIDTH
