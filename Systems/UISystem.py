@@ -287,12 +287,12 @@ def combat_options(player, enemy):
         clear_console()
         print("========================================================================================")
         print(f"Jogador: {player.name}")
-        print(f"HP: {player.healthPoints:.2f}/{player.maxHealthPoints} | SP: {player.sP}/{player.maxSP}")
+        print(f"\033[31mHP\033[0m: {player.healthPoints:.2f}/{player.maxHealthPoints} | \033[1;32mSP\033[0m: {player.sP}/{player.maxSP}")
         print("---------------------------------------------------------------------------------------")
         # prints enemy status
         print(f"Inimigo: {enemy.name}")
         # prints player status
-        print(f"HP: {enemy.healthPoints:.2f}/{enemy.maxHealthPoints}")
+        print(f"\033[31mHP\033[0m: {enemy.healthPoints:.2f}/{enemy.maxHealthPoints}")
         print("---------------------------------------------------------------------------------------")
         # prints player optios
         print("Escolha sua acao!")
@@ -363,8 +363,8 @@ def show_player_status(player):
     print("------------------------------------------------")
     print(f"Classe: {player.playerClass}           | Dano Base: {player.baseAttack}")
     print("------------------------------------------------")
-    print(f"HP: {player.healthPoints}/{player.maxHealthPoints}")
-    print(f"SP: {player.sP}/{player.maxSP}")
+    print(f"\033[31mHP\033[0m: {player.healthPoints}/{player.maxHealthPoints}")
+    print(f"\033[1;32mSP\033[0m: {player.sP}/{player.maxSP}")
     print("------------------------------------------------")
     print(f"Arma: {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totaldmgValue:.2f} | Raridade: {player.equippedWeapon.weaponRarity}")
     print(f"Armadura: {player.equippedArmor.armorName} armor | Dano reduzido: {player.equippedArmor.armorDefenseValue}")
