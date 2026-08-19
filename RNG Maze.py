@@ -45,16 +45,10 @@ while True:
 
 
 
-# add merchant at room 1 after defeating enemies
-# merchant sells: 
-#               -> every potion - OK
-# merchant buys:
-#               -> armors and weapons (value based on rarity) - OK
-# merchant tradeup:
-#               -> potion toka koka -> switches HP/SP - OK
-#               -> armor toka koka -> 1 armor for 1 weapon (same tier) - OK
-#               -> weapon toka koka -> 1 weapon for 1 armor (same tier) - OK
-# merchant upgrades:
-#               -> 2 weapons for 1 weapon next rarity (weapons must be same rarity) - OK
-#               -> 2 armors for 1 armor next rarity (armors must be same rarity) - OK
 
+# -> QoL:
+#       add some console clear for some points
+#       make merchant transaction UI cleaner
+# -> logic:
+#       make merchant appear with 'search secret door' option
+#       mark merchant spawn on the map

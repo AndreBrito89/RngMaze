@@ -53,7 +53,7 @@ def show_main_menu_options(gameMap):
     # assigns current room to room
     room = MovementSystem.current_room(gameMap)
     print(f"\nVoce esta na sala {room.id}\n")
-
+    print(" == Menu ==\n")
     # prints possible movement options
     if room.left:
         print("1 - Esquerda")
@@ -72,6 +72,7 @@ def show_main_menu_options(gameMap):
 # inventory menu options
 def show_inventory_menu_options():
     while True:
+        print("  - Menu Inventario -  \n")
         print("1 - Level up")
         print("2 -> Trocar arma")
         print("3 -> Trocar armadura")
@@ -285,6 +286,7 @@ def merchant_upgrade_equipment_menu():
 # prints combat options
 def combat_options(player, enemy):
         clear_console()
+        print("                              ### MENU DE COMBATE ###                                   ")
         print("========================================================================================")
         print(f"Jogador: {player.name}")
         print(f"\033[31mHP\033[0m: {player.healthPoints:.2f}/{player.maxHealthPoints} | \033[1;32mSP\033[0m: {player.sP}/{player.maxSP}")
@@ -369,7 +371,7 @@ def show_player_status(player):
     print(f"Arma: {player.equippedWeapon.weaponName} | Dano: {player.equippedWeapon.totaldmgValue:.2f} | Raridade: {player.equippedWeapon.weaponRarity}")
     print(f"Armadura: {player.equippedArmor.armorName} armor | Dano reduzido: {player.equippedArmor.armorDefenseValue}")
     print("------------------------------------------------")
-    print(f"Key: {'Yes' if player.hasKey else 'No'}")
+    print(f"Possui chave: {'Sim' if player.hasKey else 'Nao'}")
     print("================================================")
 
 # shows player's available weapons
@@ -506,9 +508,11 @@ def show_map(gameMap):
     print(f"              Fase {gameMap.stage}")
     print("============= MAPA =============")
     draw_level_map(gameMap.root, gameMap.currentRoom)
-    print("==============================")
 
     # prints room symbol
+
+    print("        -- LEGENDA --         ")
+    print("==============================")
     print("[P] - posicao atual")
     print("[ ] - sala vazia")
     print("[X] - sala com inimigos ativos")

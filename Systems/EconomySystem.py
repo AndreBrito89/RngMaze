@@ -76,7 +76,7 @@ WEAPON_UPGRADE_PRICE = {
     "Legendary": 260,
 }
 ARMOR_UPGRADE_PRICE = {
-    "Leather": 60,
+    "Leather": 90,
     "Iron": 90,
     "Bronze": 180,
     "Silver": 280,

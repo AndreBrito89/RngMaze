@@ -38,7 +38,12 @@ def enter_shop(player, gameMap):
 
 # merchant sells potions
 def merchant_sell_potion(player):
-    print(f"Voce tem {player.xpPoints}\n")
+
+    # prints player's current xp
+    print("-------------------------------------")
+    print(f"Voce tem : {player.xpPoints} xp.\n")
+    print("-------------------------------------\n")
+
     print(" - Tabela de Precos - ")
     print("* Small Potions - 25 xp * ")
     print("* Large Potions - 40 xp * \n")
@@ -83,7 +88,11 @@ def merchant_swap_potion(player):
         print("EI! Voce nao tem nenhuma pocao para trocar no momento...")
         return
 
-    print(f"Voce tem {player.xpPoints}\n")
+    # prints player's current xp
+    print("-------------------------------------")
+    print(f"Voce tem : {player.xpPoints} xp.\n")
+    print("-------------------------------------\n")
+
     print("Esses são meus valores, sem barganhas...")
     print("Small - 10 xp\nLarge - 20 xp")
     
@@ -119,7 +128,11 @@ def merchant_swap_potion(player):
 
 # buys equipment from the player
 def merchant_buy_menu(player):
-    print(f"Voce tem {player.xpPoints}\n")
+    # prints player's current xp
+    print("-------------------------------------")
+    print(f"Voce tem : {player.xpPoints} xp.\n")
+    print("-------------------------------------\n")
+
     selectedEquipmentType = UISystem.merchant_buy_equipment()
 
     # buys weapon
@@ -143,8 +156,9 @@ def merchant_buy_menu(player):
     
 # buys weapon
 def buy_weapon(player):
-    print(f"Voce tem {player.xpPoints}\n")
+
     # Shows prices for each rarity
+    print("Quanto eu pago por uma arma?")
     for tier, value in EconomySystem.WEAPON_SELL_PRICE.items():
         print(f"{tier}: {value} xp")
     print("Estes sao meus valores, sem barganhas...")
@@ -171,7 +185,7 @@ def buy_weapon(player):
     
 # buys armor
 def buy_armor(player):
-    print(f"Voce tem {player.xpPoints}\n")
+    print("Quanto eu pago por uma armadura?")
     # Shows prices for each rarity
     for tier, value in EconomySystem.ARMOR_SELL_PRICE.items():
         print(f"{tier}: {value} xp")
@@ -198,7 +212,12 @@ def buy_armor(player):
 # equipment swap menu
 def merchant_equipment_swap_menu(player, stageData):
 
-    print(f"Voce tem {player.xpPoints}\n")
+    # prints player's current xp
+    print("-------------------------------------")
+    print(f"Voce tem : {player.xpPoints} xp.\n")
+    print("-------------------------------------\n")
+
+
     selectedEquipment = UISystem.merchant_swap_equipment_menu()
 
     # SWAPS WEAPON        
@@ -206,11 +225,11 @@ def merchant_equipment_swap_menu(player, stageData):
         if player.has_weapon_slot():
             print("Eu nao te deixaria sozinho nesta caverna sem uma arma...")
             return
-
         # Shows prices for each rarity
+        print("Valores para troca por raridade")
         for tier, value in EconomySystem.WEAPON_SWAP_PRICE.items():
             print(f"{tier}: {value} xp")
-        print("Estes sao meus valores, sem barganhas...")
+        print("Estes sao meus valores, sem barganhas...\n")
 
         selectedEquipment = UISystem.merchant_swap_weapon_selection(player)
 
@@ -268,9 +287,10 @@ def merchant_equipment_swap_menu(player, stageData):
             return
 
         # Shows prices for each rarity
+        print("Valores para troca por raridade")
         for tier, value in EconomySystem.ARMOR_SWAP_PRICE.items():
             print(f"{tier}: {value} xp")
-        print("Estes sao meus valores, sem barganhas...")
+        print("Estes sao meus valores, sem barganhas...\n")
         selectedEquipment = UISystem.merchant_swap_armor_selection(player)
 
         if selectedEquipment == 1:
@@ -340,7 +360,11 @@ def merchant_equipment_swap_menu(player, stageData):
 
 # equipment UPGRADE menu
 def merchant_equipment_upgrade_menu(player, stageData):
-    print(f"Voce tem {player.xpPoints}\n")
+    # prints player's current xp
+    print("-------------------------------------")
+    print(f"Voce tem : {player.xpPoints} xp.\n")
+    print("-------------------------------------\n")
+
     # player selects to upgrade weapon or armor
     selectedEquipment = UISystem.merchant_upgrade_equipment_menu()
 
@@ -351,9 +375,10 @@ def merchant_equipment_upgrade_menu(player, stageData):
             return
 
         # Shows prices for each rarity
+        print("Valores para upgrade por raridade")
         for tier, value in EconomySystem.WEAPON_UPGRADE_PRICE.items():
             print(f"{tier}: {value} xp")
-        print("Estes sao meus valores, sem barganhas...")
+        print("Estes sao meus valores, sem barganhas...\n")
 
         # checks if both weapons are the same tier
         equippedWeaponTier = EconomySystem.WEAPONS_TIER[player.equippedWeapon.weaponRarity]
@@ -382,6 +407,8 @@ def merchant_equipment_upgrade_menu(player, stageData):
                         newWeapon = WeaponFactory.melee_weapon_generator(EconomySystem.weapon_rarity_from_tier(newWeaponTier + 1))
 
                     # player receives and equips new weapon
+                    print("Esta bem, se afaste enquanto eu trabalho...")
+                    UISystem.clear_console()
                     print("Plim! Plim! Plom!")
                     print("Melhorae irmom!")
                     UISystem.clear_console()
@@ -398,9 +425,10 @@ def merchant_equipment_upgrade_menu(player, stageData):
             return
 
         # Shows prices for each rarity
+        print("Valores para upgrade por raridade")
         for tier, value in EconomySystem.ARMOR_UPGRADE_PRICE.items():
             print(f"{tier}: {value} xp")
-        print("Estes sao meus valores, sem barganhas...")
+        print("Estes sao meus valores, sem barganhas...\n")
         
         # checks if both armors are the same tier
         equippedArmorTier = EconomySystem.ARMORS_TIER[player.equippedArmor.armorName]
@@ -423,6 +451,10 @@ def merchant_equipment_upgrade_menu(player, stageData):
                 newArmorTier = EconomySystem.ARMORS_TIER[oldArmorsName]
                 newArmorName = EconomySystem.armor_name_from_tier(newArmorTier + 1)
                 newArmor = LootFactory.armor_generator(newArmorName)
+
+                # player receives and equips new armor
+                print("Esta bem, se afaste enquanto eu trabalho...")
+                UISystem.clear_console()                
                 print("Plim! Plim! Plom!")
                 print("Melhorae irmom!")
                 UISystem.clear_console()
@@ -440,11 +472,13 @@ def can_merchant_swap(equipmentTier, stageData):
     if stageData.MERCHANT_MAX_TRANSACTION_TIER >= equipmentTier:
         return True
     else:
-        print("Desculpe, nao sei fazer isso muito bem...")
+        print("Desculpe, nao sei fazer isso muito bem, este equipamento e muito poderoso para mim...")
+        print("Talvez na proxima fase...")
         return False
 def can_merchant_upgrade(equipmentTier, stageData):
     if stageData.MERCHANT_MAX_TRANSACTION_TIER >= equipmentTier + 1:
         return True
     else:
-        print("Desculpe, nao sei fazer isso muito bem...")
+        print("Desculpe, nao sei fazer isso muito bem, este equipamento e muito poderoso para mim...")
+        print("Talvez na proxima fase...")
         return False
