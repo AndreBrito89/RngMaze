@@ -107,6 +107,7 @@ def potion_options(player):
     # checks if the player has any potions
     if len(player.potions) == 0:
         print("Voce nao possui pocoes!")
+        UISystem.clear_console()
         return False
 
     UISystem.show_player_potions(player)
@@ -129,6 +130,7 @@ def weapon_options(player):
     #checks if player has another weapon in the inventory
     if player.has_weapon_slot():
         print("Voce nao possui arma no inventario")
+        UISystem.clear_console()
         return
     
     UISystem.show_player_weapons(player)
@@ -144,6 +146,7 @@ def armor_options(player):
     #checks if player has another armor in the inventory
     if player.has_armor_slot():
         print("Voce nao possui armadura no inventario")
+        UISystem.clear_console()
         return
     
     UISystem.show_player_armors(player)
@@ -171,8 +174,12 @@ def player_level_up(player):
                 lvlUpHpBonus = 5 * player.playerLevel
                 lvlUpSpBonus = 1 * player.playerLevel
             case 'Mage':
-                lvlUpHpBonus = 2 * player.playerLevel
-                lvlUpSpBonus = 4 * player.playerLevel                
+                if player.playerLevel < 5:
+                    lvlUpHpBonus = 2 * player.playerLevel
+                    lvlUpSpBonus = 4 * player.playerLevel                
+                else:
+                    lvlUpHpBonus = 1 * player.playerLevel
+                    lvlUpSpBonus = 3 * player.playerLevel                
 
         player.healthPoints = min(player.healthPoints + lvlUpHpBonus, player.maxHealthPoints)
         player.sP = min(player.sP + lvlUpSpBonus, player.maxSP)

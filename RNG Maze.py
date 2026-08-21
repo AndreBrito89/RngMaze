@@ -47,7 +47,6 @@ while True:
 
 
 # -> QoL:
-#       add some console clear for some points
 #       make merchant transaction UI cleaner
 # -> logic:
 #       make merchant appear with 'search secret door' option
