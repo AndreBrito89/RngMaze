@@ -54,4 +54,4 @@ def create():
     rooms[14].parent = rooms[12]
     
 
-    return Map(2, rooms[1], rooms, ESCAPE_FAIL_MISS_RATE)
+    return Map(2, rooms[1], rooms)

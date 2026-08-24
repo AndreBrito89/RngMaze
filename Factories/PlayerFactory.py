@@ -2,6 +2,7 @@ from Entities.Player import Player
 from Items.Armor import Armor
 from Factories.WeaponFactory import create_starting_melee_weapon
 from Factories.WeaponFactory import create_starting_catalyst_weapon
+from Factories import WeaponFactory
 
 
 # create new player
@@ -25,6 +26,13 @@ def create_new_player(playerName, playerClass, playerBonusPoints):
             startingWeapon = create_starting_catalyst_weapon()
             startingArmor = Armor('Leather', 0)
             baseAttack = 3
+        case "3":
+            newPlayerClass = 'Mage'
+            baseHp = 19
+            baseSp = 25
+            startingWeapon = WeaponFactory.catalyst_generator(WeaponFactory.boss_weapon_rarity_generator())
+            startingArmor = Armor('Silver', 6)
+            baseAttack = 25            
     # assigns bonus points to the attribute selected by the player
     match playerBonusPoints:
         #Health Points

@@ -3,6 +3,7 @@ from Map.Room import RoomType
 import Map.Stage1 as Stage1
 import Map.Stage2 as Stage2
 import Map.Stage3 as Stage3
+import Map.Stage4 as Stage4
 from Systems import RoomController
 from Factories.EnemyFactory import create_enemy
 from Factories.EnemyFactory import create_boss
@@ -12,7 +13,8 @@ from Factories.EnemyFactory import create_boss
 STAGES  = {
     1: Stage1,
     2: Stage2,
-    3: Stage3
+    3: Stage3,
+    4: Stage4
 }
 # helper
 def get_stage_data(stage):
@@ -26,11 +28,15 @@ def load(stage, player):
     # gameMap receives an empty stage
     gameMap = currentStage.create()
     
-    # assigns room types
-    assign_room_types(gameMap, currentStage.POSSIBLE_KEY_ROOMS, currentStage.POSSIBLE_EXIT_ROOMS, currentStage.TREASURE_RATE)
 
-    # populates map based on the room types
-    populate(gameMap)
+    if gameMap.stage == 4:
+        # populates last stage with 3 bosses
+        populate_last_stage(gameMap)
+    else:
+        # assigns room types
+        assign_room_types(gameMap, currentStage.POSSIBLE_KEY_ROOMS, currentStage.POSSIBLE_EXIT_ROOMS, currentStage.TREASURE_RATE)
+        # populates map based on the room types
+        populate(gameMap)
     
     # marks first room as visited
     gameMap.root.visited = True
@@ -63,6 +69,17 @@ def populate(gameMap):
 
                 room.enemies = [create_boss(gameMap.stage)]
                   
+def populate_last_stage(gameMap):
+
+    gameMap.rooms[1].enemies = [create_boss(1)]
+    gameMap.rooms[1].roomType = RoomType.EXIT
+
+    gameMap.rooms[2].enemies = [create_boss(2)]
+    gameMap.rooms[2].roomType = RoomType.EXIT
+    
+    gameMap.rooms[3].enemies = [create_boss(3)]
+    gameMap.rooms[3].roomType = RoomType.EXIT
+    gameMap.rooms[3].hasKey = True
 
 
 # randomly assigns room types
