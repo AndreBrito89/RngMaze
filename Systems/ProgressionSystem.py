@@ -69,8 +69,7 @@ def try_enter_next_stage(player, gameMap):
         return gameMap
 
     if gameMap.stage == 4:
-        print("Parabens! Voce concluiu o jogo!")
-        UISystem.clear_console()
+        UISystem.ending_screen(player)
         return None
 
     player.hasKey = False

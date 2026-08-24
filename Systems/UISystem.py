@@ -19,6 +19,8 @@ def clear_console():
     else:
         # Mac and Linux can call 'clear' directly
         subprocess.run(['clear'])
+
+# game header        
 def game_start_header():
     print("\033[1;33m=======================================================================\033[0m")
     print("\033[35m@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\033[0m")
@@ -43,6 +45,16 @@ def game_start_header():
     print("\033[35m@@@@@\033[32m|||\033[35m@@@@@@@@@@\033[32m|||\033[35m@@@@\033[32m|||\033[35m@@@\033[32m|||\033[35m@@@@@\033[32m|||||||||||\033[35m@@@@\033[32m|||||||||||\033[35m@@@@@@\033[0m")
     print("\033[35m@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\033[0m")
     print("\033[1;33m=======================================================================\033[0m\n\n")
+    clear_console()
+
+# finished game screen
+def ending_screen(player):
+    print("##################################################")
+    print("Voce finalmente encontrou a saida do labirinto!")
+    print("##################################################\n")
+    print("Vejamos se sua run foi abencoada por RNGJesus...")
+    show_player_status(player)
+    print("\n\nObrigado por jogar RNG Maze!")
     clear_console()
 ###########
 ## MENUS ##

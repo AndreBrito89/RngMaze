@@ -159,8 +159,11 @@ def buy_weapon(player):
 
     # Shows prices for each rarity
     print("Quanto eu pago por uma arma?")
+    print("           - Tabela de Precos - ")
+    print("---------------------------------------------")
     for tier, value in EconomySystem.WEAPON_SELL_PRICE.items():
         print(f"{tier}: {value} xp")
+    print("---------------------------------------------")
     print("Estes sao meus valores, sem barganhas...")
 
     
@@ -187,8 +190,11 @@ def buy_weapon(player):
 def buy_armor(player):
     print("Quanto eu pago por uma armadura?")
     # Shows prices for each rarity
+    print("           - Tabela de Precos - ")
+    print("---------------------------------------------")
     for tier, value in EconomySystem.ARMOR_SELL_PRICE.items():
         print(f"{tier}: {value} xp")
+    print("---------------------------------------------")
     print("Estes sao meus valores, sem barganhas...")
 
     selectedArmor = UISystem.merchant_buy_armor_selection(player)
@@ -288,8 +294,11 @@ def merchant_equipment_swap_menu(player, stageData):
 
         # Shows prices for each rarity
         print("Valores para troca por raridade")
+        print("           - Tabela de Precos - ")
+        print("---------------------------------------------")
         for tier, value in EconomySystem.ARMOR_SWAP_PRICE.items():
             print(f"{tier}: {value} xp")
+        print("---------------------------------------------")
         print("Estes sao meus valores, sem barganhas...\n")
         selectedEquipment = UISystem.merchant_swap_armor_selection(player)
 
@@ -375,9 +384,12 @@ def merchant_equipment_upgrade_menu(player, stageData):
             return
 
         # Shows prices for each rarity
+        print("           - Tabela de Precos - ")
+        print("---------------------------------------------")
         print("Valores para upgrade por raridade")
         for tier, value in EconomySystem.WEAPON_UPGRADE_PRICE.items():
             print(f"{tier}: {value} xp")
+        print("---------------------------------------------")
         print("Estes sao meus valores, sem barganhas...\n")
 
         # checks if both weapons are the same tier
@@ -425,9 +437,12 @@ def merchant_equipment_upgrade_menu(player, stageData):
             return
 
         # Shows prices for each rarity
+        print("           - Tabela de Precos - ")
+        print("---------------------------------------------")
         print("Valores para upgrade por raridade")
         for tier, value in EconomySystem.ARMOR_UPGRADE_PRICE.items():
             print(f"{tier}: {value} xp")
+        print("---------------------------------------------")
         print("Estes sao meus valores, sem barganhas...\n")
         
         # checks if both armors are the same tier
