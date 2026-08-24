@@ -332,7 +332,7 @@ def get_player_info():
             print("Opcao invalida!")
             continue
         
-        if newPlayerClass in ('1', '2'):
+        if newPlayerClass in ('1', '2', '3'):
             break
             
     
@@ -371,7 +371,7 @@ def select_levelup_extra_point():
 
 # prints player status
 def show_player_status(player):
-    print("        ---- STATUS ----")
+    print("               ---- STATUS ----")
     print("================================================")
     print(f"Jogador: {player.name} | Level: {player.playerLevel} | XP: {player.xpPoints}/{ProgressionSystem.xp_required_for_next_level(player.playerLevel)}")
     print("------------------------------------------------")
