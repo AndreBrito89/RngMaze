@@ -38,17 +38,17 @@ POTIONS_SELL_PRICE = {
     "Large": 40
 }
 WEAPON_SELL_PRICE = {
-    "Normal": 50,
-    "Rare": 85,
-    "Legendary": 160,
-    "God": 360
+    "Normal": 60,
+    "Rare": 110,
+    "Legendary": 260,
+    "God": 480
 }
 ARMOR_SELL_PRICE = {
-    "Leather": 40,
-    "Iron": 60,
-    "Bronze": 120,
-    "Silver": 200,
-    "Gold": 360
+    "Leather": 50,
+    "Iron": 70,
+    "Bronze": 160,
+    "Silver": 260,
+    "Gold": 480
 }
 # SWAPS
 POTIONS_SWAP_PRICE = {
@@ -59,14 +59,14 @@ WEAPON_SWAP_PRICE = {
     "Normal": 35,
     "Rare": 80,
     "Legendary": 150,
-    "God": 260   
+    "God": 220   
 }
 ARMOR_SWAP_PRICE = {
     "Leather": 35,
     "Iron": 35,
     "Bronze": 80,
     "Silver": 150,
-    "Gold": 260
+    "Gold": 220
 }
 # UPGRADES
 WEAPON_UPGRADE_PRICE = {

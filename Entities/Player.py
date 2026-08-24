@@ -1,3 +1,5 @@
+from Systems.UISystem import clear_console
+
 # base points for warrior class lvl 1   || base points for mage class lvl 1
 #=======================================||=======================================
 # - maxHealthPoints = 30                || - maxHealthPoints = 19
@@ -92,10 +94,12 @@ class Player:
         # checks if player is already at max lvl
         if self.playerLevel == MAX_LEVEL:
             print("Voce atingiu o nivel maximo!")
+            clear_console()
             return False
         # checks if player has enough xp points
         if self.xpPoints < requiredXP:
             print("Voce nao tem xp suficientes para subir de nivel!")
+            clear_console()
             return False
         # removes xp from the player and concedes a level
         self.xpPoints -= requiredXP
