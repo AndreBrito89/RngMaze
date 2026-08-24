@@ -140,6 +140,11 @@ def victory(player, room):
     
     print("Voce venceu a batalha!")
 
+    if room.hasKey:
+        player.hasKey = True
+        room.hasKey = False
+        print("\n**Voce obteve a chave!**\n")
+
     if room.hasChest and room.roomType == Room.RoomType.NORMAL:
         room.chest = LootFactory.create_boss_chest(player.playerClass)
         print("O chefe guardava um bau!")
@@ -151,11 +156,6 @@ def victory(player, room):
         room.chest = LootFactory.create_chest(player.playerClass)
         print("\nUm bau apareceu!\n")
         ChestSystem.open_chest(player, room)
-
-    if room.hasKey:
-        player.hasKey = True
-        room.hasKey = False
-        print("\n**Voce obteve a chave!**\n")
 
     if room.roomType == Room.RoomType.EXIT:
         room.chest = LootFactory.create_boss_chest(player.playerClass)

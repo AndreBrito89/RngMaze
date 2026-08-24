@@ -78,10 +78,10 @@ def populate_last_stage(gameMap):
     gameMap.rooms[2].enemies = [create_boss(2)]
     gameMap.rooms[2].roomType = RoomType.NORMAL
     gameMap.rooms[2].hasChest = True
+    gameMap.rooms[2].hasKey = True
     
     gameMap.rooms[3].enemies = [create_boss(3)]
     gameMap.rooms[3].roomType = RoomType.EXIT
-    gameMap.rooms[3].hasKey = True
 
 
 # randomly assigns room types

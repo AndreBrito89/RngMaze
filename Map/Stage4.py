@@ -20,7 +20,7 @@ def create():
     # assigns correlation between rooms
     rooms[1].left = rooms[2]
     
-    rooms[2].right = rooms[3]
+    rooms[2].left = rooms[3]
     rooms[2].parent = rooms[1]
     
     rooms[3].parent = rooms[2]

@@ -52,9 +52,9 @@ def ending_screen(player):
     print("##################################################")
     print("Voce finalmente encontrou a saida do labirinto!")
     print("##################################################\n")
-    print("Vejamos se sua run foi abencoada por RNGJesus...")
+    print("Vejamos se sua run foi abencoada por RNGJesus...\n")
     show_player_status(player)
-    print("\n\nObrigado por jogar RNG Maze!")
+    print("\n\nObrigado por jogar RNG Maze!\n")
     clear_console()
 ###########
 ## MENUS ##
