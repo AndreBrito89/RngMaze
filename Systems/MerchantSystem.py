@@ -161,7 +161,7 @@ def buy_weapon(player):
     print("Quanto eu pago por uma arma?")
     print("           - Tabela de Precos - ")
     print("---------------------------------------------")
-    for tier, value in EconomySystem.WEAPON_SELL_PRICE.items():
+    for tier, value in EconomySystem.WEAPON_BUY_PRICE.items():
         print(f"{tier}: {value} xp")
     print("---------------------------------------------")
     print("Estes sao meus valores, sem barganhas...")
@@ -182,7 +182,7 @@ def buy_weapon(player):
     else:
         return
 
-    weaponValue = EconomySystem.weapon_sell_price(selectedWeapon)
+    weaponValue = EconomySystem.weapon_buy_price(selectedWeapon)
     player.xpPoints += weaponValue
     print(f"Voce recebeu {weaponValue} xp.")
     
@@ -192,7 +192,7 @@ def buy_armor(player):
     # Shows prices for each rarity
     print("           - Tabela de Precos - ")
     print("---------------------------------------------")
-    for tier, value in EconomySystem.ARMOR_SELL_PRICE.items():
+    for tier, value in EconomySystem.ARMOR_BUY_PRICE.items():
         print(f"{tier}: {value} xp")
     print("---------------------------------------------")
     print("Estes sao meus valores, sem barganhas...")
@@ -211,7 +211,7 @@ def buy_armor(player):
     else:
         return
 
-    armorValue = EconomySystem.armor_sell_price(selectedArmor)
+    armorValue = EconomySystem.armor_buy_price(selectedArmor)
     player.xpPoints += armorValue
     print(f"Voce recebeu {armorValue} xp.")
 

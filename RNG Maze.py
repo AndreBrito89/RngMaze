@@ -47,7 +47,9 @@ while True:
 
 
 # -> QoL:
-#       make merchant transaction UI cleaner
+#       
 # -> logic:
-#       make merchant appear with 'search secret door' option
-#       mark merchant spawn on the map
+#       * MOVE CHEST CREATION TO STAGELOADER -> REMOVE IT FROM COMBATSYSTEM -> FIX HACK
+#       teleport player to boss room with 'search secret door' option if player has key and defeated the boss
+#       add hidden potion in rooms, max 1 attempt using 'search secret door', 45% chance
+

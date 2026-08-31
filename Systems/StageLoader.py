@@ -68,7 +68,8 @@ def populate(gameMap):
             case RoomType.EXIT:
 
                 room.enemies = [create_boss(gameMap.stage)]
-                  
+
+# populates last stage                   
 def populate_last_stage(gameMap):
 
     gameMap.rooms[1].enemies = [create_boss(1)]

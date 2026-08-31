@@ -37,18 +37,18 @@ POTIONS_SELL_PRICE = {
     "Small": 25,
     "Large": 40
 }
-WEAPON_SELL_PRICE = {
-    "Normal": 60,
-    "Rare": 110,
-    "Legendary": 260,
-    "God": 480
+WEAPON_BUY_PRICE = {
+    "Normal": 80,
+    "Rare": 180,
+    "Legendary": 320,
+    "God": 500
 }
-ARMOR_SELL_PRICE = {
+ARMOR_BUY_PRICE = {
     "Leather": 50,
-    "Iron": 70,
-    "Bronze": 160,
-    "Silver": 260,
-    "Gold": 480
+    "Iron": 90,
+    "Bronze": 200,
+    "Silver": 320,
+    "Gold": 500
 }
 # SWAPS
 POTIONS_SWAP_PRICE = {
@@ -91,11 +91,11 @@ ARMOR_UPGRADE_PRICE = {
 def potion_sell_price(potion):
     return POTIONS_SELL_PRICE[potion.potionSize]
 # weapons
-def weapon_sell_price(weapon):
-    return WEAPON_SELL_PRICE[weapon.weaponRarity]
+def weapon_buy_price(weapon):
+    return WEAPON_BUY_PRICE[weapon.weaponRarity]
 # armor
-def armor_sell_price(armor):
-    return ARMOR_SELL_PRICE[armor.armorName]
+def armor_buy_price(armor):
+    return ARMOR_BUY_PRICE[armor.armorName]
 
 # swaping
 

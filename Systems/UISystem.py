@@ -526,6 +526,7 @@ def show_map(gameMap):
     print("        -- LEGENDA --         ")
     print("==============================")
     print("[P] - posicao atual")
+    print("[M] - mercador")
     print("[ ] - sala vazia")
     print("[X] - sala com inimigos ativos")
     print("[B] - sala do chefe")
@@ -551,7 +552,10 @@ def room_symbol(room, current):
 
         if room.roomType == RoomType.EXIT:
             return "[B]"
-
+        
+        if room.id == 1:
+            return "[M]"
+        
         return "[ ]"
 
     return "[X]"

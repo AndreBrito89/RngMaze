@@ -1,6 +1,7 @@
 from Map import Room
 from Systems import UISystem
 from Systems import StageLoader
+from Systems import MerchantSystem
 
 # ammount of xp needed for each level up
 def xp_required_for_next_level(playerLevel):
@@ -55,6 +56,10 @@ def level_up_extra_points(player, selectedStat):
 def try_enter_next_stage(player, gameMap):
 
     room = gameMap.currentRoom
+
+    if room.cleared == True and room.id == 1:
+        MerchantSystem.enter_shop(player, gameMap)
+        return gameMap
 
     if room.roomType != Room.RoomType.EXIT:
         print("A porta secreta nao esta nesta sala.")

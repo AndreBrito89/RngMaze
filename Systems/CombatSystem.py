@@ -6,8 +6,6 @@ from Systems import ChestSystem
 from Factories import LootFactory
 from Map import Room
 
-# combat flow:
-# checks room for enemies-> combat UI -> player turn -> resolve action -> enemy turn -> checks if someone died -> loop previous part -> victory
 
 # start combat
 def start_combat(player, room, stageData):
