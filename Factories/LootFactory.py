@@ -38,8 +38,7 @@ def chest_potion_generator():
     potionType = 'HP' if potionTypeValue > 2 else 'SP'
 
     return Potion(potionSize, potionType)
-def potion_generator(potionSize, potionType):
-    return Potion(potionSize, potionType)
+
 
 #####################
 ## creates a chest ##
@@ -129,4 +128,23 @@ def boss_armor_name_generator():
         #7% Gold
         case x if 94 <= x <= 100:
             return 'Gold'
-    
+
+######################
+## room potion drop ##
+######################
+
+def does_room_have_potion():
+
+    roomPotionValue = random.randint(1,100)
+
+    if roomPotionValue < 46 :
+        return True
+    else:
+        return False 
+
+# helper
+def room_potion_drop(roomPotionResult):
+    if roomPotionResult:
+        return chest_potion_generator()
+    else:
+        return "Nao ha nada nesta sala, apenas rochas e ossos..."

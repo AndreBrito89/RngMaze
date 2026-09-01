@@ -11,8 +11,6 @@ def enter_room(player, room, gameMap):
     # marks room as visited
     room.visited = True
 
-    if room.id == 1 and room.cleared:
-        MerchantSystem.enter_shop(player, gameMap)
     # check if the room is already clear
     if room.cleared:
         return

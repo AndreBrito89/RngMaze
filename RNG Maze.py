@@ -38,7 +38,7 @@ while True:
         InventorySystem.player_menu_actions(player)
 
     elif choice == "5":
-        gameMap = ProgressionSystem.try_enter_next_stage(player, gameMap)      
+        gameMap = ProgressionSystem.search_hidden_door_action(player, gameMap)      
          
     elif choice == "0":
         break
@@ -49,7 +49,6 @@ while True:
 # -> QoL:
 #       
 # -> logic:
-#       * MOVE CHEST CREATION TO STAGELOADER -> REMOVE IT FROM COMBATSYSTEM -> FIX HACK
-#       teleport player to boss room with 'search secret door' option if player has key and defeated the boss
-#       add hidden potion in rooms, max 1 attempt using 'search secret door', 45% chance
+#       teleport player to boss room with 'search secret door' option if player has key and defeated the boss -> figure out checking for boss death
+
 

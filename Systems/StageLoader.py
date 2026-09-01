@@ -5,6 +5,7 @@ import Map.Stage2 as Stage2
 import Map.Stage3 as Stage3
 import Map.Stage4 as Stage4
 from Systems import RoomController
+from Factories import LootFactory
 from Factories.EnemyFactory import create_enemy
 from Factories.EnemyFactory import create_boss
 
@@ -31,12 +32,12 @@ def load(stage, player):
 
     if gameMap.stage == 4:
         # populates last stage with 3 bosses
-        populate_last_stage(gameMap)
+        populate_last_stage(gameMap, player)
     else:
         # assigns room types
         assign_room_types(gameMap, currentStage.POSSIBLE_KEY_ROOMS, currentStage.POSSIBLE_EXIT_ROOMS, currentStage.TREASURE_RATE)
         # populates map based on the room types
-        populate(gameMap)
+        populate(gameMap, player)
     
     # marks first room as visited
     gameMap.root.visited = True
@@ -44,7 +45,7 @@ def load(stage, player):
     return gameMap
         
 # populate stage based on the room type
-def populate(gameMap):
+def populate(gameMap, player):
 
     for room in gameMap.rooms.values():
 
@@ -57,32 +58,40 @@ def populate(gameMap):
             case RoomType.TREASURE:
                 room.enemies = create_treasure_encounter(gameMap.stage)
                 room.hasChest = True
+                room.chest = LootFactory.create_chest(player.playerClass)
 
             # creates 2 enemies + chest and key after victory
             case RoomType.KEY:
                 room.enemies = create_key_encounter(gameMap.stage)
                 room.hasKey = True
                 room.hasChest = True
+                room.chest = LootFactory.create_chest(player.playerClass)
 
             # creates a boss with an exit door. Player can go through to the next stage if they've got the key
             case RoomType.EXIT:
-
                 room.enemies = [create_boss(gameMap.stage)]
+                room.hasChest = True
+                room.chest = LootFactory.create_boss_chest(player.playerClass)
 
 # populates last stage                   
-def populate_last_stage(gameMap):
+def populate_last_stage(gameMap, player):
 
     gameMap.rooms[1].enemies = [create_boss(1)]
     gameMap.rooms[1].roomType = RoomType.NORMAL
     gameMap.rooms[1].hasChest = True
+    gameMap.rooms[1].chest = LootFactory.create_boss_chest(player.playerClass)
 
     gameMap.rooms[2].enemies = [create_boss(2)]
     gameMap.rooms[2].roomType = RoomType.NORMAL
     gameMap.rooms[2].hasChest = True
     gameMap.rooms[2].hasKey = True
+    gameMap.rooms[2].chest = LootFactory.create_boss_chest(player.playerClass)
+
     
     gameMap.rooms[3].enemies = [create_boss(3)]
     gameMap.rooms[3].roomType = RoomType.EXIT
+    gameMap.rooms[3].hasChest = True
+    gameMap.rooms[3].chest = LootFactory.create_boss_chest(player.playerClass)
 
 
 # randomly assigns room types

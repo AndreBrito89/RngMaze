@@ -28,3 +28,4 @@ class Room:
         self.cleared = False
         self.hasKey = False
         self.hasChest = False
+        self.hasPlayerSearchedRoom = False
