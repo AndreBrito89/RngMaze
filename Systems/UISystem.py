@@ -1,6 +1,5 @@
 import os
 import subprocess
-from collections import deque
 from Map.Room import RoomType
 from Systems import MovementSystem
 from Systems import ProgressionSystem
@@ -78,7 +77,10 @@ def show_main_menu_options(gameMap):
     
     # extra options
     print("4 - Status do Jogador")
-    print("5 - Procurar Porta Secreta")
+    if room.roomType == RoomType.EXIT or not room.hasPlayerSearchedRoom:
+        print("5 - Procurar Porta Secreta")
+    if room.id == 1:
+        print("5 - Procurar mercador")
     print("0 - Exit game")
 
 # inventory menu options

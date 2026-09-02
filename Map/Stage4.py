@@ -14,7 +14,7 @@ def create():
     # list of rooms
     rooms = {}
     # creates an instance of Room for each room of the stage
-    for i in range(1, 4):
+    for i in range(1, 5):
         rooms[i] = Room(i)
     
     # assigns correlation between rooms
@@ -23,8 +23,10 @@ def create():
     rooms[2].left = rooms[3]
     rooms[2].parent = rooms[1]
     
+    rooms[3].left = rooms[4]
     rooms[3].parent = rooms[2]
 
+    rooms[4].parent = rooms[3]
 
 
     return Map(4, rooms[1], rooms)

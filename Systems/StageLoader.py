@@ -71,27 +71,34 @@ def populate(gameMap, player):
             case RoomType.EXIT:
                 room.enemies = [create_boss(gameMap.stage)]
                 room.hasChest = True
+                room.hasPlayerSearchedRoom = True
                 room.chest = LootFactory.create_boss_chest(player.playerClass)
 
 # populates last stage                   
 def populate_last_stage(gameMap, player):
 
-    gameMap.rooms[1].enemies = [create_boss(1)]
+    
     gameMap.rooms[1].roomType = RoomType.NORMAL
-    gameMap.rooms[1].hasChest = True
-    gameMap.rooms[1].chest = LootFactory.create_boss_chest(player.playerClass)
+    gameMap.rooms[1].hasPlayerSearchedRoom = True
+    gameMap.rooms[1].cleared = True
 
-    gameMap.rooms[2].enemies = [create_boss(2)]
+    gameMap.rooms[2].enemies = [create_boss(1)]
     gameMap.rooms[2].roomType = RoomType.NORMAL
     gameMap.rooms[2].hasChest = True
-    gameMap.rooms[2].hasKey = True
     gameMap.rooms[2].chest = LootFactory.create_boss_chest(player.playerClass)
 
-    
-    gameMap.rooms[3].enemies = [create_boss(3)]
-    gameMap.rooms[3].roomType = RoomType.EXIT
+    gameMap.rooms[3].enemies = [create_boss(2)]
+    gameMap.rooms[3].roomType = RoomType.NORMAL
     gameMap.rooms[3].hasChest = True
+    gameMap.rooms[3].hasKey = True
     gameMap.rooms[3].chest = LootFactory.create_boss_chest(player.playerClass)
+
+    
+    gameMap.rooms[4].enemies = [create_boss(3)]
+    gameMap.rooms[4].roomType = RoomType.EXIT
+    gameMap.rooms[4].hasChest = True
+    gameMap.rooms[4].hasPlayerSearchedRoom = True
+    gameMap.rooms[4].chest = LootFactory.create_boss_chest(player.playerClass)
 
 
 # randomly assigns room types
@@ -108,6 +115,7 @@ def assign_room_types(gameMap, possibleKeys, possibleExits, treasureRate):
     for room in gameMap.rooms.values():
         #prevents first room from beeing a treasure room
         if room.id == 1:
+            room.hasPlayerSearchedRoom = True
             continue
         # ignores exit and key rooms
         if(room.roomType == RoomType.NORMAL):

@@ -68,6 +68,7 @@ def search_hidden_door_action(player, gameMap):
     # checks if the enemies are still alive
     if room.enemies:
         print("Voce nao consegue vasculhar a sala com inimigos ainda vivos!")
+        UISystem.clear_console()
         return gameMap
     
     # check if theres a potion in the room
@@ -90,7 +91,7 @@ def search_hidden_door_action(player, gameMap):
     if player.hasKey and room.roomType == Room.RoomType.EXIT:
        return try_enter_next_stage(player, gameMap)
     
-    # checks if player is on the exit room and has the key
+    # checks if player is on the exit room and doesnt have the key
     if not player.hasKey and room.roomType == Room.RoomType.EXIT:
         print("Voce precisa da chave.")
         UISystem.clear_console()
